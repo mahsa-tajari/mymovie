@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles/app.css" />
+    <title>پنل کاربری | مای‌مووی</title>
+</head>
+<body class="bg-dark-gray flex justify-center items-center w-full tablet:justify-between tablet:gap-x-2">
+    <!-- bg -->
+    <div class="hidden w-6/12 h-screen bg-[url('../images/bg/signup-bg.png')] bg-cover tablet:block"></div>
+    <!-- wrapper -->
+    <div class="flex justify-center w-full sm:w-10/12 md:w-8/12 tablet:w-6/12">
+        <div class="flex flex-col items-center w-full relative justify-center h-full gap-y-8 px-5 py-5 lg:w-9/12 xl:w-7/12">
+            <!-- title -->
+            <div class="relative flex items-center justify-center gap-x-2 w-full">
+                <div class="flex-grow border-t-2 border-gray-500"></div>
+                <h1 class="flex-shrink text-2xl font-semibold text-white">عضویت در سایت</h1>
+                <div class="flex-grow border-t-2 border-gray-500"></div>
+            </div>
+            <!-- signUp form -->
+            <form action="#" class="flex flex-col items-center gap-y-8 w-full group" novalidate >
+            <div class="relative w-full">
+                <input id="username" type="text" placeholder=" " class="w-full text-white peer outline-none py-3 px-2 bg-dark-gray border-2 border-gray-500 focus:border-orange-1" required pattern=".{3,}">
+                <label for="username" class="absolute -top-4 right-2 cursor-text text-xl bg-dark-gray px-2 text-white transition-all peer-placeholder-shown:top-2.5 peer-placeholder-shown:text-gray-500 peer-focus:text-white peer-focus:-top-4">نام کاربری</label>
+                <span class="hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
+                    نام وارد شده کوتاه است.
+                </span>
+            </div>    
+            <div class="relative w-full">
+                <input id="email" type="email" placeholder=" " class="peer w-full text-white peer outline-none py-3 px-2 bg-dark-gray border-2 border-gray-500 focus:border-orange-1 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500" required
+                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+                <label for="email" class="absolute -top-4 right-2 cursor-text text-xl bg-dark-gray px-2 text-white transition-all peer-placeholder-shown:top-2.5 peer-placeholder-shown:text-gray-500 peer-focus:text-white peer-focus:-top-4">ایمیل</label>
+                <span class="hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
+                    لطفا یک ایمیل معتبر وارد کنید!
+                </span>
+            </div>
+            <div class="relative w-full">
+                <input id="password" type="password" placeholder=" " class="w-full text-white peer outline-none py-3 px-2 bg-dark-gray border-2 border-gray-500 focus:border-orange-1 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500" required
+                pattern=".{6,}">
+                <label for="password" class="absolute -top-4 right-2 cursor-text text-xl bg-dark-gray px-2 text-white transition-all peer-placeholder-shown:top-2.5 peer-placeholder-shown:text-gray-500 peer-focus:text-white peer-focus:-top-4">رمز عبور</label>
+                <span id="pass-validation" class="hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
+                    رمز عبور شما باید حداقل 6 کاراکتر داشته باشد!
+                </span>
+            </div>
+            <!-- register btn -->
+            <button id="register-btn" class="w-full py-3 text-lg text-white bg-orange-1 hover:bg-orange-500 cursor-pointer" disabled>عضویت در سایت</button>
+            </form>
+            <!-- or login -->
+            <div class="relative flex items-center gap-x-2 w-full">
+                <div class="flex-grow border-t-2 border-gray-500"></div>
+                <span class="flex-shrink text-lg text-white">یا</span>
+                <div class="flex-grow border-t-2 border-gray-500"></div>
+            </div>
+            <button class="w-full py-3 text-lg text-white bg-black/20 group-invalid:pointer-events-none"><a href="login.html">ورود به پنل کاربری</a></button>
+        </div>
+    </div>
+<script src="../node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
+<script src="./scripts/register.js" type="module"></script>
+</body>
+</html>

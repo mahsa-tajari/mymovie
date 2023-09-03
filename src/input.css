@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind utilities;
+@tailwind components;
+
+@layer base {
+    @font-face {
+        font-family: 'hayat';
+        src: url('../font/hayat/hayat.ttf');
+        font-display: swap;
+    }
+    @font-face {
+        font-family: 'iran-yekan';
+        src: url('../font/iranYekan/BYekan/BYekan+.ttf');
+        font-display: swap;
+    }
+    body{
+        font-family: 'iran-yekan';
+    }
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover, 
+    input:-webkit-autofill:focus, 
+    input:-webkit-autofill:active{
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: #ffffff;
+        transition: background-color 5000s ease-in-out 0s;
+        box-shadow: inset 0 0 20px 20px #23232329;  
+    }
+}
+
+@layer components{
+    .nav--acvtive{
+        right: 0;
+    };
+    .slider--active{
+        display: flex;
+    };
+}

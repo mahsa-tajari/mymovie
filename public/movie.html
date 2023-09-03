@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles/app.css" />
+    <script type="text/javascript">
+      if (
+        localStorage.theme === "dark" ||
+        (!("theme" in localStorage) &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches)
+      ) {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
+    </script>
+    <title>Document</title>
+</head>
+<body class="bg-gray-100 h-screen dark:bg-black text-base">
+    <!-- icons -->
+    <svg class="icons-wrapper hidden"></svg>
+    <!-- header -->
+    <header id="header" class="flex flex-col gap-y-5"></header>
+    <!-- nav -->
+    <nav id="nav" class="fixed sm:hidden w-8/12 top-0 bottom-0 z-50 -right-[67%] bg-gray-300 dark:bg-black transition-all duration-700"></nav>
+    <main id="main"></main>
+
+    <!-- overlay -->
+    <div class="hidden sm:hidden overlay fixed inset-0 w-full h-full bg-black/50 dark:bg-white/20 z-40"></div>
+    <script src="../node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
+    <script src="./scripts/movie.js" type="module"></script>
+</body>
+</html>
