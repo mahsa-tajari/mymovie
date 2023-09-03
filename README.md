@@ -1,4 +1,4 @@
 # mymovie
 🤞 250 IMDB best movies information!
 <br>
-🤞 Using API!
+🤞 Tailwindcss, javaScript, API and others!
