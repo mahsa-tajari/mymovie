@@ -1,6 +1,6 @@
-import { pagination,nextPage,previousPage } from "./funcs/utitlities.js";
+import { paginationCalc,pagination,nextPage,previousPage } from "./funcs/utitlities.js";
 window.addEventListener('load',()=>{
-    // allMovies();
+    paginationCalc(250,10)
     pagination(1);
 })
 const pageBtns = document.querySelectorAll('.page-btn');
@@ -13,6 +13,5 @@ pageBtns.forEach(btn => {
 const pageNumbers = document.querySelector('.pagination-numbers');
 pageNumbers.addEventListener('click',(event)=>{
     pageNumbers.innerHTML ='';
-    console.log(event.target);
     pagination(+event.target.id);
 })
