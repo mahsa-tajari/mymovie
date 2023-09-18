@@ -1,7 +1,8 @@
-import { icons,aside,nav,header } from "./funcs/utitlities.js";
+import { icons,aside,nav,header,footer } from "./funcs/utitlities.js";
 window.addEventListener('load',()=>{
     icons();
     header();
     nav();
     aside();
+    footer();
 });
