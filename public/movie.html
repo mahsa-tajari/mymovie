@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./styles/app.css" />
+    <link rel="shortcut icon" href="./images/logo.PNG" type="image/x-icon">
     <script type="text/javascript">
       if (
         localStorage.theme === "dark" ||
@@ -15,17 +16,16 @@
         document.documentElement.classList.remove("dark");
       }
     </script>
-    <title>Document</title>
+    <title></title>
 </head>
-<body class="bg-gray-100 h-screen dark:bg-black text-base">
+<body class="flex flex-col gap-y-4 bg-gray-100 h-screen dark:bg-black text-base text-dark-gray dark:text-gray-200">
     <!-- icons -->
     <svg class="icons-wrapper hidden"></svg>
-    <!-- header -->
     <header id="header" class="flex flex-col gap-y-5"></header>
-    <!-- nav -->
     <nav id="nav" class="fixed sm:hidden w-8/12 top-0 bottom-0 z-50 -right-[67%] bg-gray-300 dark:bg-black transition-all duration-700"></nav>
-    <main id="main"></main>
-
+    <main id="main" class="flex flex-col gap-y-4">
+    </main>
+    <footer id="footer" class="relative bottom-0 flex flex-col gap-y-8 w-full"></footer>
     <!-- overlay -->
     <div class="hidden sm:hidden overlay fixed inset-0 w-full h-full bg-black/50 dark:bg-white/20 z-40"></div>
     <script src="../node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
