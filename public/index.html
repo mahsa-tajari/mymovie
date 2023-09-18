@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./styles/app.css" />
+    <link rel="shortcut icon" href="./images/logo.PNG" type="image/x-icon">
     <script type="text/javascript">
       if (
         localStorage.theme === "dark" ||
@@ -18,20 +19,17 @@
     </script>
     <title>مرجع اصلی بهترین فیلم‌های تاریخ سینمای جهان</title>
   </head>
-  <body class="bg-gray-100 h-screen dark:bg-black text-base">
+  <body class="flex flex-col gap-y-4 bg-gray-100 h-screen dark:bg-black text-base text-dark-gray dark:text-gray-200">
     <!-- icons -->
     <svg class="icons-wrapper hidden"></svg>
-    <!-- header -->
     <header id="header" class="flex flex-col gap-y-5"></header>
-    <!-- nav -->
     <nav id="nav" class="fixed sm:hidden w-8/12 top-0 bottom-0 z-50 -right-[67%] bg-gray-300 dark:bg-black transition-all duration-700"></nav>
-    <!-- main -->
     <main>
       <!-- slider -->
       <div class="my-5 sm:mt-0 flex justify-center items-center" dir="ltr">
-        <a href="#" class="w-full relative flex justify-center">
+        <div class="w-full relative flex justify-center cursor-pointer">
           <!-- buttons -->
-          <div class="btns hidden justify-between items-center z-20 absolute w-full h-full child:flex child:items-center child:justify-center child:w-10 child:h-10 child:sm:h-full child:text-xl child:text-black sm:child:text-white dark:child:text-white child-hover:text-2xl sm:child-hover:bg-slate-300/20 child:sm:rounded-none lg:w-10/12">
+          <div class="btns hidden justify-between items-center child:z-20 absolute w-full h-full child:flex child:items-center child:justify-center child:w-10 child:h-10 child:sm:h-full child:text-xl child:text-black sm:child:text-white dark:child:text-white child-hover:text-2xl sm:child-hover:bg-slate-300/20 child:sm:rounded-none lg:w-10/12">
             <button id="prev-slide" class="sm:rounded-l-md"><</button>
             <button id="next-slide" class="sm:rounded-r-md">></button>
           </div>
@@ -46,10 +44,10 @@
               <h2 id="movie-title" class="text-white font-semibold text-lg"></h2>
             </div>
           </div>
-        </a>
+        </div>
       </div>
       <!-- slider loading -->
-      <div role="status" class="loader flex justify-center items-center">
+      <div role="status" class="loader flex justify-center items-center h-screen ">
         <svg aria-hidden="true" class="w-8 h-8 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-orange-1" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
           <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
@@ -57,113 +55,44 @@
         <span class="sr-only">Loading...</span>
       </div>
       <!-- body -->
-      <section class="px-4 flex flex-col items-end gap-y-4">
-        <!-- advanced search -->
-        <form action="#" class="flex flex-col gap-y-3 w-full py-2 px-4 rounded-lg text-sm text-gray-600 bg-white child:flex child:flex-col child:gap-y-1">
-          <div>
-            <span>کارگردان</span>
-            <input type="text" class="outline-none py-2.5 pr-3 rounded-3xl text-sm bg-gray-300 dark:bg-black placeholder-gray-500 dark:placeholder-slate-200" placeholder="Christopher Nolan">
-          </div>
-          <div>
-            <span>بازیگران</span>
-            <input type="text" class="outline-none py-2.5 pr-3 rounded-3xl text-sm bg-gray-300 dark:bg-black placeholder-gray-500 dark:placeholder-slate-200" placeholder="Leonardo Dicaprio">
-          </div>
-          <div>
-            <div class="flex justify-between">
-              <span>سال ساخت</span>
-              <div>
-                <span>2023</span> - <span>1888</span>
-              </div>
-            </div>
-            <input type="range" min="1888" max="2023" step="0" class="appearance-none [&::-webkit-slider-thumb]:bg-orange-1 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:rotate-45 [&::-webkit-slider-thumb]:rounded-sm h-1 rounded-lg bg-gray-300">
-          </div>
-          <div>
-            <span>کشور</span>
-            <select class="outline-none" name="country">
-              <option value="all">همه</option>
-            </select>
-          </div>
-          <div>
-            <span>ژانر</span>
-            <select name="genre">
-              <option value="all">همه</option>
-            </select>
-          </div>
-          <div>
-            <div>
-              <span>امتیاز</span>
-              <div>
-                <span>10.0</span> - <span>1.0</span>
-              </div>
-            </div>
-            <div class="relative w-full">
-              <input type="range" min="1.0" max="10.0" value="10" step="0" class="absolute top-0 left-0 rounded-full h-2 w-full appearance-none cursor-pointer bg-green-500">
-              <input type="range" min="1.0" max="10.0" step="0" value="5" class="absolute top-0 left-0 rounded-full h-2 w-full appearance-none cursor-pointer bg-green-500">
-              
-            </div>
-          </div>
-        </form>
+      <section class="relative px-4 flex flex-col items-end gap-y-4 ">
         <div class="flex flex-col-reverse justify-center w-full gap-x-6 tablet:flex-row">
           <!-- aside -->
-          <aside class="flex flex-col w-full gap-5 tablet:w-3/12 xl:w-2/12">
+          <aside class="relative flex flex-col w-full gap-5 tablet:w-3/12 xl:w-2/12 child:rounded-lg child:bg-white dark:child:bg-dark-gray">
             <!-- best movies -->
-            <div class="bg-white dark:bg-dark-gray flex flex-col items-center rounded-lg space-y-2 p-4">
-              <div class="w-full flex justify-center"><h4 class="text-dark-gray dark:text-white">برترین‌های علمی تخیلی</h4></div>
-              <ul dir="ltr" class="aside-slider sci-fi w-64 tablet:w-full space-y-2 text-dark-gray dark:text-white child-hover:text-orange-1 dark:child-hover:text-orange-1"></ul>
-            </div>
-            <div class="bg-white dark:bg-dark-gray flex flex-col items-center rounded-lg space-y-2 p-4">
-              <div class="w-full flex justify-center"><h4 class="text-dark-gray dark:text-white">برترین‌های تاریخی</h4></div>
-              <ul dir="ltr" class="aside-slider history w-64 tablet:w-full space-y-2 text-dark-gray dark:text-white child-hover:text-orange-1 dark:child-hover:text-orange-1"></ul>
-            </div>
-            <div class="bg-white dark:bg-dark-gray flex flex-col items-center rounded-lg space-y-2 p-4">
-              <div class="w-full flex justify-center"><h4 class="text-dark-gray dark:text-white">برترین‌های رازآلود</h4></div>
-              <ul dir="ltr" class="aside-slider mystery w-64 tablet:w-full
-               space-y-2 text-dark-gray dark:text-white child-hover:text-orange-1 dark:child-hover:text-orange-1"></ul>
-            </div>
-            <div class="bg-white dark:bg-dark-gray flex flex-col items-center rounded-lg space-y-2 p-4">
-              <div class="w-full flex justify-center"><h4 class="text-dark-gray dark:text-white">برترین‌های ورزشی</h4></div>
-              <ul dir="ltr" class="aside-slider sport w-64 tablet:w-full
-               space-y-2 text-dark-gray dark:text-white child-hover:text-orange-1 dark:child-hover:text-orange-1"></ul>
-            </div>
-            <div class="bg-white dark:bg-dark-gray flex flex-col items-center rounded-lg space-y-2 p-4">
-              <div class="w-full flex justify-center"><h4 class="text-dark-gray dark:text-white">برترین‌های خانوادگی</h4></div>
-              <ul dir="ltr" class="aside-slider family w-64 tablet:w-full
-               space-y-2 text-dark-gray dark:text-white child-hover:text-orange-1 dark:child-hover:text-orange-1"></ul>
-            </div>
-            <div class="bg-white dark:bg-dark-gray flex flex-col items-center rounded-lg space-y-2 p-4">
-              <div class="w-full flex justify-center"><h4 class="text-dark-gray dark:text-white">برترین‌های وحشت</h4></div>
-              <ul dir="ltr" class="aside-slider horror w-64 tablet:w-full
-               space-y-2 text-dark-gray dark:text-white child-hover:text-orange-1 dark:child-hover:text-orange-1"></ul>
-            </div>
-            <div class="bg-white dark:bg-dark-gray flex flex-col items-center rounded-lg space-y-2 p-4">
-              <div class="w-full flex justify-center"><h4 class="text-dark-gray dark:text-white">برترین انیمیشن‌ها</h4></div>
-              <ul dir="ltr" class="aside-slider animation w-64 tablet:w-full
-               space-y-2 text-dark-gray dark:text-white child-hover:text-orange-1 dark:child-hover:text-orange-1"></ul>
-            </div>
-            <div class="bg-white dark:bg-dark-gray flex flex-col items-center rounded-lg space-y-2 p-4">
-              <div class="w-full flex justify-center"><h4 class="text-dark-gray dark:text-white">برترین‌های درام</h4></div>
-              <ul dir="ltr" class="aside-slider dramma w-64 tablet:w-full
-               space-y-2 text-dark-gray dark:text-white child-hover:text-orange-1 dark:child-hover:text-orange-1"></ul>
-            </div>
-            <div class="bg-white dark:bg-dark-gray flex flex-col items-center rounded-lg space-y-2 p-4">
-              <div class="w-full flex justify-center"><h4 class="text-dark-gray dark:text-white">برترین‌های ماجراجویی</h4></div>
-              <ul dir="ltr" class="aside-slider adventure w-64 tablet:w-full
-               space-y-2 text-dark-gray dark:text-white child-hover:text-orange-1 dark:child-hover:text-orange-1"></ul>
-            </div>
-            <div class="w-full genres p-4 space-y-2 rounded-lg text-sm bg-white dark:bg-dark-gray">
-              <div class="w-full flex justify-center"><h4 class="text-dark-gray dark:text-white">دسته‌بندی فیلم‌ها</h4></div>
+              <div class="flex flex-col items-center rounded-lg space-y-2 p-4">
+                <div class="w-full flex justify-center"><h4>برترین‌های وحشت</h4></div>
+                <ul dir="ltr" class="aside-slider horror w-64 tablet:w-full
+                 space-y-2 child-hover:text-orange-1 dark:child-hover:text-orange-1"></ul>
+              </div>
+              <div class="flex flex-col items-center rounded-lg space-y-2 p-4">
+                <div class="w-full flex justify-center"><h4>برترین انیمیشن‌ها</h4></div>
+                <ul dir="ltr" class="aside-slider animation w-64 tablet:w-full
+                 space-y-2 child-hover:text-orange-1 dark:child-hover:text-orange-1"></ul>
+              </div>
+              <div class="flex flex-col items-center rounded-lg space-y-2 p-4">
+                <div class="w-full flex justify-center"><h4>برترین‌های درام</h4></div>
+                <ul dir="ltr" class="aside-slider dramma w-64 tablet:w-full
+                 space-y-2 child-hover:text-orange-1 dark:child-hover:text-orange-1"></ul>
+              </div> 
+              <div class="flex flex-col items-center rounded-lg space-y-2 p-4">
+                <div class="w-full flex justify-center"><h4>برترین‌های علمی تخیلی</h4></div>
+                <ul dir="ltr" class="aside-slider sci-fi w-64 tablet:w-full space-y-2 child-hover:text-orange-1 dark:child-hover:text-orange-1"></ul>
+              </div> 
+            <div class="w-full genres p-4 space-y-2 text-sm tablet:sticky top-5">
+              <div class="w-full flex justify-center"><h4>دسته‌بندی فیلم‌ها</h4></div>
             </div>
           </aside>
           <!-- movie boxes -->
           <div class="flex flex-col items-center tablet:items-end tablet:w-10/12 lg:w-7/12 xl:w-6/12">
             <div class="movie-boxes-wrapper flex flex-col"></div>
             <!-- pagination -->
-            <div dir="ltr" class="change-page flex justify-center gap-x-2 pb-2 w-full text-dark-gray dark:text-gray-300">
+            <div dir="ltr" class="change-page hidden justify-center gap-x-2 pb-2 w-full dark:text-gray-300">
               <button id="previous-page" class="page-btn relative w-7 h-7 hidden justify-center items-center opacity-0 transition-opacity">
                 <div class="absolute top-0 w-full h-full block -z-10 rounded-md bg-gray-300 dark:bg-orange-1 rotate-45"></div>
                 &lt;
               </button>
-              <div class="pagination-numbers flex gap-x-4 child:text-sm child:text-dark-gray child:dark:text-gray-300"></div>
+              <div class="pagination-numbers flex gap-x-4 child:text-sm child:dark:text-gray-300"></div>
               <button id="next-page" class="page-btn relative w-7 h-7 flex justify-center items-center transition-opacity">
                 <div class="absolute top-0 w-full h-full block -z-10 rounded-md bg-gray-300 dark:bg-orange-1 rotate-45"></div>
                 &gt;
@@ -172,28 +101,8 @@
           </div>
         </div>
       </section>
-      <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste, maiores tempora! Eveniet cupiditate praesentium ipsam vel accusamus quaerat est, alias ducimus facilis, saepe aut incidunt. Soluta repellendus nihil distinctio laudantium!
-      Labore autem libero delectus ipsa impedit quam aspernatur nisi iste itaque molestiae, velit et recusandae? Dolor quibusdam aliquam tempora unde voluptatem voluptatum perferendis expedita sit magnam voluptates. Pariatur, at quod.
-      Perferendis magni hic temporibus rem non quis suscipit, praesentium repellendus necessitatibus amet sint rerum voluptatem velit quibusdam esse ratione laboriosam animi error. Et perferendis, minus consectetur debitis dolorem ea porro?
-      Distinctio repellendus facere obcaecati laudantium praesentium perferendis perspiciatis, quae aliquid architecto, quo assumenda rem fuga debitis voluptas? Nesciunt, necessitatibus porro perspiciatis velit saepe enim cum ad ratione beatae molestias reiciendis?
-      Eveniet fugiat aperiam tempora vel quae officiis reiciendis rem facilis pariatur accusantium quam consectetur ex obcaecati molestiae perspiciatis eum, tenetur aut cupiditate, placeat impedit. Natus delectus incidunt fuga itaque officiis.
-      Corrupti neque enim repudiandae deleniti voluptatum! Ab, delectus fugiat excepturi officia consequuntur ex corrupti veniam perspiciatis, cum deserunt soluta iusto totam recusandae? Quisquam architecto voluptatum doloremque itaque repellendus esse nulla.
-      Repellendus molestias odio mollitia veniam consequatur laudantium quidem fugiat quo esse quas iure error exercitationem aut harum nostrum voluptate, quis ratione animi sequi dolore illum. Veniam est illum earum quas!
-      Impedit eligendi tenetur sit illo neque perspiciatis autem, animi fugiat omnis assumenda modi ut laboriosam necessitatibus optio, magni doloribus! Sequi eveniet iste, itaque obcaecati temporibus voluptatibus impedit minima neque vel.
-      Temporibus ratione quam nam mollitia? Sit voluptatibus autem ipsa nam dolores voluptatem fugiat. Quos quaerat vero tempore quidem unde vel necessitatibus numquam veniam consequuntur dolorum quisquam totam, cupiditate assumenda veritatis!
-      Autem accusantium itaque ab enim accusamus. Exercitationem nesciunt voluptas nobis provident magni dignissimos assumenda aliquam qui vitae mollitia inventore aut, quisquam, beatae ab id odio sunt voluptate repellendus debitis ipsum.
-      Laboriosam nihil doloribus magni pariatur repudiandae qui libero, cumque atque id debitis! Nam corporis sequi nisi commodi neque est voluptatum, porro provident corrupti nemo enim ea dignissimos saepe quam? Officia?
-      Neque recusandae in optio quod sequi accusantium adipisci voluptas, ad aut et impedit enim vel quibusdam ex repellendus aperiam fuga natus hic. Veritatis, voluptatibus beatae. Laboriosam veniam non alias temporibus.
-      Soluta quae a dolore sequi pariatur, laborum doloribus magni saepe? Accusamus iure consequatur, commodi quibusdam quas veritatis ullam quidem sunt beatae eos at fuga, ab obcaecati dignissimos. Fuga, minima officiis?
-      Ex adipisci, dignissimos a ad quaerat, excepturi accusamus hic illo eius, temporibus ratione inventore. Ratione, alias, eos consequuntur adipisci veritatis in et quasi dolores non harum, ea veniam dolorem aperiam.
-      Natus ex minus perspiciatis saepe, maiores error eligendi non, commodi, dolores facere rerum atque. Provident amet assumenda veritatis veniam quo. Vero beatae quaerat cupiditate. Velit tempore exercitationem explicabo atque repellat.
-      Rem corrupti quaerat tempore fuga quis tempora animi corporis et architecto a, fugit cumque soluta explicabo enim beatae qui, facilis consequatur in. Harum enim error atque consequuntur! Quidem, molestiae ex?
-      Dolorem, praesentium perferendis suscipit ex earum consequuntur culpa et odio exercitationem, omnis, placeat reprehenderit obcaecati. Eaque repellat consequatur sed delectus! Deleniti vero ea porro consequuntur voluptate distinctio modi praesentium suscipit.
-      Perspiciatis, molestias expedita nulla nihil laboriosam soluta recusandae, quaerat eos repellat non, iusto ex. Deserunt ullam aut quasi esse, nihil optio id, velit officia, error excepturi soluta autem explicabo ex!
-      Facilis, aperiam error. Quo, vitae voluptas? Odio officiis non nostrum exercitationem inventore possimus odit adipisci quod fugiat perferendis. Quisquam veniam porro similique distinctio nisi eaque laboriosam magnam voluptates quasi officiis!
-      Sequi hic dicta amet nulla deserunt non voluptatem. Quos porro, illum vel nulla, dolor tenetur illo maiores ipsum ullam rem quia pariatur. Eos obcaecati sequi deleniti neque quaerat, ut impedit.
-      </div>
     </main>
+    <footer id="footer" class="relative bottom-0 flex flex-col w-full"></footer>
     <!-- overlay -->
     <div class="hidden sm:hidden overlay fixed inset-0 w-full h-full bg-black/50 dark:bg-white/20 z-40"></div>
     <script src="../node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
