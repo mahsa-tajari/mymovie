@@ -3,7 +3,7 @@ const register = () => {
     const usernameElem = document.getElementById('username');
     const emailElem = document.getElementById('email');
     const passwordElem = document.getElementById('password');
-
+    
     const newUserInfo = {
         "email" : emailElem.value.trim(),
         "password" : passwordElem.value.trim(),
