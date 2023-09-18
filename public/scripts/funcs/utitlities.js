@@ -1,9 +1,14 @@
-import { searchMovie,searchMovieByID,searchGenres,searchByGenres } from "./search.js"
+import { searchMovie,movies,searchMovieByID,searchGenres,searchByGenres } from "./search.js"
 import { navigation,theme } from "../app.js";
 
 const icons = () =>{
   const iconsElem = document.querySelector('.icons-wrapper');
-  const icons = `<symbol id="search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+  const icons = `
+  <symbol id="location" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+  <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+  </symbol>
+  <symbol id="search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
   <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/>
 </symbol>
 <symbol id="bors" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -78,38 +83,47 @@ const icons = () =>{
 <symbol id="wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 110 27"> <path d="M0 27c.417-.01.838-.03 1.3-.03a46.441 46.441 0 0023.462-6.34L43.127 4.11a16.829 16.829 0 0122.04 0l13.471 12.12.085-.04a45.881 45.881 0 0029.971 10.78c.463 0 .888.02 1.309.03H0z" fill-rule="evenodd" fill="rgb(243,244,246)"></path> 
 </symbol>
 <symbol id="dark_wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 110 27"> <path d="M0 27c.417-.01.838-.03 1.3-.03a46.441 46.441 0 0023.462-6.34L43.127 4.11a16.829 16.829 0 0122.04 0l13.471 12.12.085-.04a45.881 45.881 0 0029.971 10.78c.463 0 .888.02 1.309.03H0z" fill-rule="evenodd" fill="#000"></path> 
-  </symbol>`
+</symbol>
+<symbol id="writer" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+</symbol>
+<symbol id="reward" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M21 11.25v8.25a1.5 1.5 0 01-1.5 1.5H5.25a1.5 1.5 0 01-1.5-1.5v-8.25M12 4.875A2.625 2.625 0 109.375 7.5H12m0-2.625V7.5m0-2.625A2.625 2.625 0 1114.625 7.5H12m0 0V21m-8.625-9.75h18c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125h-18c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" />
+</symbol>
+<symbol xmlns="http://www.w3.org/2000/svg" viewBox="1 -35 512 511" id="telegram"> <path d="M121.453 253.172l63.555 158.887 82.75-82.754 141.535 112.504L512 .5 0 205.98zm-39.933-47.64l244.046-97.946-194.074 117.363zm287.535-89.25l-161.98 148.187-19.485 73.426-36.035-90.086zm-149.852 219.23l9.817-36.996 15.144 12.035zm171.656 53.394L243.473 271.754 465.375 68.746zm0 0"></path> </symbol>
+<symbol viewBox="0 0 48 48" id="github" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" fill="#eb8307" stroke="#000000" stroke-width="2.4"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><defs><style>.cls-1{fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;fill-rule:evenodd;}</style></defs><path class="cls-1" d="M24,2.5a21.5,21.5,0,0,0-6.8,41.9c1.08.2,1.47-.46,1.47-1s0-1.86,0-3.65c-6,1.3-7.24-2.88-7.24-2.88A5.7,5.7,0,0,0,9,33.68c-1.95-1.33.15-1.31.15-1.31a4.52,4.52,0,0,1,3.29,2.22c1.92,3.29,5,2.34,6.26,1.79a4.61,4.61,0,0,1,1.37-2.88c-4.78-.54-9.8-2.38-9.8-10.62a8.29,8.29,0,0,1,2.22-5.77,7.68,7.68,0,0,1,.21-5.69s1.8-.58,5.91,2.2a20.46,20.46,0,0,1,10.76,0c4.11-2.78,5.91-2.2,5.91-2.2a7.74,7.74,0,0,1,.21,5.69,8.28,8.28,0,0,1,2.21,5.77c0,8.26-5,10.07-9.81,10.61a5.12,5.12,0,0,1,1.46,4c0,2.87,0,5.19,0,5.9s.39,1.24,1.48,1A21.5,21.5,0,0,0,24,2.5"></path></g></symbol>
+`
   iconsElem.insertAdjacentHTML('beforeend',icons);
-}
+};
 const nav = () => {
   const navElem = document.getElementById('nav');
-  const navData = `<div id="close-icon" class="flex justify-end ml-4 mt-4 pb-8 cursor-pointer">
-  <svg class="w-7 h-7 text-dark-gray dark:text-white hover:text-orange-1 dark:hover:text-orange-1">
-    <use href="#close"></use>
-  </svg>
-</div>
+  const navData = `
+  <div class="flex justify-end ml-4 mt-4 pb-8">
+    <svg id="close-icon" class="cursor-pointer w-7 h-7 dark:text-white hover:text-orange-1 dark:hover:text-orange-1">
+      <use href="#close"></use>
+    </svg>
+  </div>
 <div class="flex flex-col items-center mb-16 leading-[.75] font-extrabold text-3xl tracking-wider italic">
   <h3 class="font-hayat text-yellow-600">
     <a href="#">مای‌مووی</a>
   </h3>
   <span class="font-lotus tracking-tighter text-xs text-gray-400">مرجع اصلی برترین فیلم‌های تاریخ سینمای جهان</span>
 </div>
-<div class="child:block child:text-dark-gray dark:child:text-white child:text-lg child:pr-4 child:border-b child:border-b-gray-400/40 dark:child:border-b-dark-gray dark:child-hover:text-orange-1 child:py-2">
-  <a href="#">خانه</a>
-  <a href="#">فیلم</a>
-  <a href="#">هنرمندان</a>
-  <a href="#">تماس با ما</a>
-</div>`
+<ul class="child:block child:cursor-pointer dark:child:text-white child:text-lg child:pr-4 child:border-b child:border-b-gray-400/40 dark:child:border-b-dark-gray dark:child-hover:text-orange-1 child:py-2">
+  <li id="1" class="nav--item">خانه</li>
+  <li id="2" class="nav--item">فیلم</li>
+  <li id="3" class="nav--item">هنرمندان</li>
+  <li id="4" class="nav--item">تماس با ما</li>
+</ul>`
   navElem.insertAdjacentHTML('beforeend',navData);
   navigation();
-}
+  navRouting();
+};
 const header = () => {
   const headerElem = document.getElementById('header');
-  const headerData = `<!-- top bar -->
+  const headerData = `
   <div class="container flex flex-col justify-between gap-y-12 pt-4 md:flex-row-reverse bg-dark-lines">
-    <!-- logo and theme -->
     <div class="flex items-center justify-between md:flex-row md:gap-x-7">
-      <!-- theme -->
       <div id="theme" class="relative w-20 h-9 cursor-pointer flex items-center rounded-3xl bg-gray-300 dark:bg-dark-gray">
         <span class="block absolute left-12 dark:left-1 top-1 transition-all duration-300 bg-white w-7 h-7 rounded-full"></span>
         <div class="w-full flex justify-between px-1">
@@ -125,15 +139,13 @@ const header = () => {
           </div>
         </div>
       </div>
-      <!-- logo -->
       <div class="flex flex-col leading-[.75] font-extrabold text-3xl tracking-wider italic">
         <h3 class="font-hayat text-yellow-600">
-          <a href="#">مای‌مووی</a>
+          <a href="index.html">مای‌مووی</a>
         </h3>
         <span class="font-lotus tracking-tighter text-xs text-gray-400">مرجع اصلی برترین فیلم‌های تاریخ سینمای جهان</span>
       </div>
     </div>
-    <!-- signUp-login btns -->
     <div id="buttons" class="flex justify-center font-medium gap-x-2">
       <a href="signup.html" class="w-28 flex items-center justify-center gap-x-3 py-2 rounded-3xl bg-white dark:bg-dark-gray dark:hover:bg-orange-1">
         <svg class="dark:hidden w-5 h-5">
@@ -151,7 +163,6 @@ const header = () => {
         <span class="text-gray-600 dark:text-white">ورود</span>
       </a>
     </div>
-    <!-- user profile after login -->
     <div id="profile" class="hidden w-full justify-center">
       <div class="flex items-center w-36 py-1 pr-3 gap-x-3 bg-gray-300 rounded-lg">
         <div class="w-10 h-10 rounded-full overflow-hidden">
@@ -164,78 +175,65 @@ const header = () => {
     </div>
     </div>
   </div>  
-  <!-- searchBar & menu -->
   <div class="flex items-center justify-center gap-x-12 py-1 px-12 bg-white dark:bg-dark-gray shadow-sm tablet:py-5 ">
-    <!-- menu icon -->
     <div id="menu-icon" class="bg-gray-300 dark:bg-black p-2 rounded-md cursor-pointer sm:hidden">
       <svg class="w-6 h-6 text-gray-500 dark:text-white">
         <use href="#bors"></use>
       </svg>
     </div>
-    <!-- menu -->
     <div class="flex flex-col justify-center items-center gap-x-10 w-10/12 sm:gap-y-4 tablet:flex-row tablet:w-full lg:gap-x-20 xl:gap-x-28 2xl:justify-between">
-      <ul class="hidden justify-between w-full sm:flex tablet:w-1/2">
-        <li>
-          <a href="#" class="flex items-center gap-2 group">
-            <div class="w-8 h-8 flex items-center justify-center">
-              <svg class="w-7 h-7 text-orange-1  transition-all group-hover:w-8 group-hover:h-8">
-                <use href="#home"></use>
-              </svg>
-            </div>
-            <div class="flex flex-col leading-5">
-              <span class="text-gray-600 dark:text-white">خانه</span>
-              <span class="text-orange-1 font-sans font-thin">HOME</span>
-            </div>
-          </a>
+      <ul class="hidden justify-between child:flex child:items-center child:gap-2 child:cursor-pointer w-full sm:flex tablet:w-1/2">
+        <li id="1" class="group nav--item">
+          <div class="w-8 h-8 flex items-center justify-center">
+            <svg class="w-7 h-7 text-orange-1  transition-all group-hover:w-8 group-hover:h-8">
+              <use href="#home"></use>
+            </svg>
+          </div>
+          <div class="flex flex-col leading-5">
+            <span class="text-gray-600 dark:text-white">خانه</span>
+            <span class="text-orange-1 font-sans font-thin">HOME</span>
+          </div>
         </li>
-        <li>
-          <a href="#" class="flex items-center gap-2 group">
-            <div class="w-8 h-8 flex items-center justify-center">
-              <svg class="w-7 h-7 text-orange-1  transition-all group-hover:w-8 group-hover:h-8">
-                <use href="#movie"></use>
-              </svg>
-            </div>
-            <div class="flex flex-col leading-5">
-              <span class="text-gray-600 dark:text-white">دانلود فیلم</span>
-              <span class="text-orange-1 font-sans font-thin">MOVIES</span>
-            </div>
-          </a>
+        <li id="2" class="group nav--item">
+          <div class="w-8 h-8 flex items-center justify-center">
+            <svg class="w-7 h-7 text-orange-1  transition-all group-hover:w-8 group-hover:h-8">
+              <use href="#movie"></use>
+            </svg>
+          </div>
+          <div class="flex flex-col leading-5">
+            <span class="text-gray-600 dark:text-white">دانلود فیلم</span>
+            <span class="text-orange-1 font-sans font-thin">MOVIES</span>
+          </div>
         </li>
-        <li>
-          <a href="#" class="flex items-center gap-2 group">
-            <div class="w-8 h-8 flex items-center justify-center">
-              <svg class="w-7 h-7 transition-all group-hover:w-8 group-hover:h-8">
-                <use href="#theatre"></use>
-              </svg>
-            </div>
-            <div class="flex flex-col leading-5">
-              <span class="text-gray-600 dark:text-white">هنرمندان</span>
-              <span class="text-orange-1 font-sans font-thin">ARTISTS</span>
-            </div>
-          </a>
+        <li id="3" class="group nav--item">
+          <div class="w-8 h-8 flex items-center justify-center">
+            <svg class="w-7 h-7 transition-all group-hover:w-8 group-hover:h-8">
+              <use href="#theatre"></use>
+            </svg>
+          </div>
+          <div class="flex flex-col leading-5">
+            <span class="text-gray-600 dark:text-white">هنرمندان</span>
+            <span class="text-orange-1 font-sans font-thin">ARTISTS</span>
+          </div>
         </li>
-        <li>
-          <a href="#" class="flex items-center gap-2 group">
-            <div class="w-8 h-8 flex items-center justify-center">
-              <svg class="w-7 h-7 text-orange-1  transition-all group-hover:w-8 group-hover:h-8">
-                <use href="#contact"></use>
-              </svg>
-            </div>
-            <div class="flex flex-col leading-5">
-              <span class="text-gray-600 dark:text-white">تماس با ما</span>
-              <span class="text-orange-1 font-sans font-thin">CONTACT</span>
-            </div>
-          </a>
+        <li id="4" class="group nav--item">
+          <div class="w-8 h-8 flex items-center justify-center">
+            <svg class="w-7 h-7 text-orange-1  transition-all group-hover:w-8 group-hover:h-8">
+              <use href="#contact"></use>
+            </svg>
+          </div>
+          <div class="flex flex-col leading-5">
+            <span class="text-gray-600 dark:text-white">تماس با ما</span>
+            <span class="text-orange-1 font-sans font-thin">CONTACT</span>
+          </div>
         </li>
       </ul>
-      <!-- search -->
       <div class="relative w-full tablet:w-80">
         <input id="search" type="text" placeholder="جستجو کنید ..." class="w-full outline-none py-2.5 pr-3 rounded-3xl text-sm text-gray-500 bg-gray-300 dark:bg-black placeholder-gray-500 dark:placeholder-slate-200">
         <svg class="absolute w-5 h-5 text-orange-1 top-2.5 left-2.5">
           <use href="#search-icon"></use>
         </svg>
-        <!-- result searching box -->
-        <div id="result-wrapper" class="hidden max-w-xs z-50 flex-col justify-center border-t border-gray-400 divide-y divide-gray-400 px-4 py-2 absolute top-12 left-0 rounded-lg text-dark-gray bg-white dark:text-white dark:bg-dark-gray">
+        <div id="result-wrapper" class="hidden max-w-xs z-50 flex-col justify-center border-t border-gray-400 divide-y divide-gray-400 px-4 py-2 absolute top-12 left-0 rounded-lg bg-white dark:text-white dark:bg-dark-gray">
         </div>
       </div>
     </div>
@@ -244,23 +242,99 @@ const header = () => {
   theme();
   const inputElem = document.getElementById('search');
     inputElem.addEventListener('keyup',async (event)=>{
-      console.log(event);
-      let inputValue = event.target.value.trim();
-      renderSearchResult(inputValue);
-    });
-}
+    let inputValue = event.target.value.trim();
+    renderSearchResult(inputValue);
+  });
+};
+const path = (string) =>{
+  const mainElm = document.getElementById('main');
+  const data = `
+  <div class="w-full pr-20 flex items-center gap-x-2">
+    <svg class="text-orange-1 w-5 h-5"><use href="#location"></use></svg>
+    <a href = "index.html" class="home">مای مویی</a>
+    <span>&gt</span>
+    <span class="flex gap-x-2">${string}<span class="path"></span></span>
+  </div>`
+  mainElm.insertAdjacentHTML('afterbegin',data);
+};
+const footer = ()=>{
+  const footerElem = document.getElementById('footer');
+  const data = `
+  <div class="flex flex-col items-center p-4 gap-y-8 dark:text-white bg-gray-300 dark:bg-dark-gray sm:flex-row sm:gap-x-12 sm:items-start sm:justify-center md:gap-x-[20%]">
+    <div class=" flex flex-col gap-y-4 child:flex [&>*:not(:first-child)]:bg-gray-200 [&>*:not(:first-child)]:rounded-md [&>*:not(:first-child)]:px-2 [&>*:not(:first-child)]:py-2 dark:[&>*:not(:first-child)]:text-dark-gray">
+      <div class="w-ful justify-center">
+        <h6>همراه ما باشید!</h6>
+      </div>
+      <div class="divide-x-2 divide-gray-400 child:px-2" dir="ltr">
+        <div>  
+          <svg class="w-6 h-6">
+            <use href="#telegram"></use>
+          </svg>
+        </div>
+        <a href="https://t.me/khodemahsatjr" class="block hover:text-orange-1 dark:hover:text-orange-1"><span>khodemahsatjr</span></a>
+      </div>
+      <div class="divide-x-2 divide-gray-400 child:px-2" dir="ltr">
+      <div>
+        <svg class="w-6 h-6">
+          <use href="#github"></use>
+        </svg>
+      </div> 
+        <a href="https://github.com/mahsa-tajari/" class="block hover:text-orange-1 dark:hover:text-orange-1"><span>Mahsa-tajari</span></a>
+      </div>
+    </div>
+    <div>
+      <P class="flex flex-col gap-x-2 sm:gap-y-4 child:text-orange-1 md:w-96">
+      <span>
+        درباره مای مووی   
+      </span>
+      وبسایت مای فیلم (مای مووی) بهترین مرجع برای مشاهده اطلاعات کامل 250 فیلم برتر IMDB می‌باشد.
+      می‌توانید تمام اطلاعات مربوط به فیلم موردنظر خود را با جستجو در این وب سایت مشاهده کنید.
+      </p>
+    </div>
+  </div>
+  <div class="w-full flex justify-center gap-x-2 bg-white py-1 dark:bg-black"> توسعه داده‌ شده با 💖 توسط <a href="https://github.com/mahsa-tajari/" class="hover:text-orange-1 dark:hover:text-orange-1">Mahsa Tajari</a></div>
+  `
+  footerElem.insertAdjacentHTML('beforeend',data);
+};
+const navRouting = ()=> {
+  const menuliItem = document.querySelectorAll('.nav--item');
+  menuliItem.forEach(item => {
+    item.addEventListener('click',(event)=>{
+      const itemId = event.currentTarget.id;
+      switch (itemId) {
+        case '1':{
+          location.href = 'index.html';
+          break;
+        };
+        case '2':{
+          location.href = 'repair.html';
+          break;
+        };
+        case '3':{
+          location.href = 'repair.html';
+          break;
+        };
+        case '4':{
+          location.href = 'connection.html';
+          break;
+        };
+      }
+    })
+  });
+};
 let resultWrapperElem  = null;
 const renderSearchResult = async (inputSearchValue) => {
+  let searchedMovies = null;
   resultWrapperElem = document.getElementById('result-wrapper');
   if(inputSearchValue.length >= 3){
-    let movies = await searchMovie(inputSearchValue);
-    let moviesArray = Object.entries(movies.data);
+    searchedMovies = await searchMovie(inputSearchValue);
+    const moviesArray = Object.entries(searchedMovies.data);
     // show the result box
     resultWrapperElem.classList.remove('hidden');
     resultWrapperElem.classList.add('flex');
     if(moviesArray.length > 0){
       addDataToSearchResultBox(moviesArray);
-      resultWrapperElem.insertAdjacentHTML('beforeend',`<span class="text-center py-2"><a href="#">مشاهده همه نتایج</a></span>`);
+      resultWrapperElem.insertAdjacentHTML('beforeend',`<span class="text-center py-2"><span class="showAllResult cursor-pointer">مشاهده همه نتایج</a></span>`);
     }
     else{
       resultWrapperElem.innerHTML = 'متاسفانه نتیجه‌ای برای این جستجو یافت نشد!';
@@ -272,63 +346,210 @@ const renderSearchResult = async (inputSearchValue) => {
   };
   const movies = document.querySelectorAll('.movie');
   movies.forEach(movie => {
-    movie.addEventListener('click',() => goToMoviePage(movie));
+    movie.addEventListener('click',() => {
+      routing('movieId',movie.id,'movie.html');
+    });
   });
-}
-const addDataToSearchResultBox = (moviesArray) =>{
-    let totalNumberOfAddedMovies = 0;
-    resultWrapperElem.innerHTML = "";
-    moviesArray.forEach(movie => {
-        totalNumberOfAddedMovies++;
-        if(totalNumberOfAddedMovies > 0){
-            if(totalNumberOfAddedMovies > 4) return
-            else{
-                resultWrapperElem.insertAdjacentHTML('beforeend',
-                `<div id="${movie[1].id}" class="movie py-3 cursor-pointer">
-                    <div class="flex justify-end gap-x-3">
-                        <div class="flex flex-col justify-center items-end overflow-hidden">
-                          <span class="whitespace-nowrap">${movie[1].title}</span>
-                          <span class="text-xs italic">${movie[1].genres}</span>
-                        </div>
-                        <div class="w-12 h-14 rounded-md overflow-hidden">
-                          <img class="h-full w-full" src="${movie[1].poster}" alt="${movie[1].title}">
-                        </div>
-                        <div class="flex flex-col">
-                            <svg class="w-6 h-6 text-orange-1">
-                              <use href="#star"></use>
-                            </svg>
-                            <span>${movie[1].imdb_rating}</span>
-                        </div>
-                    </div>
-                </div>`)
-            }
-        }
+  const seeAllResultBtn = document.querySelector('.showAllResult');
+  if(seeAllResultBtn){
+    seeAllResultBtn.addEventListener('click',()=>{
+      routing('searchedName',inputSearchValue,'allResult.html');
     })
-}
+  }
 
+};
+const allResults = async(index) =>{
+  const movieName = getFromLocalStorage('searchedName');
+  const allResult = await searchMovie(movieName,index);
+  loadMoviesToBody(allResult);
+};
+const showPaginationElem = () => {
+  let elem = document.querySelector('.change-page');
+  elem.classList.remove('hidden');
+  elem.classList.add('flex');
+}
+// Introduction every movie
+const addDataToMoviePage = async (wrapperElem) =>{
+  let movieId = getFromLocalStorage('movieId');
+  let details = await searchMovieByID(movieId);
+  document.querySelector('title').innerHTML = `مای مووی | ${details.title}`
+  createPath(details.title);
+  let image = null;
+  details.images === undefined ? image = details.poster: image = details.images[0];
+  repairValues(details);
+  let data = `
+  <div class="relative flex flex-col items-center">
+    <div class="w-full h-full">
+      <img class="lazy w-full hidden md:block" data-src= ${image} alt="${details.title}">
+      <img class="lazy w-full h-full md:hidden" data-src="${details.poster}" alt="${details.title}">
+      <div class="absolute top-0 w-full h-full bg-white/60 dark:bg-black/60 z-20"></div>
+    </div>
+    <div class="w-full absolute top-0 p-4 z-40 flex flex-col justify-start items-center gap-y-4 md:flex-row md:justify-evenly md:gap-x-4 md:gap-y-2 md:pt-8">
+      <div class="w-52 rounded-lg border-4 border-orange-1 overflow-hidden tablet:w-60 lg">
+        <img class="lazy w-full" data-src="${details.poster}" alt="${details.title}">
+      </div>
+      <div class="w-full flex flex-col gap-y-4 md:w-8/12">
+        <div class="flex flex-col gap-y-4 md:flex-row-reverse">
+          <div class="flex flex-col items-center gap-y-1">
+            <span class="text-gray-500"><span id="movie-rate" class="text-xl text-green-600 font-bold tracking-tighter">${details.imdb_rating}</span>/10</span>
+            <span class="flex flex-row-reverse font-sans whitespace-nowrap font-semibold pt-2 border-t-2 border-t-orange-1 dark:border-gray-400 dark:text-white">${details.imdb_votes} Votes</span>
+            <a href="https://www.imdb.com/title/${details.imdb_id}/" target="_blank" class="w-14 flex justify-center rounded-md mt-2 font-semibold text-white bg-orange-1">IMDB</a>
+          </div>
+          <div class="w-full flex justify-center"> 
+            <h1 class="text-xl dark:text-white">${details.title} ${details.year}</h1>
+          </div>
+        </div>
+        <ul class="grid grid-cols-2 w-full gap-y-8 text-xs dark:text-white child:flex child:gap-x-1 md:text-sm">
+          <li>
+            <svg class="w-5 h-5 text-orange-1">
+              <use href="#clock"></use>
+            </svg>
+            <span>مدت زمان: </span>
+            <span>${details.runtime}</span>
+          </li>
+          <li>
+            <svg class="w-5 h-5 text-orange-1">
+              <use href="#doc"></use>
+            </svg>
+            <span>ژانر:  </span>
+            <span>${details.genres}</span>
+          </li>
+          <li>
+            <svg class="w-5 h-5 text-orange-1">
+              <use href="#earth"></use>
+            </svg>
+            <span>محصول کشور:  </span>
+            <span>${details.country}</span>
+          </li>
+          <li>
+            <svg class="w-5 h-5 text-orange-1">
+              <use href="#clock"></use>
+            </svg>
+            <span>کارگردان: </span>
+            <span>${details.director}</span>
+          </li>
+          <li class="w-full col-span-2">
+            <svg class="w-5 h-5 text-orange-1">
+              <use href="#writer"></use>
+            </svg>
+            <span>نویسندگان :  </span>
+            <span dir="ltr" class="w-3/4 truncate">${details.writer}</span>
+          </li>
+          <li class="w-full">
+            <svg class="w-5 h-5 text-orange-1 pl-px">
+              <use href="#theatre"></use>
+            </svg>
+            <span>ستارگان:  </span>
+            <span dir="ltr" class="w-3/4 truncate">${details.actors}</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="flex flex-col w-11/12 -mt-2 gap-y-2 z-50 px-4 rounded-md dark:shadow-md text-sm dark:text-white bg-white/40 dark:bg-black/80">
+      <div class="flex flex-col">
+        <span class="text-orange-1">داستان</span>
+        <p>${details.plot}</p>
+      </div>
+      <div class="flex items-center gap-x-1">
+        <span class=" flex items-center justify-center w-6 h-6 rounded-md text-white bg-green-800">${details.metascore}</span>
+        <span class="flex items-center justify-center w-5 h-5 pb-1 rounded-full border-2 border-yellow-500 bg-dark-gray text-white -rotate-45">m</span>
+        <span>امتیاز منتقدین</span>
+      </div>
+      <div class="flex gap-x-1">
+        <svg class="w-6 h-6 text-orange-1">
+          <use href="#reward"></use>
+        </svg>
+        <span>جوایز :  </span>
+        <span>${details.awards}</span>
+      </div>
+    </div>
+  </div>`
+  insertAdjacentHTMLFunction(wrapperElem,data);
+  // wrapperElem.insertAdjacentHTML('beforeend',data);
+  let images = document.querySelectorAll('.lazy');
+  images.forEach(img => {
+  observer.observe(img);
+  });
+};
+const insertAdjacentHTMLFunction = (wrapper,data)=> {
+  wrapper.insertAdjacentHTML('beforeend',data);
+}
+const genresMovies = async(index) =>{
+  let genreId = getFromLocalStorage('genreId');
+  let movies = await searchByGenres(genreId,index);
+  loadMoviesToBody(movies);
+};
+const repairValues = async(data) =>{
+  if(!!data.title === false) data.title = '-';
+  if(!!data.year === false) data.imdb_year = '-';
+  if(!!data.imdb_votes === false) data.imdb_votes = '-';
+  else data.imdb_votes = formatNumber(data.imdb_votes,1);
+  if(!!data.released === false) data.imdb_year = '-';
+  if(!!data.runtime === false) data.runtime = '-';
+  else data.runtime = data.runtime.replace('min','دقیقه');
+  if(!!data.director === false) data.director = '-';
+  if(!!data.actors === false) data.actors = '-';
+  if(!data.writer === false) data.writer = '-';
+  if(!!data.metascore === false || data.metascore === 'N/A') data.metascore ='-';
+  if(!!data.genres === false) data.genres = '-';
+  else data.genres = await translate(data.genres);
+  if(!!data.awards === false) data.awards ='-';
+  else data.awards = await translate(data.awards);
+  if(!!data.country === false) data.country = '-';
+  else data.country = await translate(data.country);
+  if(!!data.plot === false) data.plot = '-';
+  else data.plot = await translate(data.plot);
+};
+const addDataToSearchResultBox = (moviesArray) =>{
+  let totalNumberOfAddedMovies = 0;
+  resultWrapperElem.innerHTML = "";
+  moviesArray.forEach(movie => {
+    totalNumberOfAddedMovies++;
+    if(totalNumberOfAddedMovies > 0){
+      if(totalNumberOfAddedMovies > 4) return
+      else{
+        resultWrapperElem.insertAdjacentHTML('beforeend',
+        `<div id="${movie[1].id}" class="movie py-3 cursor-pointer">
+          <div class="flex justify-end gap-x-3">
+            <div class="flex flex-col justify-center items-end overflow-hidden">
+              <span class="whitespace-nowrap">${movie[1].title}</span>
+              <span class="text-xs italic">${movie[1].genres}</span>
+            </div>
+            <div class="w-12 h-14 rounded-md overflow-hidden">
+              <img class="h-full w-full" src="${movie[1].poster}" alt="${movie[1].title}">
+            </div>
+            <div class="flex flex-col">
+              <svg class="w-6 h-6 text-orange-1">
+                <use href="#star"></use>
+              </svg>
+              <span>${movie[1].imdb_rating}</span>
+            </div>
+          </div>
+        </div>`)
+      }
+    }
+  })
+};
 const Toast = Swal.mixin({
     position:'top-end',
     toast:true,
     // timer:2500,
     confirmButtonColor:'#eb8307' 
-})
+});
 const showSwall = (title,icon,confirmButtonText,callback)=>{
     Toast.fire({
         title:title,
         icon:icon,
         confirmButtonText:confirmButtonText,
     }).then(result => callback(result))
-}
-
+};
 const saveIntoLocalStorage = (key,value) =>{
-    return localStorage.setItem(key,value)
-}
-
-const getToken = () =>{
-    const userInfos = localStorage.getItem("accessToken")
-    return userInfos ? userInfos : null
-}
-
+  return localStorage.setItem(key,value)
+};
+const getFromLocalStorage = (key) =>{
+  const value = localStorage.getItem(key);
+  return value ? value : null;
+};
 function formatNumber(num, precision = 2) {
   const map = [
     { suffix: 'M', threshold: 1e6 },
@@ -341,15 +562,17 @@ function formatNumber(num, precision = 2) {
     const formatted = (num / found.threshold).toFixed(precision) + found.suffix;
     return formatted;
   }
-}
-
+};
 const translate = async (data) =>{
   const myToken = '199909:64dca52456731';
-  const translateReq = await fetch(`https://one-api.ir/translate/?token=${myToken}&action=google&lang=fa&q=${data}`);
+  const translateReq = await fetch(`https://one-api.ir/translate/?token=${myToken}&action=googles&lang=fa&q=${data}`);
   const translatedData = await translateReq.json();
   return translatedData.result;
-}
-
+};
+function routing(key,value,page) {
+  saveIntoLocalStorage(key,value);
+  location.href = page;
+};
 const observer = new IntersectionObserver(function(entries) {
   entries.forEach(entry => {
     if(entry.isIntersecting){
@@ -362,19 +585,6 @@ const observer = new IntersectionObserver(function(entries) {
   }),
   { threshold: .2 }
 });
-// Introduction every movie
-const goToMoviePage = async (movie) =>{
-  const movieDetail = await searchMovieByID(movie.id); 
-  addMovieDetail(movieDetail);
-}
-const addMovieDetail = (details) =>{
-  location.href = 'movie.html';
-}
-const adddataToMoviePage = (element) => {
-  console.log(element);
-  console.log();
-}
-
 const slider = async() => {
   let moviesArray = [];
   const sliderItemsID = [4,10,14,22,27]; //movies id that we want to show on slider
@@ -389,13 +599,12 @@ const slider = async() => {
   const rateElem = document.getElementById('movie-rate');
   const movieTitleElem = document.getElementById('movie-title');    
   const imdbLink = document.querySelector('.imdb-link');  
-
   moviesArray.forEach(movie => {
-      deskSlider.insertAdjacentHTML('beforeend',
-        `<img class="deskSlide w-full rounded-md hidden" src="${movie.images[1]}">`);
-      sliderWrapper.insertAdjacentHTML('beforeend',
-        `<img class="slide w-96 rounded-lg border-2 border-white" src="${movie.poster}">`
-      )
+    deskSlider.insertAdjacentHTML('beforeend',
+      `<img id="${movie.id}" class="slider-slide deskSlide w-full rounded-md hidden" data-src="${movie.images[1]}">`);
+    sliderWrapper.insertAdjacentHTML('beforeend',
+      `<img id="${movie.id}" class="slider-slide slide w-96 rounded-lg border-2 border-white" data-src="${movie.poster}">`
+    )
   });
   const movieDetailWrapper = document.querySelector('.details');
   // imges loaded, show details
@@ -430,67 +639,91 @@ const slider = async() => {
         slideIndex++;
         changeImage(slideIndex);
   }, 8000);
-
-  const sliderBtns = document.querySelector('.btns');
+  // lazy load
+  let images = document.querySelectorAll('.slider-slide');
+  images.forEach(img => {
+    observer.observe(img);
+  });
   // show btns after loading images
+  const sliderBtns = document.querySelector('.btns');
   sliderBtns.classList.remove('hidden');
   sliderBtns.classList.add('flex');
+  // next/previous slide btn
   sliderBtns.addEventListener('click',(event)=>{
     event.preventDefault();
-    
     if(event.target.id == 'next-slide'){
-            changeImage(++slideIndex);
+      changeImage(++slideIndex);
     }
     if(event.target.id == 'prev-slide'){
             changeImage(--slideIndex);
     }
   });
+  // click on every movie
+  const slides = document.querySelectorAll('.slider-slide');
+  slides.forEach(slide => {
+    slide.addEventListener('click',(event)=>{
+      const slideId = event.currentTarget.id;
+      routing('movieId',slideId,'movie.html');
+    })
+  });
 };
 // pagination
 const paginationWrapper = document.querySelector('.pagination-numbers');
 let pageIndex = 1;
-const totalMovies = 250;
-const singlePageMoviesCount = 10; //تعداد فیلم نمایشی در هر صفحه
-const pageCount = Math.ceil(totalMovies/singlePageMoviesCount);
+let totalMovies = null;
+let singlePageMoviesCount = null;
+let pageCount = null;
 const nextBtn = document.getElementById('next-page');
 const prevBtn = document.getElementById('previous-page');
 let baseArray = null;
+const paginationCalc = (total,number) =>{
+  totalMovies = total;
+  singlePageMoviesCount = number; //تعداد فیلم نمایشی در هر صفحه
+  pageCount = Math.ceil(totalMovies/singlePageMoviesCount);
+};
 const pagination = (index) =>{
   if(index <= 3){
-    baseArray = [1,2,3,4,'...',pageCount];
+    if(pageCount > 4) baseArray = [1,2,3,4,'...',pageCount];
+    if(pageCount == 1) baseArray = [pageCount];
+    if(pageCount == 2) baseArray = [1,pageCount];
+    if(pageCount == 3) baseArray = [1,2,pageCount];
+    if(pageCount == 4) baseArray = [1,2,3,pageCount];
     loopOfAddDataToPagination(baseArray);
-    const spaceElems = document.querySelectorAll('.space');
     activePage(paginationWrapper.children[index-1].children[0]);
-    allMovies(index);
+    if(window.location.pathname.includes('index.html')) allMovies(index);
+    if(window.location.pathname.includes('allResult.html')) allResults(index);
+    if(window.location.pathname.includes('genrePage.html')) genresMovies(index);
   }
   if(index > 3 && index < pageCount) {
-      if(index === pageCount-1){
-        console.log('first if');
-        baseArray = [1,'...',index-2,index-1,index,pageCount];
-      }
-      else{
-        console.log(index+1);
-        baseArray = [1,'...',index-2,index-1,index,index+1,'...',pageCount];
-      }
-      const isEqual = (number)=> number == index; //find active page number
-      loopOfAddDataToPagination(baseArray);
-      let activePageNum = baseArray.findIndex(isEqual);
-      activePage(paginationWrapper.children[activePageNum].firstElementChild);
-      allMovies(index);
+    if(index === pageCount-1){
+      baseArray = [1,'...',index-2,index-1,index,pageCount];
+    }
+    else{
+      baseArray = [1,'...',index-2,index-1,index,index+1,'...',pageCount];
+    }
+    const isEqual = (number)=> number == index; //find active page number
+    loopOfAddDataToPagination(baseArray);
+    let activePageNum = baseArray.findIndex(isEqual);
+    activePage(paginationWrapper.children[activePageNum].firstElementChild);
+    if(window.location.pathname.includes('index.html')) allMovies(index);
+    if((window.location.pathname.includes('allResult.html'))) allResults(index);
+    if((window.location.pathname.includes('genrePage.html'))) genresMovies(index);
   }
-  if(index >= pageCount){
-    console.log(pageCount);
-      baseArray = [1,'...',index-3,pageCount-2,pageCount-1,pageCount];
-      loopOfAddDataToPagination(baseArray);
-      activePage(paginationWrapper.lastElementChild.firstElementChild);
+  if(index >= pageCount && index > 4){
+    baseArray = [1,'...',index-3,pageCount-2,pageCount-1,pageCount];
+    loopOfAddDataToPagination(baseArray);
+    activePage(paginationWrapper.lastElementChild.firstElementChild);
+    if(window.location.pathname.includes('index.html')) allMovies(index);
+    if(window.location.pathname.includes('allResult.html')) allResults(index);
+    if(window.location.pathname.includes('genrePage.html')) genresMovies(index);
   }
   pageIndex = index;
-}
+};
 function loopOfAddDataToPagination (array) {
   for (let index = 0; index < array.length; index++) {
     addDataToPagination(array[index]);
   }
-}
+};
 const addDataToPagination = (data) =>{
   paginationWrapper.insertAdjacentHTML('beforeend',`
     <button id="${data}" class="relative group w-7 h-7 flex justify-center items-center transition-opacity">
@@ -499,15 +732,16 @@ const addDataToPagination = (data) =>{
     </button>
   `)
   if(data == '...') unclickableElem();
-}
+};
 const unclickableElem = () => {
   const spaceElem = paginationWrapper.lastElementChild;
   const bgSpaceElem = spaceElem.firstElementChild;
   spaceElem.disabled = true;
   spaceElem.classList.add('cursor-text');
   bgSpaceElem.classList.remove('group-hover:bg-gray-300','dark:group-hover:bg-orange-1');
-}
+};
 const activePage = (activePage) =>{
+  scrollToTop();
   activePage.classList.add('bg-gray-300');
   activePage.classList.add('dark:bg-orange-1');
   activePage.classList.remove('group-hover:bg-gray-300');
@@ -516,114 +750,141 @@ const activePage = (activePage) =>{
   else enableBtn(prevBtn); 
   if(activePage.parentElement == paginationWrapper.children[baseArray.length-1]) disableBtn(nextBtn);
   else enableBtn(nextBtn);
-}
+};
+function scrollToTop() {
+  window.scrollTo(0,0);
+};
 const disableBtn = (btn)=> {
   btn.classList.remove('opacity-full');
   btn.classList.add('opacity-0');
   btn.classList.add('flex');
-}
+};
 const enableBtn = (btn) => {
   btn.classList.remove('opacity-0');
   btn.classList.remove('hidden');
   btn.classList.add('opacity-full');
   btn.classList.add('flex');
-}
+};
 const nextPage = () => {
   paginationWrapper.innerHTML = '';
   pageIndex++;
   pagination(pageIndex);
-}
+};
 const previousPage = () => {
   --pageIndex;
   paginationWrapper.innerHTML = '';
   pagination(pageIndex);
-}
+};
 const allMovies = async(index) => {
+// loading movies to DOM;
+const moviesForShow = await movies(index);
+loadMoviesToBody(moviesForShow);
+};
+const loadMoviesToBody = async(data) =>{
   const allMoviesWrapper = document.querySelector('.movie-boxes-wrapper');
   allMoviesWrapper.innerHTML ='';
-// loading movies to DOM;
-for(let i = (index*10)-9 ; i<= index*10 ; i++){
-  let movie = await searchMovieByID(i);
-  movie.imdb_votes = formatNumber(movie.imdb_votes,1);
-  movie.runtime = movie.runtime.replace('min','دقیقه');
-  movie.plot = await translate(movie.plot);
-  allMoviesWrapper.insertAdjacentHTML('beforeend',`
+  const moviesArray = [];
+  for (let i = 0; i < data.data.length; i++) {
+    moviesArray[i] = await searchMovieByID(data.data[i].id);
+  }
+  for (let i = 0; i < moviesArray.length; i++) {
+    addMoviesToPage(moviesArray[i],allMoviesWrapper);
+  }
+  // select every movie and going to movie page
+  const allMoviesBtns = document.querySelectorAll('.showDetail-btn');
+  allMoviesBtns.forEach(btn => {
+  btn.addEventListener('click',(event)=>{
+    const movieId = event.currentTarget.id;
+    routing('movieId',movieId,'movie.html');
+  })
+  showPaginationElem();
+}); 
+
+// lazy load
+let images = document.querySelectorAll('.lazy');
+images.forEach(img => {
+  observer.observe(img);
+});
+};
+const addMoviesToPage = (data,wrapper) =>{
+  repairValues(data);
+  wrapper.insertAdjacentHTML('beforeend',`
      <div class="bg-white space-y-4 w-full mb-10 rounded-lg relative dark:bg-dark-gray sm:flex sm:px-4 sm:text-sm">
      <!-- img/trailer -->
        <div class="flex flex-col items-center rounded-md py-2 gap-y-4 justify-center">
          <div class="flex flex-col items-center space-y-4">
            <div class="flex justify-center w-11/12 -mt-4 md:w-44">
-            <img class="lazy w-full rounded-md" data-src="${movie.poster}" alt="${movie.title}">
+            <img class="lazy w-full rounded-md" data-src="${data.poster}" alt="${data.title}">
            </div>
-           <a href="#" class="flex justify-center py-2 rounded-md bg-gray-300 text-dark-gray w-11/12 hover:text-orange-1 transition-colors dark:bg-black/30 dark:text-white dark:hover:text-orange-1">
-            <span>مشاهده تریلر</span>
-           </a>
+           <div class="flex justify-center py-2 rounded-md bg-gray-300 w-11/12 hover:text-orange-1 transition-colors dark:bg-black/30 dark:text-white dark:hover:text-orange-1">
+            <a href= "https://www.imdb.com/title/${data.imdb_id}" target="__blank">مشاهده تریلر</a>
+           </div>
          </div>
        </div>
      <!--rating/title  -->
      <div class="flex flex-col items-center gap-y-4 sm:flex-row-reverse sm:items-start">
        <!-- rate -->
        <div class="flex flex-col items-center gap-y-1">
-         <span class="text-gray-400"><span id="movie-rate" class="text-xl text-orange-1 tracking-tighter">${movie.imdb_rating}</span>/10</span>
-         <span class="flex flex-row-reverse font-sans whitespace-nowrap text-dark-gray pt-2 border-t dark:border-gray-400 dark:text-white">${movie.imdb_votes} Votes</span>
-         <a href="https://www.imdb.com/title/${movie.imdb_id}/" target="_blank" class="w-14 flex justify-center rounded-md mt-2 font-semibold text-white bg-orange-1">IMDB</a>
+         <span class="text-gray-400"><span id="data-rate" class="text-xl text-orange-1 tracking-tighter">${data.imdb_rating}</span>/10</span>
+         <span class="flex flex-row-reverse font-sans whitespace-nowrap pt-2 border-t dark:border-gray-400 dark:text-white">${data.imdb_votes} Votes</span>
+         <a href="https://www.imdb.com/title/${data.imdb_id}/" target="_blank" class="w-14 flex justify-center rounded-md mt-2 font-semibold text-white bg-orange-1">IMDB</a>
        </div>
        <!-- more details -->
-       <div class="px-5 pb-16 space-y-3 text-dark-gray child:flex child:gap-x-1 dark:text-white">
+       <div class="px-5 pb-16 space-y-3 child:flex child:gap-x-1 dark:text-white">
        <!-- title -->
-       <div class="w-full flex justify-center cursor-pointer"><h1 dir="ltr" class="text-dark-gray text-lg dark:text-white">${movie.title} <span>${movie.year}</span></h1></div>
+       <div class="w-full flex justify-center cursor-pointer"><h1 dir="ltr" class= text-lg dark:text-white">${data.title} <span>${data.year}</span></h1></div>
          <div>
            <svg class="w-6 h-6 text-orange-1">
              <use href="#calender"></use>
            </svg>
            <span>زمان انتشار: </span>
-           <span>${movie.released}</span>
+           <span>${data.released}</span>
          </div>
          <div>
            <svg class="w-6 h-6 text-orange-1">
              <use href="#clock"></use>
            </svg>
            <span>زمان: </span>
-           <span>${movie.runtime}</span>
+           <span>${data.runtime}</span>
          </div>
          <div>
            <svg class="w-6 h-6 text-orange-1">
              <use href="#doc"></use>
            </svg>
            <span>ژانر:  </span>
-           <span>${movie.genres}</span>
+           <span>${data.genres}</span>
          </div>
          <div>
            <svg class="w-6 h-6 text-orange-1">
              <use href="#person"></use>
            </svg>
            <span>کارگردان:  </span>
-           <span dir="ltr">${movie.director}</span>
+           <span dir="ltr">${data.director}</span>
          </div>
          <div>
            <svg class="w-6 h-6 text-orange-1">
              <use href="#theatre"></use>
            </svg>
            <span>ستارگان:  </span>
-           <span dir="ltr" class="text-xs">${movie.actors}</span>
+           <span dir="ltr" class="w-80  truncate">${data.actors}</span>
          </div>
          <div>
            <svg class="w-6 h-6 text-orange-1">
              <use href="#earth"></use>
            </svg>
            <span>محصول کشور:  </span>
-           <span>${movie.country}</span>
+           <span>${data.country}</span>
          </div>
          <div class="flex items-center">
-           <span class=" flex items-center justify-center w-6 h-6 p-4 rounded-md text-white bg-green-800">${movie.metascore}</span>
+           <span class=" flex items-center justify-center w-6 h-6 p-4 rounded-md text-white bg-green-800">${data.metascore}</span>
            <span class="flex items-center justify-center w-5 h-5 pb-1 rounded-full border-2 border-yellow-500 bg-dark-gray text-white -rotate-45">m</span>
            <span>امتیاز منتقدین</span>
          </div>
          <div class="flex flex-col">
-           <p>${movie.plot}</p>
+           <p>${data.plot}</p>
          </div>
        </div>
-       <div class="flex flex-col items-center justify-center w-8 h-8 space-y-2 absolute z-20 right-[calc(50%_-_.9rem)] bottom-3">
+       <div id="${data.id}" class="showDetail-btn flex flex-col items-center justify-center w-8 h-8 space-y-2 absolute z-20 right-[calc(50%_-_.9rem)] bottom-3">
          <a href="#" class="text-orange-1">ادامه</a>
          <a href="#" class="w-7 h-7 rounded-md relative">
            <div class="w-7 h-7 rounded-md bg-orange-1 rotate-45"></div>
@@ -640,54 +901,31 @@ for(let i = (index*10)-9 ; i<= index*10 ; i++){
          </svg>
        </div>
      </div>
-   </div>`);
-};
-// lazy load
-let images = document.querySelectorAll('.lazy');
-images.forEach(img => {
-  observer.observe(img);
-});
-};
-
+  </div>`);
+}
 const aside = async() => {
   const genresWrapperElem = document.querySelector('.genres');
   const allGenres = await searchGenres();
   // all genres
+  let page = 1;
   allGenres.forEach(async genre => {
-    let countOfMovie = await countMoviesOfGenres(genre);
-    genre.name = await translate(genre.name);
+    let countOfMovie = await countMoviesOfGenres(genre,page);
+    // genre.name = await translate(genre.name);
     genresWrapperElem.insertAdjacentHTML('beforeend',`
-      <div class="flex justify-between text-dark-gray dark:text-gray-300">
-        <a href="#" class="flex gap-x-1">
+      <div class="flex justify-between dark:text-gray-300">
+        <div id="${genre.id}" class="genre-item flex gap-x-1 cursor-pointer">
           <span>></span>
           <span class="hover:text-orange-1
           dark:hover:text-orange-1">${genre.name}</span>
-        </a>
+        </div>
         <span>(${countOfMovie})</span>
-      </div>`)
+      </div>`);
   });
-
   // برترین ها
   let categories = [
     {
-      wrapper:'history',
-      genreId : 5,
-    },
-    {
       wrapper:'sci-fi',
       genreId : 10,
-    },
-    {
-      wrapper:'mystery',
-      genreId : 11,
-    },
-    {
-      wrapper:'sport',
-      genreId : 21,
-    },
-    {
-      wrapper:'family',
-      genreId: 13,
     },
     {
       wrapper:'horror',
@@ -701,24 +939,32 @@ const aside = async() => {
       wrapper:'dramma',
       genreId: 2,
     },
-    {
-      wrapper:'adventure',
-      genreId: 6,
-    }
+    
   ];
-
+  
   let itemsProceed = 0;
   categories.forEach(async category => {
     const wrapper = document.querySelector(`.${category.wrapper}`);
-    const data = await searchByGenres(category.genreId);
+    const data = await searchByGenres(category.genreId,1);
     addDataToAside(wrapper,data);
     itemsProceed++;
     if(itemsProceed === categories.length){
       asideSliderManage();
+      genresPageManage();
     }
   });
 };
-
+const genresPageManage = () =>{
+  const genresItemElem = document.querySelectorAll('.genre-item');
+  genresItemElem.forEach(elem => {
+    elem.addEventListener('click',(e)=>{
+      const genreId = e.currentTarget.id;
+      saveIntoLocalStorage('genreName',elem.firstElementChild.nextElementSibling.innerHTML)
+      routing('genreId',genreId,'genrePage.html');
+      createPath(genreName);
+    })
+  });
+};
 function addDataToAside(wrapper,data) {
   let id = 0;
   for(let i = 0; i < 5; i++ ){
@@ -731,7 +977,7 @@ function addDataToAside(wrapper,data) {
             <span class="next">></span>
           </div>
         </div>
-        <div class="flex w-full justify-center"><a href="#" class="text-dark-gray dark:text-gray-300 hover:text-orange-1 dark:hover:text-orange-1">${data.data[i].title}</a></div>
+        <div id="${data.data[i].id}" class="aside-item flex w-full justify-center"><a href="#" class="dark:text-gray-300 hover:text-orange-1 dark:hover:text-orange-1">${data.data[i].title}</a></div>
       </div>
     `);
   };
@@ -739,8 +985,15 @@ function addDataToAside(wrapper,data) {
   const firstSliderImg = wrapper.children[0];
   firstSliderImg.classList.remove('hidden');
   firstSliderImg.classList.add('slider--active');
+  // routing
+  const asideItems = document.querySelectorAll('.aside-item');
+  asideItems.forEach(item => {
+    item.addEventListener('click',(event)=>{
+      let itemId = event.currentTarget.id;
+      routing('movieId',itemId,'movie.html');
+    })
+  });
 }; 
-
 function asideSliderManage(){
   const asideSliderBtns = document.querySelectorAll('.asideBtns');
   asideSliderBtns.forEach(btn => {
@@ -752,11 +1005,9 @@ function asideSliderManage(){
     })
   });
 };
-
 function findActiveSlider(elem){
   return elem.classList.contains('slider--active');
 };
-
 function asideSlider(wrapper,index,target){
   wrapper.children[index].classList.remove('slider--active');
   wrapper.children[index].classList.add('hidden');
@@ -771,13 +1022,13 @@ function asideSlider(wrapper,index,target){
   wrapper.children[index].classList.remove('hidden');
   wrapper.children[index].classList.add('slider--active');
 };
-
-async function countMoviesOfGenres(genre){
-  let moviesOfGenre = await searchByGenres(genre.id);
-  let countOfGenre = moviesOfGenre.data.length;
+function createPath(value) {
+  const pathWrapper = document.querySelector('.path');
+  pathWrapper.innerHTML = value
+};
+async function countMoviesOfGenres(genre,pageCounter){
+  let moviesOfGenre = await searchByGenres(genre.id,pageCounter);
+  let countOfGenre = moviesOfGenre.metadata.total_count;
   return countOfGenre;
 };
-
-
-
-export{icons,header,nav,adddataToMoviePage,showSwall,saveIntoLocalStorage,getToken,renderSearchResult,slider,pagination,nextPage,previousPage,aside};
+export{icons,header,nav,footer,addDataToMoviePage,showSwall,saveIntoLocalStorage,getFromLocalStorage,renderSearchResult,slider,paginationCalc,pagination,nextPage,previousPage,aside,genresMovies,path,createPath};
