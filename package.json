@@ -8,5 +8,12 @@
   },
   "dependencies": {
     "sweetalert2": "^11.7.20"
-  }
+  },
+  "name": "mymovie",
+  "description": "🤞 250 IMDB best movies information!\r <br>\r 🤞 Tailwindcss, javaScript, API and others!",
+  "version": "1.0.0",
+  "main": "tailwind.config.js",
+  "keywords": [],
+  "author": "",
+  "license": "telegram"
 }

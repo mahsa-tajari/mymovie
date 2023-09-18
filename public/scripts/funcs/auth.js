@@ -1,4 +1,4 @@
-import {showSwall,saveIntoLocalStorage,getToken} from './utitlities.js';
+import {showSwall,saveIntoLocalStorage,getFromLocalStorage} from './utitlities.js';
 const register = () => {
     const usernameElem = document.getElementById('username');
     const emailElem = document.getElementById('email');
@@ -62,7 +62,7 @@ fetch("http://moviesapi.ir/oauth/token",{
   })
 };
 const getMe = () => {
-    const token = getToken()
+    const token = getFromLocalStorage('accessToken')
     var myHeaders = new Headers();
     myHeaders.append("Authorization","Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjlhM2Q2NzkwM2E3MzgyZTRiNzZmYmJjMjY5ODlmNGE3Y2M4ZmM1NDJlMTZlNzQ4YzJiZmJhM2Q0NzBmZDI5ZDM3YjQzNjljMDQ3YTliNzA0In0.eyJhdWQiOiI0IiwianRpIjoiOWEzZDY3OTAzYTczODJlNGI3NmZiYmMyNjk4OWY0YTdjYzhmYzU0MmUxNmU3NDhjMmJmYmEzZDQ3MGZkMjlkMzdiNDM2OWMwNDdhOWI3MDQiLCJpYXQiOjE2OTEyMTQ2MzcsIm5iZiI6MTY5MTIxNDYzNywiZXhwIjoxNjkxMjE0OTM3LCJzdWIiOiIxNzc5Iiwic2NvcGVzIjpbXX0.g6XcSb8AzSc26gdS6dC0Ar7x99lMWHmtoPY4ryja86rkcbADDEJ-2JyqnDKzgRJv6y_3BEH2KKhbEckg-NYo2Pf2sGANoSGKxFENV9e6NYB-Ww6Ei_N0KQNm22EwssX4c3b4hvayhSXoBuSqJ7m0Bx8G320ncs_R2cGHW9EL4ejAdQF1ytS_gXfW6q_j0cJ12Xae0S3AxRy_TiDHubmyv7APX7ODyp-_o5LP1t8Qwtv2eonb7qfPn_DkjBerlp7wUILqBr7VFJtJf-8zZoMeZ1tBWRHzJAkwQD9VCIKi6zeBYU6ukXoXoGq87oSwV5ttGsaQDozklXsbyB-TWlCuXL2-FSRrc5_pEbu2sAo3xEJ-kvp6yewPznlQ1FGINM6P0TaGkA093PqU5u6cHH4ZZcdamJRRdYHz_ql45eUQYU7CX9sadFJ0fs54K3vWWg9eWrEO6wRttOBqAScH7yoMtwTbtEGRw4i1LzygZWevS_mPBxIOHbMqH2eukDE0OJr0TPm92MdHfrw_iH9xVHgtHc2oqvFdEM8Ew4V23msRvi3Tb3qDoCndI9WBc2jt3YsuCEhiB5vYMJ7WHZCMbcTp_sLAcrIB9uOZPfiEHmDzGogOHzCuNxWsW9wic_jdgV3hbZOBkKBzQLO1TadaIViFOjB-P7pAhgfciCe6Tk_ia-I")
     myHeaders.append("Accept", "application/json");
