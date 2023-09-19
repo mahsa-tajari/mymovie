@@ -378,10 +378,10 @@ const addDataToMoviePage = async (wrapperElem) =>{
   let image = null;
   details.images === undefined ? image = '': image = details.images[0];
   repairValues(details);
-  // details.plot = await translate(details.plot);
-  // details.country = await translate(details.country);
-  // details.genres = await translate(details.genres);
-  // details.awards = await translate(details.awards);
+  details.plot = await translate(details.plot);
+  details.country = await translate(details.country);
+  details.genres = await translate(details.genres);
+  details.awards = await translate(details.awards);
   let data = `
   <div class="relative h-[55rem] flex flex-col items-center">
     <div class="w-full h-full">
@@ -784,9 +784,9 @@ const loadMoviesToBody = async(data) =>{
 };
 const addMoviesToPage = async(data,wrapper) =>{
   repairValues(data);
-  // data.plot = await translate(data.plot);
-  // data.country = await translate(data.country);
-  // data.genres = await translate(data.genres);
+  data.plot = await translate(data.plot);
+  data.country = await translate(data.country);
+  data.genres = await translate(data.genres);
   let elem = `<div class="bg-white space-y-4 w-full mb-10 rounded-lg relative dark:bg-dark-gray sm:flex sm:px-4 sm:text-sm">
   <!-- img/trailer -->
     <div class="flex flex-col items-center rounded-md py-2 gap-y-4 justify-center">
@@ -905,7 +905,7 @@ const aside = async() => {
   let page = 1;
   allGenres.forEach(async genre => {
     let countOfMovie = await countMoviesOfGenres(genre,page);
-    // genre.name = await translate(genre.name);
+    genre.name = await translate(genre.name);
     genresWrapperElem.insertAdjacentHTML('beforeend',`
       <div class="flex justify-between dark:text-gray-300">
         <div id="${genre.id}" class="genre-item flex gap-x-1 cursor-pointer">
