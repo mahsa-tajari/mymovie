@@ -882,9 +882,12 @@ const addMoviesToPage = async(data,wrapper) =>{
   wrapper.insertAdjacentHTML('beforeend',elem);
   let images = document.querySelectorAll('.lazy');
   images.forEach(img => {
-  observer.observe(img);
+    observer.observe(img);
   });
   showPaginationElem();
+  let dotLoader = document.querySelector('.dot-loader');
+  dotLoader.classList.remove('flex');
+  dotLoader.classList.add('hidden');
   // select every movie and going to movie page
   const allMoviesBtns = document.querySelectorAll('.showDetail-btn');
   allMoviesBtns.forEach(btn => {
