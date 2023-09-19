@@ -377,8 +377,12 @@ const addDataToMoviePage = async (wrapperElem) =>{
   let image = null;
   details.images === undefined ? image = details.poster: image = details.images[0];
   repairValues(details);
+  details.plot = await translate(details.plot);
+  details.country = await translate(details.country);
+  details.genres = await translate(details.genres);
+  details.awards = await translate(details.awards);
   let data = `
-  <div class="relative flex flex-col items-center">
+  <div class="relative h-[55rem] md:h-[35rem] flex flex-col items-center">
     <div class="w-full h-full">
       <img class="lazy w-full hidden md:block" data-src= ${image} alt="${details.title}">
       <img class="lazy w-full h-full md:hidden" data-src="${details.poster}" alt="${details.title}">
@@ -442,25 +446,23 @@ const addDataToMoviePage = async (wrapperElem) =>{
             <span>ستارگان:  </span>
             <span dir="ltr" class="w-3/4 truncate">${details.actors}</span>
           </li>
+          <li class="flex-col col-span-2">
+            <span class="text-orange-1">داستان</span>
+            <p>${details.plot}</p>
+          </li>
+          <li class="w-full">
+            <span class=" flex items-center justify-center w-6 h-6 rounded-md text-white bg-green-800">${details.metascore}</span>
+            <span class="flex items-center justify-center w-5 h-5 pb-1 rounded-full border-2 border-yellow-500 bg-dark-gray text-white -rotate-45">m</span>
+            <span>امتیاز منتقدین</span>
+          </li>
+          <li class="w-full">
+            <svg class="w-6 h-6 text-orange-1">
+              <use href="#reward"></use>
+            </svg>
+            <span>جوایز :  </span>
+            <span>${details.awards}</span>
+          </li>
         </ul>
-      </div>
-    </div>
-    <div class="flex flex-col w-11/12 -mt-2 gap-y-2 z-50 px-4 rounded-md dark:shadow-md text-sm dark:text-white bg-white/40 dark:bg-black/80">
-      <div class="flex flex-col">
-        <span class="text-orange-1">داستان</span>
-        <p>${details.plot}</p>
-      </div>
-      <div class="flex items-center gap-x-1">
-        <span class=" flex items-center justify-center w-6 h-6 rounded-md text-white bg-green-800">${details.metascore}</span>
-        <span class="flex items-center justify-center w-5 h-5 pb-1 rounded-full border-2 border-yellow-500 bg-dark-gray text-white -rotate-45">m</span>
-        <span>امتیاز منتقدین</span>
-      </div>
-      <div class="flex gap-x-1">
-        <svg class="w-6 h-6 text-orange-1">
-          <use href="#reward"></use>
-        </svg>
-        <span>جوایز :  </span>
-        <span>${details.awards}</span>
       </div>
     </div>
   </div>`
@@ -482,6 +484,7 @@ const genresMovies = async(index) =>{
 const repairValues = async(data) =>{
   if(!!data.title === false) data.title = '-';
   if(!!data.year === false) data.imdb_year = '-';
+  if(!!data.genres === false) data.imdb_genres = '-';
   if(!!data.imdb_votes === false) data.imdb_votes = '-';
   else data.imdb_votes = formatNumber(data.imdb_votes,1);
   if(!!data.released === false) data.imdb_year = '-';
@@ -492,13 +495,9 @@ const repairValues = async(data) =>{
   if(!data.writer === false) data.writer = '-';
   if(!!data.metascore === false || data.metascore === 'N/A') data.metascore ='-';
   if(!!data.genres === false) data.genres = '-';
-  else data.genres = await translate(data.genres);
   if(!!data.awards === false) data.awards ='-';
-  else data.awards = await translate(data.awards);
   if(!!data.country === false) data.country = '-';
-  else data.country = await translate(data.country);
   if(!!data.plot === false) data.plot = '-';
-  else data.plot = await translate(data.plot);
 };
 const addDataToSearchResultBox = (moviesArray) =>{
   let totalNumberOfAddedMovies = 0;
@@ -564,8 +563,8 @@ function formatNumber(num, precision = 2) {
   }
 };
 const translate = async (data) =>{
-  const myToken = '199909:64dca52456731';
-  const translateReq = await fetch(`https://one-api.ir/translate/?token=${myToken}&action=googles&lang=fa&q=${data}`);
+  const myToken = '606368:6509534bc6691';
+  const translateReq = await fetch(`https://one-api.ir/translate/?token=${myToken}&action=google&lang=fa&q=${data}`);
   const translatedData = await translateReq.json();
   return translatedData.result;
 };
@@ -601,9 +600,9 @@ const slider = async() => {
   const imdbLink = document.querySelector('.imdb-link');  
   moviesArray.forEach(movie => {
     deskSlider.insertAdjacentHTML('beforeend',
-      `<img id="${movie.id}" class="slider-slide deskSlide w-full rounded-md hidden" data-src="${movie.images[1]}">`);
+      `<img id="${movie.id}" class="slider-slide deskSlide w-full rounded-md hidden" src="${movie.images[1]}">`);
     sliderWrapper.insertAdjacentHTML('beforeend',
-      `<img id="${movie.id}" class="slider-slide slide w-96 rounded-lg border-2 border-white" data-src="${movie.poster}">`
+      `<img id="${movie.id}" class="slider-slide slide w-96 rounded-lg border-2 border-white" src="${movie.poster}">`
     )
   });
   const movieDetailWrapper = document.querySelector('.details');
@@ -638,12 +637,7 @@ const slider = async() => {
   setInterval(() => {
         slideIndex++;
         changeImage(slideIndex);
-  }, 8000);
-  // lazy load
-  let images = document.querySelectorAll('.slider-slide');
-  images.forEach(img => {
-    observer.observe(img);
-  });
+  }, 10000);
   // show btns after loading images
   const sliderBtns = document.querySelector('.btns');
   sliderBtns.classList.remove('hidden');
@@ -655,7 +649,7 @@ const slider = async() => {
       changeImage(++slideIndex);
     }
     if(event.target.id == 'prev-slide'){
-            changeImage(--slideIndex);
+      changeImage(--slideIndex);
     }
   });
   // click on every movie

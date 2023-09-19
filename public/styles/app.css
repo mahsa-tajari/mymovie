@@ -2039,6 +2039,10 @@ input:-webkit-autofill,
     height: auto;
   }
 
+  .md\:h-\[35rem\] {
+    height: 35rem;
+  }
+
   .md\:w-44 {
     width: 11rem;
   }
