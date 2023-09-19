@@ -465,17 +465,13 @@ const addDataToMoviePage = async (wrapperElem) =>{
         </ul>
       </div>
     </div>
-  </div>`
-  insertAdjacentHTMLFunction(wrapperElem,data);
-};
-const insertAdjacentHTMLFunction = (wrapper,data)=> {
-  wrapper.insertAdjacentHTML('beforeend',data);
-  // lazyload
+  </div>`;
+  wrapperElem.insertAdjacentHTML('beforeend',data);
   let images = document.querySelectorAll('.lazy');
   images.forEach(img => {
   observer.observe(img);
   });
-}
+};
 const genresMovies = async(index) =>{
   let genreId = getFromLocalStorage('genreId');
   let movies = await searchByGenres(genreId,index);
@@ -882,13 +878,8 @@ const addMoviesToPage = async(data,wrapper) =>{
       </svg>
     </div>
   </div>
-</div>`
-  wrapper.insertAdjacentHTMLFunction(wrapper,elem);
-  // lazy load
-  let images = document.querySelectorAll('.lazy');
-  images.forEach(img => {
-    observer.observe(img);
-  });
+  </div>`
+  wrapper.insertAdjacentHTML('beforeend',elem);
   showPaginationElem();
   // select every movie and going to movie page
   const allMoviesBtns = document.querySelectorAll('.showDetail-btn');
