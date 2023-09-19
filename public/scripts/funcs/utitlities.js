@@ -377,10 +377,10 @@ const addDataToMoviePage = async (wrapperElem) =>{
   let image = null;
   details.images === undefined ? image = details.poster: image = details.images[0];
   repairValues(details);
-  details.plot = await translate(details.plot);
-  details.country = await translate(details.country);
-  details.genres = await translate(details.genres);
-  details.awards = await translate(details.awards);
+  // details.plot = await translate(details.plot);
+  // details.country = await translate(details.country);
+  // details.genres = await translate(details.genres);
+  // details.awards = await translate(details.awards);
   let data = `
   <div class="relative h-[55rem] md:h-[35rem] flex flex-col items-center">
     <div class="w-full h-full">
@@ -467,14 +467,14 @@ const addDataToMoviePage = async (wrapperElem) =>{
     </div>
   </div>`
   insertAdjacentHTMLFunction(wrapperElem,data);
-  // wrapperElem.insertAdjacentHTML('beforeend',data);
+};
+const insertAdjacentHTMLFunction = (wrapper,data)=> {
+  wrapper.insertAdjacentHTML('beforeend',data);
+  // lazyload
   let images = document.querySelectorAll('.lazy');
   images.forEach(img => {
   observer.observe(img);
   });
-};
-const insertAdjacentHTMLFunction = (wrapper,data)=> {
-  wrapper.insertAdjacentHTML('beforeend',data);
 }
 const genresMovies = async(index) =>{
   let genreId = getFromLocalStorage('genreId');
@@ -784,6 +784,112 @@ const loadMoviesToBody = async(data) =>{
   for (let i = 0; i < moviesArray.length; i++) {
     addMoviesToPage(moviesArray[i],allMoviesWrapper);
   }
+};
+const addMoviesToPage = async(data,wrapper) =>{
+  repairValues(data);
+  // data.plot = await translate(data.plot);
+  // data.country = await translate(data.country);
+  // data.genres = await translate(data.genres);
+  let elem = `<div class="bg-white space-y-4 w-full mb-10 rounded-lg relative dark:bg-dark-gray sm:flex sm:px-4 sm:text-sm">
+  <!-- img/trailer -->
+    <div class="flex flex-col items-center rounded-md py-2 gap-y-4 justify-center">
+      <div class="flex flex-col items-center space-y-4">
+        <div class="flex justify-center w-11/12 -mt-4 md:w-44">
+         <img class="lazy w-full rounded-md" data-src="${data.poster}" alt="${data.title}">
+        </div>
+        <div class="flex justify-center py-2 rounded-md bg-gray-300 w-11/12 hover:text-orange-1 transition-colors dark:bg-black/30 dark:text-white dark:hover:text-orange-1">
+         <a href= "https://www.imdb.com/title/${data.imdb_id}" target="__blank">مشاهده تریلر</a>
+        </div>
+      </div>
+    </div>
+  <!--rating/title  -->
+  <div class="flex flex-col items-center gap-y-4 sm:flex-row-reverse sm:items-start">
+    <!-- rate -->
+    <div class="flex flex-col items-center gap-y-1">
+      <span class="text-gray-400"><span id="data-rate" class="text-xl text-orange-1 tracking-tighter">${data.imdb_rating}</span>/10</span>
+      <span class="flex flex-row-reverse font-sans whitespace-nowrap pt-2 border-t dark:border-gray-400 dark:text-white">${data.imdb_votes} Votes</span>
+      <a href="https://www.imdb.com/title/${data.imdb_id}/" target="_blank" class="w-14 flex justify-center rounded-md mt-2 font-semibold text-white bg-orange-1">IMDB</a>
+    </div>
+    <!-- more details -->
+    <div class="px-5 pb-16 space-y-3 child:flex child:gap-x-1 dark:text-white">
+    <!-- title -->
+    <div class="w-full flex justify-center cursor-pointer"><h1 dir="ltr" class= text-lg dark:text-white">${data.title} <span>${data.year}</span></h1></div>
+      <div>
+        <svg class="w-6 h-6 text-orange-1">
+          <use href="#calender"></use>
+        </svg>
+        <span>زمان انتشار: </span>
+        <span>${data.released}</span>
+      </div>
+      <div>
+        <svg class="w-6 h-6 text-orange-1">
+          <use href="#clock"></use>
+        </svg>
+        <span>زمان: </span>
+        <span>${data.runtime}</span>
+      </div>
+      <div>
+        <svg class="w-6 h-6 text-orange-1">
+          <use href="#doc"></use>
+        </svg>
+        <span>ژانر:  </span>
+        <span>${data.genres}</span>
+      </div>
+      <div>
+        <svg class="w-6 h-6 text-orange-1">
+          <use href="#person"></use>
+        </svg>
+        <span>کارگردان:  </span>
+        <span dir="ltr">${data.director}</span>
+      </div>
+      <div>
+        <svg class="w-6 h-6 text-orange-1">
+          <use href="#theatre"></use>
+        </svg>
+        <span>ستارگان:  </span>
+        <span dir="ltr" class="w-80  truncate">${data.actors}</span>
+      </div>
+      <div>
+        <svg class="w-6 h-6 text-orange-1">
+          <use href="#earth"></use>
+        </svg>
+        <span>محصول کشور:  </span>
+        <span>${data.country}</span>
+      </div>
+      <div class="flex items-center">
+        <span class=" flex items-center justify-center w-6 h-6 p-4 rounded-md text-white bg-green-800">${data.metascore}</span>
+        <span class="flex items-center justify-center w-5 h-5 pb-1 rounded-full border-2 border-yellow-500 bg-dark-gray text-white -rotate-45">m</span>
+        <span>امتیاز منتقدین</span>
+      </div>
+      <div class="flex flex-col">
+        <p>${data.plot}</p>
+      </div>
+    </div>
+    <div id="${data.id}" class="showDetail-btn flex flex-col items-center justify-center w-8 h-8 space-y-2 absolute z-20 right-[calc(50%_-_.9rem)] bottom-3">
+      <a href="#" class="text-orange-1">ادامه</a>
+      <a href="#" class="w-7 h-7 rounded-md relative">
+        <div class="w-7 h-7 rounded-md bg-orange-1 rotate-45"></div>
+        <svg class="w-7 h-7 text-white absolute top-0">
+          <use href="#arrow-right"></use>
+        </svg>
+      </a>
+    </div>
+   <!-- wave -->
+   <div class="absolute right-[calc(50%_-_4.5rem)] bottom-0">
+      <svg class="w-36 h-9">
+        <use href="#wave" class="dark:hidden"></use>
+        <use href="#dark_wave" class="hidden dark:block"></use>
+      </svg>
+    </div>
+  </div>
+</div>`
+  wrapper.insertAdjacentHTMLFunction(wrapper,elem);
+  // lazy load
+  let images = document.querySelectorAll('.lazy');
+  images.forEach(img => {
+    observer.observe(img);
+  });
+  showPaginationElem();
   // select every movie and going to movie page
   const allMoviesBtns = document.querySelectorAll('.showDetail-btn');
   allMoviesBtns.forEach(btn => {
@@ -791,111 +897,7 @@ const loadMoviesToBody = async(data) =>{
     const movieId = event.currentTarget.id;
     routing('movieId',movieId,'movie.html');
   })
-  showPaginationElem();
-}); 
-
-// lazy load
-let images = document.querySelectorAll('.lazy');
-images.forEach(img => {
-  observer.observe(img);
-});
-};
-const addMoviesToPage = (data,wrapper) =>{
-  repairValues(data);
-  wrapper.insertAdjacentHTML('beforeend',`
-     <div class="bg-white space-y-4 w-full mb-10 rounded-lg relative dark:bg-dark-gray sm:flex sm:px-4 sm:text-sm">
-     <!-- img/trailer -->
-       <div class="flex flex-col items-center rounded-md py-2 gap-y-4 justify-center">
-         <div class="flex flex-col items-center space-y-4">
-           <div class="flex justify-center w-11/12 -mt-4 md:w-44">
-            <img class="lazy w-full rounded-md" data-src="${data.poster}" alt="${data.title}">
-           </div>
-           <div class="flex justify-center py-2 rounded-md bg-gray-300 w-11/12 hover:text-orange-1 transition-colors dark:bg-black/30 dark:text-white dark:hover:text-orange-1">
-            <a href= "https://www.imdb.com/title/${data.imdb_id}" target="__blank">مشاهده تریلر</a>
-           </div>
-         </div>
-       </div>
-     <!--rating/title  -->
-     <div class="flex flex-col items-center gap-y-4 sm:flex-row-reverse sm:items-start">
-       <!-- rate -->
-       <div class="flex flex-col items-center gap-y-1">
-         <span class="text-gray-400"><span id="data-rate" class="text-xl text-orange-1 tracking-tighter">${data.imdb_rating}</span>/10</span>
-         <span class="flex flex-row-reverse font-sans whitespace-nowrap pt-2 border-t dark:border-gray-400 dark:text-white">${data.imdb_votes} Votes</span>
-         <a href="https://www.imdb.com/title/${data.imdb_id}/" target="_blank" class="w-14 flex justify-center rounded-md mt-2 font-semibold text-white bg-orange-1">IMDB</a>
-       </div>
-       <!-- more details -->
-       <div class="px-5 pb-16 space-y-3 child:flex child:gap-x-1 dark:text-white">
-       <!-- title -->
-       <div class="w-full flex justify-center cursor-pointer"><h1 dir="ltr" class= text-lg dark:text-white">${data.title} <span>${data.year}</span></h1></div>
-         <div>
-           <svg class="w-6 h-6 text-orange-1">
-             <use href="#calender"></use>
-           </svg>
-           <span>زمان انتشار: </span>
-           <span>${data.released}</span>
-         </div>
-         <div>
-           <svg class="w-6 h-6 text-orange-1">
-             <use href="#clock"></use>
-           </svg>
-           <span>زمان: </span>
-           <span>${data.runtime}</span>
-         </div>
-         <div>
-           <svg class="w-6 h-6 text-orange-1">
-             <use href="#doc"></use>
-           </svg>
-           <span>ژانر:  </span>
-           <span>${data.genres}</span>
-         </div>
-         <div>
-           <svg class="w-6 h-6 text-orange-1">
-             <use href="#person"></use>
-           </svg>
-           <span>کارگردان:  </span>
-           <span dir="ltr">${data.director}</span>
-         </div>
-         <div>
-           <svg class="w-6 h-6 text-orange-1">
-             <use href="#theatre"></use>
-           </svg>
-           <span>ستارگان:  </span>
-           <span dir="ltr" class="w-80  truncate">${data.actors}</span>
-         </div>
-         <div>
-           <svg class="w-6 h-6 text-orange-1">
-             <use href="#earth"></use>
-           </svg>
-           <span>محصول کشور:  </span>
-           <span>${data.country}</span>
-         </div>
-         <div class="flex items-center">
-           <span class=" flex items-center justify-center w-6 h-6 p-4 rounded-md text-white bg-green-800">${data.metascore}</span>
-           <span class="flex items-center justify-center w-5 h-5 pb-1 rounded-full border-2 border-yellow-500 bg-dark-gray text-white -rotate-45">m</span>
-           <span>امتیاز منتقدین</span>
-         </div>
-         <div class="flex flex-col">
-           <p>${data.plot}</p>
-         </div>
-       </div>
-       <div id="${data.id}" class="showDetail-btn flex flex-col items-center justify-center w-8 h-8 space-y-2 absolute z-20 right-[calc(50%_-_.9rem)] bottom-3">
-         <a href="#" class="text-orange-1">ادامه</a>
-         <a href="#" class="w-7 h-7 rounded-md relative">
-           <div class="w-7 h-7 rounded-md bg-orange-1 rotate-45"></div>
-           <svg class="w-7 h-7 text-white absolute top-0">
-             <use href="#arrow-right"></use>
-           </svg>
-         </a>
-       </div>
-      <!-- wave -->
-      <div class="absolute right-[calc(50%_-_4.5rem)] bottom-0">
-         <svg class="w-36 h-9">
-           <use href="#wave" class="dark:hidden"></use>
-           <use href="#dark_wave" class="hidden dark:block"></use>
-         </svg>
-       </div>
-     </div>
-  </div>`);
+  }); 
 }
 const aside = async() => {
   const genresWrapperElem = document.querySelector('.genres');
