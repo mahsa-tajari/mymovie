@@ -1331,6 +1331,10 @@ input:-webkit-autofill,
   padding-top: 1rem;
 }
 
+.pr-4 {
+  padding-right: 1rem;
+}
+
 .text-center {
   text-align: center;
 }
@@ -1623,6 +1627,11 @@ input:-webkit-autofill,
 .hover\:bg-orange-500:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(249 115 22 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-orange-1:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(235 131 7 / var(--tw-bg-opacity));
 }
 
 .hover\:text-orange-1:hover {
@@ -2114,6 +2123,10 @@ input:-webkit-autofill,
 
   .md\:pt-8 {
     padding-top: 2rem;
+  }
+
+  .md\:pr-20 {
+    padding-right: 5rem;
   }
 
   .md\:text-sm {

@@ -249,7 +249,7 @@ const header = () => {
 const path = (string) =>{
   const mainElm = document.getElementById('main');
   const data = `
-  <div class="w-full pr-20 flex items-center gap-x-2">
+  <div class="w-full pr-4 md:pr-20 flex items-center gap-x-2">
     <svg class="text-orange-1 w-5 h-5"><use href="#location"></use></svg>
     <a href = "index.html" class="home">مای مویی</a>
     <span>&gt</span>
@@ -372,17 +372,18 @@ const showPaginationElem = () => {
 const addDataToMoviePage = async (wrapperElem) =>{
   let movieId = getFromLocalStorage('movieId');
   let details = await searchMovieByID(movieId);
+  console.log(details);
   document.querySelector('title').innerHTML = `مای مووی | ${details.title}`
   createPath(details.title);
   let image = null;
-  details.images === undefined ? image = details.poster: image = details.images[0];
+  details.images === undefined ? image = '': image = details.images[0];
   repairValues(details);
   // details.plot = await translate(details.plot);
   // details.country = await translate(details.country);
   // details.genres = await translate(details.genres);
   // details.awards = await translate(details.awards);
   let data = `
-  <div class="relative h-[55rem] md:h-[35rem] flex flex-col items-center">
+  <div class="relative h-[55rem] flex flex-col items-center">
     <div class="w-full h-full">
       <img class="lazy w-full hidden md:block" data-src= ${image} alt="${details.title}">
       <img class="lazy w-full h-full md:hidden" data-src="${details.poster}" alt="${details.title}">
@@ -488,7 +489,7 @@ const repairValues = async(data) =>{
   else data.runtime = data.runtime.replace('min','دقیقه');
   if(!!data.director === false) data.director = '-';
   if(!!data.actors === false) data.actors = '-';
-  if(!data.writer === false) data.writer = '-';
+  if(!!data.writer === false) data.writer = '-';
   if(!!data.metascore === false || data.metascore === 'N/A') data.metascore ='-';
   if(!!data.genres === false) data.genres = '-';
   if(!!data.awards === false) data.awards ='-';
