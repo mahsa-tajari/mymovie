@@ -673,6 +673,10 @@ input:-webkit-autofill,
   top: 1.25rem;
 }
 
+.-right-full {
+  right: -100%;
+}
+
 .-z-10 {
   z-index: -10;
 }

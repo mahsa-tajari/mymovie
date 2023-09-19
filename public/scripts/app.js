@@ -1,4 +1,5 @@
 const $ = document;
+const bodyElem = $.querySelector('body');
 // darkmode
 const theme = () =>{
     const toggleThemeBtn = $.querySelector('#theme')
@@ -24,15 +25,16 @@ const navigation = () => {
     function openNav(){
         overlayElem.classList.remove('hidden');
         overlayElem.classList.add('block');
-        navElem.classList.remove('-right-[67%]');
+        navElem.classList.remove('-right-full');
         navElem.classList.add('nav--acvtive');
+        bodyElem.classList.add('overflow-hidden');
     };
     function closeNav(){
         overlayElem.classList.add('hidden');
         overlayElem.classList.remove('block');
-        navElem.classList.add('-right-[67%]');
+        navElem.classList.add('-right-full');
         navElem.classList.remove('nav--acvtive');
-        
+        bodyElem.classList.remove('overflow-hidden');
     };
     navOpenBtn.addEventListener('click',openNav);
     navCloseBtn.addEventListener('click',closeNav);
