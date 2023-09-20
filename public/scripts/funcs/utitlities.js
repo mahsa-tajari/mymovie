@@ -912,13 +912,13 @@ const aside = async() => {
   let page = 1;
   allGenres.forEach(async genre => {
     let countOfMovie = await countMoviesOfGenres(genre,page);
-    genre.name = await translate(genre.name);
+    let genreName = await translate(genre.name);
     genresWrapperElem.insertAdjacentHTML('beforeend',`
       <div class="flex justify-between dark:text-gray-300">
         <div id="${genre.id}" class="genre-item flex gap-x-1 cursor-pointer">
           <span>></span>
           <span class="hover:text-orange-1
-          dark:hover:text-orange-1">${genre.name}</span>
+          dark:hover:text-orange-1">${genreName}</span>
         </div>
         <span>(${countOfMovie})</span>
       </div>`);
