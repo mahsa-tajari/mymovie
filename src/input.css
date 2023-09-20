@@ -13,6 +13,16 @@
         src: url('../font/iranYekan/BYekan/BYekan+.ttf');
         font-display: swap;
     }
+    @font-face {
+        font-family: 'roboto';
+        src: url('../font/Roboto/Roboto-Thin.ttf');
+        font-display: swap;
+    }
+    @font-face {
+        font-family: 'roboto-bold';
+        src: url('../font/Roboto/Roboto-Bold.ttf');
+        font-display: swap;
+    }
     body{
         font-family: 'iran-yekan';
     }

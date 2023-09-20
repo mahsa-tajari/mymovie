@@ -5,7 +5,9 @@ module.exports = {
     extend: {
       fontFamily:{
         'hayat': 'hayat',
-        'iran-yekan':'iran-yekan'
+        'iran-yekan':'iran-yekan',
+        'roboto-thin':'roboto',
+        'roboto-bold':'roboto-bold',
       },
       colors:{
         'dark-gray': '#252525',

@@ -191,7 +191,7 @@ const header = () => {
           </div>
           <div class="flex flex-col leading-5">
             <span class="text-gray-600 dark:text-white">خانه</span>
-            <span class="text-orange-1 font-sans font-thin">HOME</span>
+            <span class="text-orange-1 font-roboto-thin font-light">HOME</span>
           </div>
         </li>
         <li id="2" class="group nav--item">
@@ -632,7 +632,7 @@ const slider = async() => {
     deskSlideElem[slideIndex].classList.add('block');
     // set details value
     rateElem.innerHTML = moviesArray[slideIndex].imdb_rating;
-    movieTitleElem.innerHTML = moviesArray[slideIndex].title;
+    movieTitleElem.innerHTML = `${moviesArray[slideIndex].title}  ${moviesArray[slideIndex].year}`;
     imdbLink.href = `https://www.imdb.com/title/${moviesArray[slideIndex].imdb_id}`;
   }
   let slideIndex = 0;
