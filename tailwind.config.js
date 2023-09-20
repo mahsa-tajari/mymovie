@@ -8,6 +8,7 @@ module.exports = {
         'iran-yekan':'iran-yekan',
         'roboto-thin':'roboto',
         'roboto-bold':'roboto-bold',
+        'roboto-regular':'roboto-regular',
       },
       colors:{
         'dark-gray': '#252525',

@@ -979,7 +979,7 @@ function addDataToAside(wrapper,data) {
             <span class="next">></span>
           </div>
         </div>
-        <div id="${data.data[i].id}" class="aside-item flex w-full justify-center"><a href="#" class="dark:text-gray-300 hover:text-orange-1 dark:hover:text-orange-1">${data.data[i].title} ${data.data[i].year}</a></div>
+        <div id="${data.data[i].id}" class="aside-item flex w-full justify-center"><a href="#" class="dark:text-gray-300 font-roboto-regular hover:text-orange-1 dark:hover:text-orange-1">${data.data[i].title} ${data.data[i].year}</a></div>
       </div>
     `);
   };

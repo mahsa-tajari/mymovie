@@ -23,6 +23,11 @@
         src: url('../font/Roboto/Roboto-Bold.ttf');
         font-display: swap;
     }
+    @font-face {
+        font-family: 'roboto-regular';
+        src: url('../font/Roboto/Roboto-Regular.ttf');
+        font-display: swap;
+    }
     body{
         font-family: 'iran-yekan';
     }
