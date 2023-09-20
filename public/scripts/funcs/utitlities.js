@@ -191,18 +191,18 @@ const header = () => {
           </div>
           <div class="flex flex-col leading-5">
             <span class="text-gray-600 dark:text-white">خانه</span>
-            <span class="text-orange-1 font-roboto-thin font-light">HOME</span>
+            <span class="text-orange-1 font-roboto-light font-light">HOME</span>
           </div>
         </li>
         <li id="2" class="group nav--item">
           <div class="w-8 h-8 flex items-center justify-center">
-            <svg class="w-7 h-7 text-orange-1  transition-all group-hover:w-8 group-hover:h-8">
+            <svg class="w-7 h-7 text-orange-1 transition-all group-hover:w-8 group-hover:h-8">
               <use href="#movie"></use>
             </svg>
           </div>
           <div class="flex flex-col leading-5">
             <span class="text-gray-600 dark:text-white">دانلود فیلم</span>
-            <span class="text-orange-1 font-sans font-thin">MOVIES</span>
+            <span class="text-orange-1 font-roboto-light text-sm">MOVIES</span>
           </div>
         </li>
         <li id="3" class="group nav--item">
@@ -213,7 +213,7 @@ const header = () => {
           </div>
           <div class="flex flex-col leading-5">
             <span class="text-gray-600 dark:text-white">هنرمندان</span>
-            <span class="text-orange-1 font-sans font-thin">ARTISTS</span>
+            <span class="text-orange-1 font-roboto-light text-sm">ARTISTS</span>
           </div>
         </li>
         <li id="4" class="group nav--item">
@@ -224,7 +224,7 @@ const header = () => {
           </div>
           <div class="flex flex-col leading-5">
             <span class="text-gray-600 dark:text-white">تماس با ما</span>
-            <span class="text-orange-1 font-sans font-thin">CONTACT</span>
+            <span class="text-orange-1 font-roboto-light text-sm">CONTACT</span>
           </div>
         </li>
       </ul>
@@ -244,7 +244,7 @@ const header = () => {
   inputElem.addEventListener('keyup',async (event)=>{
     let inputValue = event.target.value.trim();
     renderSearchResult(inputValue);
-    if(event.keyCode === 13) routing('searchedName',inputValue,'allResult.html')
+    if(event.keyCode === 13) routing('searchedName',inputValue,'allResult.html');
   });
   const searchIcon = document.querySelector('.search-icon');
   searchIcon.addEventListener('click',() => {
@@ -350,16 +350,12 @@ const renderSearchResult = async (inputSearchValue) => {
     resultWrapperElem.classList.add('hidden');
     resultWrapperElem.classList.remove('flex');
   };
-  const movies = document.querySelectorAll('.movie');
-  movies.forEach(movie => {
-    movie.addEventListener('click',() => {
-      routing('movieId',movie.id,'movie.html');
-    });
-  });
   const seeAllResultBtn = document.querySelector('.showAllResult');
-  seeAllResultBtn.addEventListener('click',()=>{
-    routing('searchedName',inputSearchValue,'allResult.html');
-  })
+  if(seeAllResultBtn) {
+    seeAllResultBtn.addEventListener('click',()=>{
+      routing('searchedName',inputSearchValue,'allResult.html');
+    })
+  }
 };
 const allResults = async(index) =>{
   const movieName = getFromLocalStorage('searchedName');
@@ -375,7 +371,6 @@ const showPaginationElem = () => {
 const addDataToMoviePage = async (wrapperElem) =>{
   let movieId = getFromLocalStorage('movieId');
   let details = await searchMovieByID(movieId);
-  console.log(details);
   document.querySelector('title').innerHTML = `مای مووی | ${details.title}`
   createPath(details.title);
   let image = null;
@@ -455,7 +450,7 @@ const addDataToMoviePage = async (wrapperElem) =>{
             <p>${details.plot}</p>
           </li>
           <li class="w-full">
-            <span class=" flex items-center justify-center w-6 h-6 rounded-md text-white bg-green-800">${details.metascore}</span>
+            <span class=" flex items-center justify-center w-6 h-6 rounded-md text-lg text-white bg-green-800">${details.metascore}</span>
             <span class="flex items-center justify-center w-5 h-5 pb-1 rounded-full border-2 border-yellow-500 bg-dark-gray text-white -rotate-45">m</span>
             <span>امتیاز منتقدین</span>
           </li>
@@ -492,11 +487,14 @@ const repairValues = async(data) =>{
   else data.imdb_votes = formatNumber(data.imdb_votes,1);
   if(!!data.released === false) data.imdb_year = '-';
   if(!!data.runtime === false) data.runtime = '-';
-  else data.runtime = data.runtime.replace('min','دقیقه');
+  else {
+    data.runtime = data.runtime.replace('min','دقیقه');
+  }
   if(!!data.director === false) data.director = '-';
   if(!!data.actors === false) data.actors = '-';
   if(!!data.writer === false) data.writer = '-';
   if(!!data.metascore === false || data.metascore === 'N/A') data.metascore ='-';
+  else data.metascore = new Intl.NumberFormat('fa').format(data.metascore);
   if(!!data.genres === false) data.genres = '-';
   if(!!data.awards === false) data.awards ='-';
   if(!!data.country === false) data.country = '-';
@@ -512,11 +510,11 @@ const addDataToSearchResultBox = (moviesArray) =>{
       if(totalNumberOfAddedMovies > 4) return
       else{
         resultWrapperElem.insertAdjacentHTML('afterbegin',
-        `<div id="${movie[1].id}" class="movie py-3 cursor-pointer">
+        `<div id="${movie[1].id}" class="movie py-3 cursor-pointer font-roboto-regular">
           <div class="flex justify-end gap-x-3">
             <div class="flex flex-col justify-center items-end overflow-hidden">
               <span class="whitespace-nowrap">${movie[1].title} ${movie[1].year}</span>
-              <span class="text-xs italic">${movie[1].genres}</span>
+              <span class="text-xs font-iran-yekan">${movie[1].genres}</span>
             </div>
             <div class="w-12 h-14 rounded-md overflow-hidden">
               <img class="h-full w-full" src="${movie[1].poster}" alt="${movie[1].title}">
@@ -528,10 +526,18 @@ const addDataToSearchResultBox = (moviesArray) =>{
               <span>${movie[1].imdb_rating}</span>
             </div>
           </div>
-        </div>`)
+        </div>`);
+        const movies = document.querySelectorAll('.movie');
+        movies.forEach(movie => {
+          movie.addEventListener('click',() => {
+            routing('movieId',movie.id,'movie.html');
+          });
+        });
+
       }
     }
-  })
+  });
+    
 };
 const Toast = Swal.mixin({
     position:'top-end',
@@ -691,7 +697,7 @@ const pagination = (index) =>{
     if(window.location.pathname.includes('index.html')) allMovies(index);
     if(window.location.pathname.includes('allResult.html')) allResults(index);
     if(window.location.pathname.includes('genrePage.html')) genresMovies(index);
-  }
+  };
   if(index > 3 && index < pageCount) {
     if(index === pageCount-1){
       baseArray = [1,'...',index-2,index-1,index,pageCount];
@@ -706,7 +712,7 @@ const pagination = (index) =>{
     if(window.location.pathname.includes('index.html')) allMovies(index);
     if((window.location.pathname.includes('allResult.html'))) allResults(index);
     if((window.location.pathname.includes('genrePage.html'))) genresMovies(index);
-  }
+  };
   if(index >= pageCount && index > 4){
     baseArray = [1,'...',index-3,pageCount-2,pageCount-1,pageCount];
     loopOfAddDataToPagination(baseArray);
@@ -714,7 +720,7 @@ const pagination = (index) =>{
     if(window.location.pathname.includes('index.html')) allMovies(index);
     if(window.location.pathname.includes('allResult.html')) allResults(index);
     if(window.location.pathname.includes('genrePage.html')) genresMovies(index);
-  }
+  };
   pageIndex = index;
 };
 function loopOfAddDataToPagination (array) {
@@ -799,7 +805,7 @@ const addMoviesToPage = async(data,wrapper) =>{
     <div class="flex flex-col items-center rounded-md py-2 gap-y-4 justify-center">
       <div class="flex flex-col items-center space-y-4">
         <div class="flex justify-center w-11/12 -mt-4 md:w-44">
-         <img class="lazy w-full rounded-md" data-src="${data.poster}" alt="${data.title}">
+         <img class="lazy w-full rounded-md font-roboto-regular" data-src="${data.poster}" alt="${data.title}">
         </div>
         <div class="flex justify-center py-2 rounded-md bg-gray-300 w-11/12 hover:text-orange-1 transition-colors dark:bg-black/30 dark:text-white dark:hover:text-orange-1">
          <a href= "https://www.imdb.com/title/${data.imdb_id}" target="__blank">مشاهده تریلر</a>
@@ -823,7 +829,7 @@ const addMoviesToPage = async(data,wrapper) =>{
           <use href="#calender"></use>
         </svg>
         <span>زمان انتشار: </span>
-        <span>${data.released}</span>
+        <span class="font-roboto-regular">${data.released}</span>
       </div>
       <div>
         <svg class="w-6 h-6 text-orange-1">
@@ -844,14 +850,14 @@ const addMoviesToPage = async(data,wrapper) =>{
           <use href="#person"></use>
         </svg>
         <span>کارگردان:  </span>
-        <span dir="ltr">${data.director}</span>
+        <span dir="ltr" class="font-roboto-regular">${data.director}</span>
       </div>
       <div>
         <svg class="w-6 h-6 text-orange-1">
           <use href="#theatre"></use>
         </svg>
         <span>ستارگان:  </span>
-        <span dir="ltr" class="w-80  truncate">${data.actors}</span>
+        <span dir="ltr" class="w-80 font-roboto-regular truncate">${data.actors}</span>
       </div>
       <div>
         <svg class="w-6 h-6 text-orange-1">
@@ -861,7 +867,7 @@ const addMoviesToPage = async(data,wrapper) =>{
         <span>${data.country}</span>
       </div>
       <div class="flex items-center">
-        <span class=" flex items-center justify-center w-6 h-6 p-4 rounded-md text-white bg-green-800">${data.metascore}</span>
+        <span class=" flex items-center justify-center w-6 h-6 p-4 rounded-md text-white text-lg bg-green-800">${data.metascore}</span>
         <span class="flex items-center justify-center w-5 h-5 pb-1 rounded-full border-2 border-yellow-500 bg-dark-gray text-white -rotate-45">m</span>
         <span>امتیاز منتقدین</span>
       </div>
@@ -1030,7 +1036,7 @@ function createPath(value) {
 };
 async function countMoviesOfGenres(genre,pageCounter){
   let moviesOfGenre = await searchByGenres(genre.id,pageCounter);
-  let countOfGenre = moviesOfGenre.metadata.total_count;
+  let countOfGenre = new Intl.NumberFormat('fa').format(moviesOfGenre.metadata.total_count);
   return countOfGenre;
 };
 export{icons,header,nav,footer,addDataToMoviePage,showSwall,saveIntoLocalStorage,getFromLocalStorage,renderSearchResult,slider,paginationCalc,pagination,nextPage,previousPage,aside,genresMovies,path,createPath};

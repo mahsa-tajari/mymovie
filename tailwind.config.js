@@ -9,6 +9,7 @@ module.exports = {
         'roboto-thin':'roboto',
         'roboto-bold':'roboto-bold',
         'roboto-regular':'roboto-regular',
+        'roboto-light':'roboto-light',
       },
       colors:{
         'dark-gray': '#252525',

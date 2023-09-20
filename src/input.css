@@ -28,6 +28,11 @@
         src: url('../font/Roboto/Roboto-Regular.ttf');
         font-display: swap;
     }
+    @font-face {
+        font-family: 'roboto-light';
+        src: url('../font/Roboto/Roboto-Light.ttf');
+        font-display: swap;
+    }
     body{
         font-family: 'iran-yekan';
     }

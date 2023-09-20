@@ -474,6 +474,14 @@ video {
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'roboto-light';
+
+  src: url('../font/Roboto/Roboto-Light.ttf');
+
+  font-display: swap;
+}
+
 body{
   font-family: 'iran-yekan';
 }
@@ -970,6 +978,11 @@ input:-webkit-autofill,
   flex-grow: 1;
 }
 
+.translate-x-0 {
+  --tw-translate-x: 0px;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
 .-rotate-45 {
   --tw-rotate: -45deg;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
@@ -1405,16 +1418,20 @@ input:-webkit-autofill,
   font-family: roboto-bold;
 }
 
-.font-roboto-thin {
-  font-family: roboto;
+.font-roboto-light {
+  font-family: roboto-light;
+}
+
+.font-roboto-regular {
+  font-family: roboto-regular;
 }
 
 .font-sans {
   font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
-.font-roboto-regular {
-  font-family: roboto-regular;
+.font-iran-yekan {
+  font-family: iran-yekan;
 }
 
 .text-2xl {
@@ -1692,6 +1709,14 @@ input:-webkit-autofill,
 .slider--active{
   display: flex;
 };
+
+.placeholder\:font-iran-yekan::-moz-placeholder {
+  font-family: iran-yekan;
+}
+
+.placeholder\:font-iran-yekan::placeholder {
+  font-family: iran-yekan;
+}
 
 .hover\:bg-gray-300:hover {
   --tw-bg-opacity: 1;
