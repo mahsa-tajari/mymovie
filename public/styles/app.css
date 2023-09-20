@@ -705,6 +705,10 @@ input:-webkit-autofill,
   top: 8.5rem;
 }
 
+.top-full {
+  top: 100%;
+}
+
 .-z-10 {
   z-index: -10;
 }

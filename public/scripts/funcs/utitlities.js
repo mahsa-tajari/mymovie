@@ -472,6 +472,9 @@ const addDataToMoviePage = async (wrapperElem) =>{
   images.forEach(img => {
   observer.observe(img);
   });
+  let dotLoader = document.querySelector('.dot-loader');
+  dotLoader.classList.remove('flex');
+  dotLoader.classList.add('hidden');
 };
 const genresMovies = async(index) =>{
   let genreId = getFromLocalStorage('genreId');
