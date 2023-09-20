@@ -505,7 +505,8 @@ const repairValues = async(data) =>{
 const addDataToSearchResultBox = (moviesArray) =>{
   let totalNumberOfAddedMovies = 0;
   resultWrapperElem.innerHTML = "";
-  moviesArray.forEach(movie => {
+  moviesArray.forEach(async(movie) => {
+    movie[1].genres = await translate(movie[1].genres);
     totalNumberOfAddedMovies++;
     if(totalNumberOfAddedMovies > 0){
       if(totalNumberOfAddedMovies > 4) return
