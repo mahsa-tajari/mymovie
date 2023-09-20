@@ -533,11 +533,9 @@ const addDataToSearchResultBox = (moviesArray) =>{
             routing('movieId',movie.id,'movie.html');
           });
         });
-
       }
     }
   });
-    
 };
 const Toast = Swal.mixin({
     position:'top-end',

@@ -6,7 +6,6 @@ module.exports = {
       fontFamily:{
         'hayat': 'hayat',
         'iran-yekan':'iran-yekan',
-        'roboto-thin':'roboto',
         'roboto-bold':'roboto-bold',
         'roboto-regular':'roboto-regular',
         'roboto-light':'roboto-light',

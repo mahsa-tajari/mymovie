@@ -451,14 +451,6 @@ video {
 }
 
 @font-face {
-  font-family: 'roboto';
-
-  src: url('../font/Roboto/Roboto-Thin.ttf');
-
-  font-display: swap;
-}
-
-@font-face {
   font-family: 'roboto-bold';
 
   src: url('../font/Roboto/Roboto-Bold.ttf');
@@ -978,11 +970,6 @@ input:-webkit-autofill,
   flex-grow: 1;
 }
 
-.translate-x-0 {
-  --tw-translate-x: 0px;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-}
-
 .-rotate-45 {
   --tw-rotate: -45deg;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
@@ -1414,6 +1401,10 @@ input:-webkit-autofill,
   font-family: hayat;
 }
 
+.font-iran-yekan {
+  font-family: iran-yekan;
+}
+
 .font-roboto-bold {
   font-family: roboto-bold;
 }
@@ -1428,10 +1419,6 @@ input:-webkit-autofill,
 
 .font-sans {
   font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-}
-
-.font-iran-yekan {
-  font-family: iran-yekan;
 }
 
 .text-2xl {
@@ -1487,10 +1474,6 @@ input:-webkit-autofill,
 
 .font-semibold {
   font-weight: 600;
-}
-
-.font-thin {
-  font-weight: 100;
 }
 
 .italic {
@@ -1709,14 +1692,6 @@ input:-webkit-autofill,
 .slider--active{
   display: flex;
 };
-
-.placeholder\:font-iran-yekan::-moz-placeholder {
-  font-family: iran-yekan;
-}
-
-.placeholder\:font-iran-yekan::placeholder {
-  font-family: iran-yekan;
-}
 
 .hover\:bg-gray-300:hover {
   --tw-bg-opacity: 1;
