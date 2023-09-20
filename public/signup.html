@@ -57,8 +57,21 @@
             <button class="w-full py-3 text-lg text-white bg-black/20 group-invalid:pointer-events-none"><a href="login.html">ورود به پنل کاربری</a></button>
         </div>
     </div>
+     <!-- pre loader -->
+     <div class="pre-loader w-full h-screen flex items-center justify-center bg-black/50 inset-0 z-50 fixed">
+        <div class="relative animate-bounce">
+          <div class="flex items-center justify-center w-56 h-56 rounded-full bg-orange-1">
+            <div class="bg-white rounded-full w-8 h-8 animate-pulse"></div>
+          </div>
+          <div class="absolute bottom-0 w-36 -right-8 h-3 bg-orange-1"></div>
+          <div class="bg-white rounded-full w-16 h-16 absolute right-20 top-3 animate-pulse"></div>
+          <div class="bg-white rounded-full w-16 h-16 absolute top-16 right-4 animate-pulse"></div>
+          <div class="bg-white rounded-full w-16 h-16 absolute top-[8.5rem] right-10 animate-pulse"></div>
+          <div class="bg-white rounded-full w-16 h-16 absolute top-16 left-4 animate-pulse"></div>
+          <div class="bg-white rounded-full w-16 h-16 absolute top-[8.5rem] left-10 animate-pulse"></div>
+        </div>
+      </div>
 <script src="./scripts/vendor/sweet-alert2/sweet-alert.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="./scripts/register.js" type="module"></script>
 </body>
 </html>

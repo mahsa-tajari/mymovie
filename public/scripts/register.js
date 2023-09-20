@@ -7,6 +7,11 @@ const usernameElem = document.getElementById('username');
 const emailElem = document.getElementById('email');
 const passwordElem = document.getElementById('password');
 
+const preloaderWrapper = document.querySelector('.pre-loader');
+window.addEventListener('load',() => {
+    preloaderWrapper.classList.remove('flex');
+    preloaderWrapper.classList.add('hidden');
+})
 //form validation 
 function formValidation(){
     let validateResult = null

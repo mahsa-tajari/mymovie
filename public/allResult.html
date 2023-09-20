@@ -109,6 +109,20 @@
       </section>
     </main>
     <footer id="footer" class="relative bottom-0 flex flex-col w-full"></footer>
+     <!-- pre loader -->
+    <div class="pre-loader w-full h-screen flex items-center justify-center bg-black/50 inset-0 z-50 fixed">
+      <div class="relative animate-bounce">
+        <div class="flex items-center justify-center w-56 h-56 rounded-full bg-orange-1">
+          <div class="bg-white rounded-full w-8 h-8 animate-pulse"></div>
+        </div>
+        <div class="absolute bottom-0 w-36 -right-8 h-3 bg-orange-1"></div>
+        <div class="bg-white rounded-full w-16 h-16 absolute right-20 top-3 animate-pulse"></div>
+        <div class="bg-white rounded-full w-16 h-16 absolute top-16 right-4 animate-pulse"></div>
+        <div class="bg-white rounded-full w-16 h-16 absolute top-[8.5rem] right-10 animate-pulse"></div>
+        <div class="bg-white rounded-full w-16 h-16 absolute top-16 left-4 animate-pulse"></div>
+        <div class="bg-white rounded-full w-16 h-16 absolute top-[8.5rem] left-10 animate-pulse"></div>
+      </div>
+    </div>
     <!-- overlay -->
     <div class="hidden sm:hidden overlay fixed inset-0 w-full h-full bg-black/50 dark:bg-white/20 z-40"></div>
     <script src="./scripts/vendor/sweet-alert2/sweet-alert.js"></script>
