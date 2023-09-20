@@ -230,7 +230,7 @@ const header = () => {
       </ul>
       <div class="relative w-full tablet:w-80">
         <input id="search" type="text" placeholder="جستجو کنید ..." class="w-full outline-none py-2.5 pr-3 rounded-3xl text-sm text-gray-500 bg-gray-300 dark:bg-black placeholder-gray-500 dark:placeholder-slate-200">
-        <svg class="absolute w-5 h-5 text-orange-1 top-2.5 left-2.5">
+        <svg class="search-icon absolute w-5 h-5 text-orange-1 top-2.5 left-2.5 cursor-pointer">
           <use href="#search-icon"></use>
         </svg>
         <div id="result-wrapper" class="hidden max-w-xs z-50 flex-col justify-center border-t border-gray-400 divide-y divide-gray-400 px-4 py-2 absolute top-12 left-0 rounded-lg bg-white dark:text-white dark:bg-dark-gray">
@@ -241,10 +241,25 @@ const header = () => {
   headerElem.insertAdjacentHTML('beforeend',headerData);
   theme();
   const inputElem = document.getElementById('search');
-    inputElem.addEventListener('keyup',async (event)=>{
+  let showAllResultElem = document.querySelector('.showAllResult');
+  inputElem.addEventListener('keyup',async (event)=>{
     let inputValue = event.target.value.trim();
     renderSearchResult(inputValue);
   });
+  const searchIcon = document.querySelector('.search-icon');
+  searchIcon.addEventListener('click',() => {
+    let inputValue = inputElem.value;
+    if(showAllResultElem){
+      routing('searchedName',inputValue,'allResult.html');
+    }
+  });
+  inputElem.addEventListener('keydown',(event) => {
+    if(event.keyCode === 13){
+      let inputValue = inputElem.value;
+      console.log(inputValue);
+      routing('searchedName',inputValue,'allResult.html');
+    }
+  })
 };
 const path = (string) =>{
   const mainElm = document.getElementById('main');
