@@ -241,25 +241,16 @@ const header = () => {
   headerElem.insertAdjacentHTML('beforeend',headerData);
   theme();
   const inputElem = document.getElementById('search');
-  let showAllResultElem = document.querySelector('.showAllResult');
   inputElem.addEventListener('keyup',async (event)=>{
     let inputValue = event.target.value.trim();
     renderSearchResult(inputValue);
+    if(event.keyCode === 13) routing('searchedName',inputValue,'allResult.html')
   });
   const searchIcon = document.querySelector('.search-icon');
   searchIcon.addEventListener('click',() => {
     let inputValue = inputElem.value;
-    if(showAllResultElem){
       routing('searchedName',inputValue,'allResult.html');
-    }
   });
-  inputElem.addEventListener('keydown',(event) => {
-    if(event.keyCode === 13){
-      let inputValue = inputElem.value;
-      console.log(inputValue);
-      routing('searchedName',inputValue,'allResult.html');
-    }
-  })
 };
 const path = (string) =>{
   const mainElm = document.getElementById('main');
@@ -366,12 +357,9 @@ const renderSearchResult = async (inputSearchValue) => {
     });
   });
   const seeAllResultBtn = document.querySelector('.showAllResult');
-  if(seeAllResultBtn){
-    seeAllResultBtn.addEventListener('click',()=>{
-      routing('searchedName',inputSearchValue,'allResult.html');
-    })
-  }
-
+  seeAllResultBtn.addEventListener('click',()=>{
+    routing('searchedName',inputSearchValue,'allResult.html');
+  })
 };
 const allResults = async(index) =>{
   const movieName = getFromLocalStorage('searchedName');
