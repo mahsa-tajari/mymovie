@@ -511,11 +511,11 @@ const addDataToSearchResultBox = (moviesArray) =>{
     if(totalNumberOfAddedMovies > 0){
       if(totalNumberOfAddedMovies > 4) return
       else{
-        resultWrapperElem.insertAdjacentHTML('beforeend',
+        resultWrapperElem.insertAdjacentHTML('afterbegin',
         `<div id="${movie[1].id}" class="movie py-3 cursor-pointer">
           <div class="flex justify-end gap-x-3">
             <div class="flex flex-col justify-center items-end overflow-hidden">
-              <span class="whitespace-nowrap">${movie[1].title}</span>
+              <span class="whitespace-nowrap">${movie[1].title} ${movie[1].year}</span>
               <span class="text-xs italic">${movie[1].genres}</span>
             </div>
             <div class="w-12 h-14 rounded-md overflow-hidden">
