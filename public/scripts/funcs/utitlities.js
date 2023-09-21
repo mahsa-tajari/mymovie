@@ -1037,4 +1037,17 @@ async function countMoviesOfGenres(genre,pageCounter){
   let countOfGenre = new Intl.NumberFormat('fa').format(moviesOfGenre.metadata.total_count);
   return countOfGenre;
 };
-export{icons,header,nav,footer,addDataToMoviePage,showSwall,saveIntoLocalStorage,getFromLocalStorage,renderSearchResult,slider,paginationCalc,pagination,nextPage,previousPage,aside,genresMovies,path,createPath};
+const showProfile = (userinformation) =>{
+  // insert user info on profile elems
+  const userNameElem = document.getElementById('user-name');
+  userNameElem.innerHTML = userinformation.name;
+  // show profile
+  const profileWrapper = document.getElementById('profile');
+  profileWrapper.classList.remove('hidden');
+  profileWrapper.classList.add('flex');
+  //hide signup/login btn
+  const btnsWrapper = document.getElementById('buttons');
+  btnsWrapper.classList.remove('flex');
+  btnsWrapper.classList.add('hidden');
+}
+export{icons,header,nav,footer,addDataToMoviePage,showSwall,showProfile,saveIntoLocalStorage,getFromLocalStorage,renderSearchResult,slider,paginationCalc,pagination,nextPage,previousPage,aside,genresMovies,path,createPath};
