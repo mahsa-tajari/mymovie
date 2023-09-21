@@ -13,4 +13,4 @@ window.addEventListener('load',()=>{
     path(pathText);
     footer();
     getMe();
-})
+});

@@ -169,7 +169,7 @@ const header = () => {
           <img src="./images/user profile/avatar.jpg" alt="user profil" class="w-full h-full">
         </div>
         <div class="flex flex-col">
-          <span id="user-name" class="text-gray-700 w-40 truncate"></span>
+          <span id="user-name" class="text-gray-700 dark:text-white w-40 truncate"></span>
           <span class="text-gray-500 font-hayat text-lg">خوش آمدید!</span>
         </div>
     </div>
@@ -373,7 +373,7 @@ const addDataToMoviePage = async (wrapperElem) =>{
   let details = await searchMovieByID(movieId);
   document.querySelector('title').innerHTML = `مای مووی | ${details.title}`
   createPath(details.title);
-  let image = null;
+  let image = '';
   details.images === undefined ? image = '': image = details.images[0];
   repairValues(details);
   details.plot = await translate(details.plot);
@@ -381,9 +381,9 @@ const addDataToMoviePage = async (wrapperElem) =>{
   details.genres = await translate(details.genres);
   details.awards = await translate(details.awards);
   let data = `
-  <div class="relative h-[55rem] flex flex-col items-center">
-    <div class="w-full h-full">
-      <img class="lazy w-full hidden md:block" data-src= ${image} alt="${details.title}">
+  <div class="relative flex flex-col items-center">
+    <div class="w-full">
+      <img class="lazy w-full hidden md:block" data-src= "${image}" alt="${details.title}">
       <img class="lazy w-full h-full md:hidden" data-src="${details.poster}" alt="${details.title}">
       <div class="absolute top-0 w-full h-full bg-white/60 dark:bg-black/60 z-20"></div>
     </div>
@@ -469,6 +469,10 @@ const addDataToMoviePage = async (wrapperElem) =>{
   let images = document.querySelectorAll('.lazy');
   images.forEach(img => {
   observer.observe(img);
+  let dataSrc = img.getAttribute('data-src');
+  if(!dataSrc){
+    img.parentElement.classList.add('h-[30rem]');
+  }
   });
   let dotLoader = document.querySelector('.dot-loader');
   dotLoader.classList.remove('flex');
@@ -571,7 +575,7 @@ function formatNumber(num, precision = 2) {
   }
 };
 const translate = async (data) =>{
-  const myToken = '606368:6509534bc6691';
+  const myToken = '199909:64dca52456732';
   const translateReq = await fetch(`https://one-api.ir/translate/?token=${myToken}&action=google&lang=fa&q=${data}`);
   const translatedData = await translateReq.json();
   return translatedData.result;
