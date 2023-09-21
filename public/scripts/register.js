@@ -14,16 +14,15 @@ window.addEventListener('load',() => {
 })
 //form validation 
 function formValidation(){
-    let validateResult = null
+    let validateResult = null;
 
-    const emailRegex = new RegExp('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$')
-    const emailTestResult = emailRegex.test(emailElem.value)
-
-    if(passwordElem.value.trim().length < 6 || !emailTestResult || usernameElem.value.trim().length < 3) validateResult = false
-    else if(passwordElem.value.trim().length >= 6 || emailTestResult || usernameElem.value.trim().length >= 3) validateResult = true
-
-    if(validateResult === true) registerBtn.disabled = false
-}
+    const emailRegex = new RegExp('^(?=.*[a-zA-Z])[a-zA-Z0-9._%+-]+@gmail\.com$');
+    const emailTestResult = emailRegex.test(emailElem.value);
+    if(passwordElem.value.trim().length < 6 || !emailTestResult || usernameElem.value.trim().length < 3) validateResult = false;
+    else if(passwordElem.value.trim().length >= 6 && emailTestResult && usernameElem.value.trim().length >= 3) validateResult = true;
+    if(validateResult === false) registerBtn.disabled = true;
+    if(validateResult === true) registerBtn.disabled = false;
+};
 
 usernameElem.addEventListener('keyup',formValidation)
 emailElem.addEventListener('keyup',formValidation)
