@@ -1,4 +1,4 @@
-import {showSwall,saveIntoLocalStorage,getFromLocalStorage} from './utitlities.js';
+import {showSwall,saveIntoLocalStorage,getFromLocalStorage,showProfile} from './utitlities.js';
 const register = async() => {
     const usernameElem = document.getElementById('username');
     const emailElem = document.getElementById('email');
@@ -9,8 +9,7 @@ const register = async() => {
         "password" : passwordElem.value.trim(),
         "name" : usernameElem.value.trim()
     };
-    let searchUser = await fetch(`http://localhost:3000/users?email=${newUserInfo.email}`)
-    let response = await searchUser.json();
+    let response = await checkLogin(newUserInfo.email);
     if(response.length > 0) {
         showSwall('این ایمیل قبلا ثبت شده است!','error','ویرایش اطلاعات',()=>{})
     }
@@ -19,7 +18,7 @@ const register = async() => {
         request.onreadystatechange = function() {
             if (request.readyState == XMLHttpRequest.DONE) {
                 if(request.responseText) {
-                    showSwall('ثبت‌نام شما با موفقیت انجام شد!','success','ورود به پنل',()=>{
+                    showSwall('ثبت‌نام شما با موفقیت انجام شد!','success','ورود به سایت',()=>{
                         location.href = 'index.html';
                     });
                 }
@@ -30,46 +29,33 @@ const register = async() => {
         request.send(JSON.stringify(newUserInfo));
     }
 };
-const login = () => {
+const checkLogin = async(userEmail) =>{
+    let searchUser = await fetch(`http://localhost:3000/users?email=${userEmail}`)
+    let response = await searchUser.json();
+    return response;
+}
+const login = async() => {
     const emailElem = document.getElementById('email');
     const passwordElem = document.getElementById('password');
-    
-    var formdata = new FormData();
-    formdata.append("grant_type", "password");
-    formdata.append("username", emailElem.value.trim());
-    formdata.append("password", passwordElem.value.trim());
 
-fetch("http://moviesapi.ir/oauth/token",{
-    method:'POST',
-    body: formdata
-})
-  .then(res => res.json())
-  .then(result => {
-    if (result.error){
-        showSwall('اطلاعات واردشده نامعتبر است!','error','ویرایش اطلاعات',()=>{})
-    }
-    else {
-        showSwall('شما با موفقیت وارد پنل کاربری خود شدید.','success','ورود به پنل',()=>{
-            console.log(result);
-            saveIntoLocalStorage('accessToken', result.access_token);
+    const emailValue = emailElem.value.trim();
+    const passwordValue = passwordElem.value.trim();
+    const userInfo = await checkLogin(emailValue);
+    if(userInfo.length > 0 && userInfo[0].password === passwordValue) {
+        showSwall('شما با موفقیت وارد پنل کاربری خود شدید.','success','ورود به سایت',()=>{
             location.href = 'index.html';
-        })
+            saveIntoLocalStorage('userId',userInfo[0].id);
+        });
     }
-  })
-};
-const getMe = () => {
-    const token = getFromLocalStorage('accessToken')
-    var myHeaders = new Headers();
-    myHeaders.append("Authorization","Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjlhM2Q2NzkwM2E3MzgyZTRiNzZmYmJjMjY5ODlmNGE3Y2M4ZmM1NDJlMTZlNzQ4YzJiZmJhM2Q0NzBmZDI5ZDM3YjQzNjljMDQ3YTliNzA0In0.eyJhdWQiOiI0IiwianRpIjoiOWEzZDY3OTAzYTczODJlNGI3NmZiYmMyNjk4OWY0YTdjYzhmYzU0MmUxNmU3NDhjMmJmYmEzZDQ3MGZkMjlkMzdiNDM2OWMwNDdhOWI3MDQiLCJpYXQiOjE2OTEyMTQ2MzcsIm5iZiI6MTY5MTIxNDYzNywiZXhwIjoxNjkxMjE0OTM3LCJzdWIiOiIxNzc5Iiwic2NvcGVzIjpbXX0.g6XcSb8AzSc26gdS6dC0Ar7x99lMWHmtoPY4ryja86rkcbADDEJ-2JyqnDKzgRJv6y_3BEH2KKhbEckg-NYo2Pf2sGANoSGKxFENV9e6NYB-Ww6Ei_N0KQNm22EwssX4c3b4hvayhSXoBuSqJ7m0Bx8G320ncs_R2cGHW9EL4ejAdQF1ytS_gXfW6q_j0cJ12Xae0S3AxRy_TiDHubmyv7APX7ODyp-_o5LP1t8Qwtv2eonb7qfPn_DkjBerlp7wUILqBr7VFJtJf-8zZoMeZ1tBWRHzJAkwQD9VCIKi6zeBYU6ukXoXoGq87oSwV5ttGsaQDozklXsbyB-TWlCuXL2-FSRrc5_pEbu2sAo3xEJ-kvp6yewPznlQ1FGINM6P0TaGkA093PqU5u6cHH4ZZcdamJRRdYHz_ql45eUQYU7CX9sadFJ0fs54K3vWWg9eWrEO6wRttOBqAScH7yoMtwTbtEGRw4i1LzygZWevS_mPBxIOHbMqH2eukDE0OJr0TPm92MdHfrw_iH9xVHgtHc2oqvFdEM8Ew4V23msRvi3Tb3qDoCndI9WBc2jt3YsuCEhiB5vYMJ7WHZCMbcTp_sLAcrIB9uOZPfiEHmDzGogOHzCuNxWsW9wic_jdgV3hbZOBkKBzQLO1TadaIViFOjB-P7pAhgfciCe6Tk_ia-I")
-    myHeaders.append("Accept", "application/json");
-    if(!token){
-        console.log('false');
+    else showSwall('اطلاعات واردشده نامعتبر است!','error','ویرایش اطلاعات',()=>{});
+}
+const getMe = async() => {
+    const userId = getFromLocalStorage('userId');
+    if(userId) {
+        const user = await fetch(`http://localhost:3000/users?id=${userId}`);
+        const userInfo = await user.json();
+        console.log(userInfo);
+        showProfile(userInfo[0]);
     }
-    fetch("http://moviesapi.ir/api/user",{
-        method:'GET',
-        mode:'no-cors',
-        headers: myHeaders
-    }).then(res => res.text())
-    .then(response => console.log(response))
 }
 export {register,login,getMe}
