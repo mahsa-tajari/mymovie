@@ -92,7 +92,8 @@ const icons = () =>{
   </symbol>
   <symbol xmlns="http://www.w3.org/2000/svg" viewBox="1 -35 512 511" id="telegram"> <path d="M121.453 253.172l63.555 158.887 82.75-82.754 141.535 112.504L512 .5 0 205.98zm-39.933-47.64l244.046-97.946-194.074 117.363zm287.535-89.25l-161.98 148.187-19.485 73.426-36.035-90.086zm-149.852 219.23l9.817-36.996 15.144 12.035zm171.656 53.394L243.473 271.754 465.375 68.746zm0 0"></path> </symbol>
   <symbol viewBox="0 0 48 48" id="github" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" fill="#eb8307" stroke="#000000" stroke-width="2.4"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><defs><style>.cls-1{fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;fill-rule:evenodd;}</style></defs><path class="cls-1" d="M24,2.5a21.5,21.5,0,0,0-6.8,41.9c1.08.2,1.47-.46,1.47-1s0-1.86,0-3.65c-6,1.3-7.24-2.88-7.24-2.88A5.7,5.7,0,0,0,9,33.68c-1.95-1.33.15-1.31.15-1.31a4.52,4.52,0,0,1,3.29,2.22c1.92,3.29,5,2.34,6.26,1.79a4.61,4.61,0,0,1,1.37-2.88c-4.78-.54-9.8-2.38-9.8-10.62a8.29,8.29,0,0,1,2.22-5.77,7.68,7.68,0,0,1,.21-5.69s1.8-.58,5.91,2.2a20.46,20.46,0,0,1,10.76,0c4.11-2.78,5.91-2.2,5.91-2.2a7.74,7.74,0,0,1,.21,5.69,8.28,8.28,0,0,1,2.21,5.77c0,8.26-5,10.07-9.81,10.61a5.12,5.12,0,0,1,1.46,4c0,2.87,0,5.19,0,5.9s.39,1.24,1.48,1A21.5,21.5,0,0,0,24,2.5"></path></g></symbol>
-`
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 58 58" id="chat"> <g xmlns="http://www.w3.org/2000/svg"> <path d="M48 19.929V41.07A4.93 4.93 0 0143.071 46H22L12 57V46H4.929A4.93 4.93 0 010 41.071V19.93A4.93 4.93 0 014.929 15H43.07A4.93 4.93 0 0148 19.929z" fill="#eb8307" data-original="#0391fd"></path> <path d="M53.071 1H14.929A4.93 4.93 0 0010 5.93V15h33.071A4.93 4.93 0 0148 19.93V32h5.071A4.93 4.93 0 0058 27.07V5.93A4.93 4.93 0 0053.071 1z" data-original="#4362a5"></path> <circle cx="11" cy="31" r="3" fill="#fff" data-original="#ffffff"></circle> <circle cx="24" cy="31" r="3" fill="#fff" data-original="#ffffff"></circle> <circle cx="37" cy="31" r="3" fill="#fff" data-original="#ffffff"></circle> </g>
+  `
   iconsElem.insertAdjacentHTML('beforeend',icons);
 };
 const nav = () => {
@@ -380,14 +381,12 @@ const addDataToMoviePage = async (wrapperElem) =>{
   details.country = await translate(details.country);
   details.genres = await translate(details.genres);
   details.awards = await translate(details.awards);
+  // <img class="lazy w-full hidden md:block" data-src= "${image}" alt="${details.title}">
+  // <img class="lazy w-full h-full md:hidden" data-src="${details.poster}" alt="${details.title}">
   let data = `
-  <div class="relative flex flex-col items-center">
-    <div class="w-full">
-      <img class="lazy w-full hidden md:block" data-src= "${image}" alt="${details.title}">
-      <img class="lazy w-full h-full md:hidden" data-src="${details.poster}" alt="${details.title}">
-      <div class="absolute top-0 w-full h-full bg-white/60 dark:bg-black/60 z-20"></div>
-    </div>
-    <div class="w-full absolute top-0 p-4 z-40 flex flex-col justify-start items-center gap-y-4 md:flex-row md:justify-evenly md:gap-x-4 md:gap-y-2 md:pt-8">
+  <div class="relative flex pb-4 flex-col items-center">
+    <div class="w-full bg-[url('${image}')] md:bg-[url('${details.poster}')]">
+    <div class="w-full flex flex-col justify-start items-center gap-y-4 md:flex-row md:justify-evenly md:gap-x-4 md:gap-y-2 md:pt-8">
       <div class="w-52 rounded-lg border-4 border-orange-1 overflow-hidden tablet:w-60 lg">
         <img class="lazy w-full" data-src="${details.poster}" alt="${details.title}">
       </div>
@@ -402,7 +401,7 @@ const addDataToMoviePage = async (wrapperElem) =>{
             <h1 class="text-xl dark:text-white">${details.title} ${details.year}</h1>
           </div>
         </div>
-        <ul class="grid grid-cols-2 w-full gap-y-8 text-xs dark:text-white child:flex child:gap-x-1 md:text-sm">
+        <ul class="grid grid-cols-2 w-full gap-y-4 text-xs dark:text-white child:flex child:gap-x-1 md:text-sm">
           <li>
             <svg class="w-5 h-5 text-orange-1">
               <use href="#clock"></use>
@@ -464,6 +463,30 @@ const addDataToMoviePage = async (wrapperElem) =>{
         </ul>
       </div>
     </div>
+      <div class="absolute top-0 w-full h-full bg-white/60 dark:bg-black/60 z-20"></div>
+    </div>
+    <div class="flex flex-col gap-y-4 w-10/12 z-30 rounded-md bg-gray-200">
+      <div class="movie-option relative w-full flex justify-between rounded-md border-r-8 border-r-orange-1 py-2 px-4 text-lg cursor-pointer bg-gray-100 text-dark-gray">
+        <span>نظرات</span>
+        <div class="flex font-semibold text-xl">
+        <span>&gt</span>
+        <span class="text-orange-1">&gt</span>
+        </div>
+      </div>
+      <div class="w-full pr-4 rounded-md">
+        <div class="bg-white rounded-md py-6 px-6 shadow-md">
+          <div class="flex items-center gap-x-4">
+            <svg class="w-12 h-12"><use href="#chat"></use></svg>
+            <span>نظرات کاربران</span>
+          </div>
+          <p class="text-sm leading-6 tablet:text-base tablet:leading-8">کامنت خود را بصورت فارسی تایپ نمایید. از به کار بردن کلمات رکیک یا توهین آمیز خودداری نمایید. <br>
+           با اعلام نظر خود، به سایر کاربران برای انتخاب فیلم، کمک کنید.
+          </p>
+          <textarea maxlength="500" name="cm-message" class="w-full resize  h-40 py-2 px-4 outline-none bg-gray-300 rounded-md placeholder-gray-500" placeholder="متن دیدگاه را وارد کنید.">
+          </textarea>
+        </div>
+      </div>
+    </div>
   </div>`;
   wrapperElem.insertAdjacentHTML('beforeend',data);
   let images = document.querySelectorAll('.lazy');
@@ -473,6 +496,7 @@ const addDataToMoviePage = async (wrapperElem) =>{
   if(!dataSrc){
     img.parentElement.classList.add('h-[30rem]');
   }
+  else img.parentElement.classList.remove('h-[30rem]');
   });
   let dotLoader = document.querySelector('.dot-loader');
   dotLoader.classList.remove('flex');
