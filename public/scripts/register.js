@@ -16,7 +16,7 @@ window.addEventListener('load',() => {
 function formValidation(){
     let validateResult = null;
 
-    const emailRegex = new RegExp('^(?=.*[a-zA-Z])[a-zA-Z0-9._%+-]+@gmail\.com$');
+    const emailRegex = new RegExp('^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$');
     const emailTestResult = emailRegex.test(emailElem.value);
     if(passwordElem.value.trim().length < 6 || !emailTestResult || usernameElem.value.trim().length < 3) validateResult = false;
     else if(passwordElem.value.trim().length >= 6 && emailTestResult && usernameElem.value.trim().length >= 3) validateResult = true;
