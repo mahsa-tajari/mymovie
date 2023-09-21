@@ -164,13 +164,13 @@ const header = () => {
       </a>
     </div>
     <div id="profile" class="hidden w-full justify-center">
-      <div class="flex items-center w-36 py-1 pr-3 gap-x-3 bg-gray-300 rounded-lg">
+      <div class="flex items-center py-1 px-3 gap-x-3 bg-gray-300 rounded-lg">
         <div class="w-10 h-10 rounded-full overflow-hidden">
           <img src="./images/user profile/avatar.jpg" alt="user profil" class="w-full h-full">
         </div>
         <div class="flex flex-col">
-          <span class="text-gray-700">name</span>
-          <span class="text-gray-500 font-hayat text-base">خوش آمدید!</span>
+          <span id="user-name" class="text-gray-700 w-40 truncate"></span>
+          <span class="text-gray-500 font-hayat text-lg">خوش آمدید!</span>
         </div>
     </div>
     </div>
