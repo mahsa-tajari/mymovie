@@ -164,7 +164,7 @@ const header = () => {
       </a>
     </div>
     <div id="profile" class="hidden w-full justify-center">
-      <div class="flex items-center py-1 px-3 gap-x-3 bg-gray-300 rounded-lg">
+      <div class="flex items-center py-1 px-3 gap-x-3 bg-gray-300 dark:bg-dark-gray rounded-lg">
         <div class="w-10 h-10 rounded-full overflow-hidden">
           <img src="./images/user profile/avatar.jpg" alt="user profil" class="w-full h-full">
         </div>
