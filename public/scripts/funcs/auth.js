@@ -1,5 +1,5 @@
 import {showSwall,saveIntoLocalStorage,getFromLocalStorage} from './utitlities.js';
-const register = () => {
+const register = async() => {
     const usernameElem = document.getElementById('username');
     const emailElem = document.getElementById('email');
     const passwordElem = document.getElementById('password');
@@ -9,30 +9,26 @@ const register = () => {
         "password" : passwordElem.value.trim(),
         "name" : usernameElem.value.trim()
     };
-
-    fetch('http://moviesapi.ir/api/v1/register',{
-        method:"POST",
-        headers:{
-            "Content-Type":"aplication/json"
-        },
-        body:JSON.stringify(newUserInfo)
-    }).then(res=> res.json())
-    .then(result =>{
-        if(result.name){
-            showSwall('ثبت‌نام شما با موفقیت انجام شد!','success','ورود به پنل',()=>{
-                location.href = 'index.html';
-            });
+    let searchUser = await fetch(`http://localhost:3000/users?email=${newUserInfo.email}`)
+    let response = await searchUser.json();
+    if(response.length > 0) {
+        showSwall('این ایمیل قبلا ثبت شده است!','error','ویرایش اطلاعات',()=>{})
+    }
+    else {
+        var request = new XMLHttpRequest();
+        request.onreadystatechange = function() {
+            if (request.readyState == XMLHttpRequest.DONE) {
+                if(request.responseText) {
+                    showSwall('ثبت‌نام شما با موفقیت انجام شد!','success','ورود به پنل',()=>{
+                        location.href = 'index.html';
+                    });
+                }
+            }
         }
-        else if(result.errors === 'The email has already been taken.;'){
-            showSwall('این ایمیل قبلا ثبت شده است!','error','ویرایش اطلاعات',()=>{});
-        }
-        else if(result.errors === 'The password must be at least 6 characters.;'){
-            showSwall('رمز عبور حداقل باید 6 کاراکتر باشد!','error','ویرایش اطلاعات',()=>{});
-        }
-        else if(result.errors === 'The email must be a valid email address.;'){
-            showSwall('ایمیل واردشده، نامعتبر است!','error','ویرایش اطلاعات',()=>{});
-        };
-    });
+        request.open('POST', 'http://localhost:3000/users');
+        request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+        request.send(JSON.stringify(newUserInfo));
+    }
 };
 const login = () => {
     const emailElem = document.getElementById('email');
