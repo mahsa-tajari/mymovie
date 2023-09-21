@@ -20,6 +20,7 @@ const register = async() => {
                 if(request.responseText) {
                     showSwall('ثبت‌نام شما با موفقیت انجام شد!','success','ورود به سایت',()=>{
                         location.href = 'index.html';
+                        saveIntoLocalStorage('userId',JSON.parse(request.responseText).id);
                     });
                 }
             }
