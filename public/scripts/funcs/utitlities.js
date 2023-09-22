@@ -93,6 +93,14 @@ const icons = () =>{
   <symbol xmlns="http://www.w3.org/2000/svg" viewBox="1 -35 512 511" id="telegram"> <path d="M121.453 253.172l63.555 158.887 82.75-82.754 141.535 112.504L512 .5 0 205.98zm-39.933-47.64l244.046-97.946-194.074 117.363zm287.535-89.25l-161.98 148.187-19.485 73.426-36.035-90.086zm-149.852 219.23l9.817-36.996 15.144 12.035zm171.656 53.394L243.473 271.754 465.375 68.746zm0 0"></path> </symbol>
   <symbol viewBox="0 0 48 48" id="github" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" fill="#eb8307" stroke="#000000" stroke-width="2.4"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><defs><style>.cls-1{fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;fill-rule:evenodd;}</style></defs><path class="cls-1" d="M24,2.5a21.5,21.5,0,0,0-6.8,41.9c1.08.2,1.47-.46,1.47-1s0-1.86,0-3.65c-6,1.3-7.24-2.88-7.24-2.88A5.7,5.7,0,0,0,9,33.68c-1.95-1.33.15-1.31.15-1.31a4.52,4.52,0,0,1,3.29,2.22c1.92,3.29,5,2.34,6.26,1.79a4.61,4.61,0,0,1,1.37-2.88c-4.78-.54-9.8-2.38-9.8-10.62a8.29,8.29,0,0,1,2.22-5.77,7.68,7.68,0,0,1,.21-5.69s1.8-.58,5.91,2.2a20.46,20.46,0,0,1,10.76,0c4.11-2.78,5.91-2.2,5.91-2.2a7.74,7.74,0,0,1,.21,5.69,8.28,8.28,0,0,1,2.21,5.77c0,8.26-5,10.07-9.81,10.61a5.12,5.12,0,0,1,1.46,4c0,2.87,0,5.19,0,5.9s.39,1.24,1.48,1A21.5,21.5,0,0,0,24,2.5"></path></g></symbol>
   <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 58 58" id="chat"> <g xmlns="http://www.w3.org/2000/svg"> <path d="M48 19.929V41.07A4.93 4.93 0 0143.071 46H22L12 57V46H4.929A4.93 4.93 0 010 41.071V19.93A4.93 4.93 0 014.929 15H43.07A4.93 4.93 0 0148 19.929z" fill="#eb8307" data-original="#0391fd"></path> <path d="M53.071 1H14.929A4.93 4.93 0 0010 5.93V15h33.071A4.93 4.93 0 0148 19.93V32h5.071A4.93 4.93 0 0058 27.07V5.93A4.93 4.93 0 0053.071 1z" data-original="#4362a5"></path> <circle cx="11" cy="31" r="3" fill="#fff" data-original="#ffffff"></circle> <circle cx="24" cy="31" r="3" fill="#fff" data-original="#ffffff"></circle> <circle cx="37" cy="31" r="3" fill="#fff" data-original="#ffffff"></circle> </g>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 12" id="arrow"> <path fill-rule="evenodd" fill="#EB8307" d="M9.894 5.147L5.007 8.75.119 5.147v3.056l4.888 3.603 4.887-3.603V5.147z"></path> <path fill-rule="evenodd" d="M9.894.665L5.007 4.268.119.665v3.056l4.888 3.603 4.887-3.603V.665z"></path> </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" id="like" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M6.633 10.5c.806 0 1.533-.446 2.031-1.08a9.041 9.041 0 012.861-2.4c.723-.384 1.35-.956 1.653-1.715a4.498 4.498 0 00.322-1.672V3a.75.75 0 01.75-.75A2.25 2.25 0 0116.5 4.5c0 1.152-.26 2.243-.723 3.218-.266.558.107 1.282.725 1.282h3.126c1.026 0 1.945.694 2.054 1.715.045.422.068.85.068 1.285a11.95 11.95 0 01-2.649 7.521c-.388.482-.987.729-1.605.729H13.48c-.483 0-.964-.078-1.423-.23l-3.114-1.04a4.501 4.501 0 00-1.423-.23H5.904M14.25 9h2.25M5.904 18.75c.083.205.173.405.27.602.197.4-.078.898-.523.898h-.908c-.889 0-1.713-.518-1.972-1.368a12 12 0 01-.521-3.507c0-1.553.295-3.036.831-4.398C3.387 10.203 4.167 9.75 5 9.75h1.053c.472 0 .745.556.5.96a8.958 8.958 0 00-1.302 4.665c0 1.194.232 2.333.654 3.375z" />
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" id="dislike" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 15h2.25m8.024-9.75c.011.05.028.1.052.148.591 1.2.924 2.55.924 3.977a8.96 8.96 0 01-.999 4.125m.023-8.25c-.076-.365.183-.75.575-.75h.908c.889 0 1.713.518 1.972 1.368.339 1.11.521 2.287.521 3.507 0 1.553-.295 3.036-.831 4.398C20.613 14.547 19.833 15 19 15h-1.053c-.472 0-.745-.556-.5-.96a8.95 8.95 0 00.303-.54m.023-8.25H16.48a4.5 4.5 0 01-1.423-.23l-3.114-1.04a4.5 4.5 0 00-1.423-.23H6.504c-.618 0-1.217.247-1.605.729A11.95 11.95 0 002.25 12c0 .434.023.863.068 1.285C2.427 14.306 3.346 15 4.372 15h3.126c.618 0 .991.724.725 1.282A7.471 7.471 0 007.5 19.5a2.25 2.25 0 002.25 2.25.75.75 0 00.75-.75v-.633c0-.573.11-1.14.322-1.672.304-.76.93-1.33 1.653-1.715a9.04 9.04 0 002.86-2.4c.498-.634 1.226-1.08 2.032-1.08h.384" />
+  </symbol>
+
   `
   iconsElem.insertAdjacentHTML('beforeend',icons);
 };
@@ -465,16 +473,15 @@ const addDataToMoviePage = async (wrapperElem) =>{
     </div>
       <div class="absolute top-0 w-full h-full bg-white/60 dark:bg-black/60 z-20"></div>
     </div>
-    <div class="flex flex-col gap-y-4 w-10/12 z-30 rounded-md bg-gray-200">
-      <div class="movie-option relative w-full flex justify-between rounded-md border-r-8 border-r-orange-1 py-2 px-4 text-lg cursor-pointer bg-gray-100 text-dark-gray">
+    <div class="flex flex-col gap-y-4 w-10/12 z-30 rounded-md bg-gray-100">
+      <div class="movie-option relative w-full flex justify-between items-center rounded-md border-r-8 border-r-orange-1 py-2 px-4 text-lg cursor-pointer bg-gray-100 text-dark-gray">
         <span>نظرات</span>
-        <div class="flex font-semibold text-xl">
-        <span>&gt</span>
-        <span class="text-orange-1">&gt</span>
+        <div class="flex text-lg transition-transform duration-500 rotate-90">
+          <svg class="w-4 h-4"><use href="#arrow"></use></svg>
         </div>
       </div>
-      <div class="w-full pr-4 rounded-md">
-        <div class="bg-white rounded-md py-6 px-6 shadow-md">
+      <div class="w-full hidden duration-500 pr-4 rounded-md">
+        <div class="bg-white rounded-md py-6 px-6 shadow-md overflow-hidden">
           <div class="flex items-center gap-x-4">
             <svg class="w-12 h-12"><use href="#chat"></use></svg>
             <span>نظرات کاربران</span>
@@ -482,8 +489,39 @@ const addDataToMoviePage = async (wrapperElem) =>{
           <p class="text-sm leading-6 tablet:text-base tablet:leading-8">کامنت خود را بصورت فارسی تایپ نمایید. از به کار بردن کلمات رکیک یا توهین آمیز خودداری نمایید. <br>
            با اعلام نظر خود، به سایر کاربران برای انتخاب فیلم، کمک کنید.
           </p>
-          <textarea maxlength="500" name="cm-message" class="w-full resize  h-40 py-2 px-4 outline-none bg-gray-300 rounded-md placeholder-gray-500" placeholder="متن دیدگاه را وارد کنید.">
-          </textarea>
+          <form id="cm-form">
+          <textarea maxlength="100" name="cm-message" class="w-full resize h-40 py-2 px-4 outline-none bg-gray-300 rounded-md placeholder-gray-500" placeholder="متن دیدگاه را وارد کنید."></textarea>
+          <div class="w-full flex justify-end">
+            <button type="submit" class="bg-orange-1 text-white rounded-2xl py-1 px-3">ارسال دیدگاه</button>
+          </div>
+          </form>
+          <ul class="child:bg-gray-100 child:w-full child:rounded-md child:py-4 child:px-6 flex flex-col items-center">
+            <li>
+              <div class="flex items-center justify-between md:justify-normal md:gap-x-6">
+                <div class="flex gap-x-2 child:flex child:flex-col child:items-center child:px-2 child:py-2 child:bg-gray-200 child:rounded-md">
+                  <div>
+                    <svg class="text-green-600 w-6 h-6"><use href="#like"></use></svg>
+                    <span>0</span>
+                  </div>
+                  <div>
+                    <svg class="text-red-600 w-6 h-6"><use href="#dislike"></use></svg>
+                    <span>0</span>
+                  </div>
+                </div>
+                <a href="#">
+                  <span class="w-12 h-12 flex justify-center items-center rounded-2xl border-2 border-black rotate-45">
+                    <svg class="w-6 h-6 text-orange-1 -rotate-45"><use href="#person"</use></svg>
+                  </span>
+                </a>
+              </div>
+              <div>
+                <div class="flex justify-between">
+                  <span>Name</span>
+                  <span>5 ساعت قبل</span>
+                </div>
+              </div>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
@@ -492,16 +530,28 @@ const addDataToMoviePage = async (wrapperElem) =>{
   let images = document.querySelectorAll('.lazy');
   images.forEach(img => {
   observer.observe(img);
-  let dataSrc = img.getAttribute('data-src');
-  if(!dataSrc){
-    img.parentElement.classList.add('h-[30rem]');
-  }
-  else img.parentElement.classList.remove('h-[30rem]');
+  });
+  const options = document.querySelector('.movie-option');
+  options.addEventListener('click',(e) => {
+    openOptionSubmenu(e.currentTarget);
   });
   let dotLoader = document.querySelector('.dot-loader');
   dotLoader.classList.remove('flex');
   dotLoader.classList.add('hidden');
 };
+const openOptionSubmenu = (menu) => {
+  const subMenu = menu.nextElementSibling;
+  const subMenuIcon = menu.firstElementChild.nextElementSibling;
+  subMenu.classList.toggle('hidden');
+  subMenuIcon.classList.toggle('rotate-90')
+
+}
+const manageCommentFunction = () => {
+  const form = document.getElementById('cm-form');
+  form.addEventListener('submit',() => {
+    console.log('hi');
+  })
+}
 const genresMovies = async(index) =>{
   let genreId = getFromLocalStorage('genreId');
   let movies = await searchByGenres(genreId,index);
@@ -1078,4 +1128,4 @@ const showProfile = (userinformation) =>{
   btnsWrapper.classList.remove('flex');
   btnsWrapper.classList.add('hidden');
 }
-export{icons,header,nav,footer,addDataToMoviePage,showSwall,showProfile,saveIntoLocalStorage,getFromLocalStorage,renderSearchResult,slider,paginationCalc,pagination,nextPage,previousPage,aside,genresMovies,path,createPath};
+export{icons,header,nav,footer,addDataToMoviePage,showSwall,showProfile,saveIntoLocalStorage,manageCommentFunction,getFromLocalStorage,renderSearchResult,slider,paginationCalc,pagination,nextPage,previousPage,aside,genresMovies,path,createPath};

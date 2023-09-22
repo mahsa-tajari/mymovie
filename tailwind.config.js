@@ -24,9 +24,6 @@ module.exports = {
           '2xl': '8rem'
         }
       },
-      backgroundImage:{
-        // 'dark-lines': "URL(../images/bg/dark-lines.jpg)"
-      },
       screens: {
         'tablet': '992px',
       }
