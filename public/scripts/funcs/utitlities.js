@@ -100,7 +100,7 @@ const icons = () =>{
   <symbol xmlns="http://www.w3.org/2000/svg" id="dislike" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
     <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 15h2.25m8.024-9.75c.011.05.028.1.052.148.591 1.2.924 2.55.924 3.977a8.96 8.96 0 01-.999 4.125m.023-8.25c-.076-.365.183-.75.575-.75h.908c.889 0 1.713.518 1.972 1.368.339 1.11.521 2.287.521 3.507 0 1.553-.295 3.036-.831 4.398C20.613 14.547 19.833 15 19 15h-1.053c-.472 0-.745-.556-.5-.96a8.95 8.95 0 00.303-.54m.023-8.25H16.48a4.5 4.5 0 01-1.423-.23l-3.114-1.04a4.5 4.5 0 00-1.423-.23H6.504c-.618 0-1.217.247-1.605.729A11.95 11.95 0 002.25 12c0 .434.023.863.068 1.285C2.427 14.306 3.346 15 4.372 15h3.126c.618 0 .991.724.725 1.282A7.471 7.471 0 007.5 19.5a2.25 2.25 0 002.25 2.25.75.75 0 00.75-.75v-.633c0-.573.11-1.14.322-1.672.304-.76.93-1.33 1.653-1.715a9.04 9.04 0 002.86-2.4c.498-.634 1.226-1.08 2.032-1.08h.384" />
   </symbol>
-
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 384" id="replay" fill="#EB8307"> <path d="M149.333 117.333V32L0 181.333l149.333 149.333V243.2C256 243.2 330.667 277.333 384 352c-21.333-106.667-85.333-213.333-234.667-234.667z"></path> </symbol>
   `
   iconsElem.insertAdjacentHTML('beforeend',icons);
 };
@@ -481,7 +481,7 @@ const addDataToMoviePage = async (wrapperElem) =>{
         </div>
       </div>
       <div class="w-full hidden duration-500 pr-4 rounded-md">
-        <div class="bg-white rounded-md py-6 px-6 shadow-md overflow-hidden">
+        <div class="bg-white rounded-md py-6 px-6 shadow-md space-y-4">
           <div class="flex items-center gap-x-4">
             <svg class="w-12 h-12"><use href="#chat"></use></svg>
             <span>نظرات کاربران</span>
@@ -489,39 +489,16 @@ const addDataToMoviePage = async (wrapperElem) =>{
           <p class="text-sm leading-6 tablet:text-base tablet:leading-8">کامنت خود را بصورت فارسی تایپ نمایید. از به کار بردن کلمات رکیک یا توهین آمیز خودداری نمایید. <br>
            با اعلام نظر خود، به سایر کاربران برای انتخاب فیلم، کمک کنید.
           </p>
-          <form id="cm-form">
-          <textarea maxlength="100" name="cm-message" class="w-full resize h-40 py-2 px-4 outline-none bg-gray-300 rounded-md placeholder-gray-500" placeholder="متن دیدگاه را وارد کنید."></textarea>
-          <div class="w-full flex justify-end">
-            <button type="submit" class="bg-orange-1 text-white rounded-2xl py-1 px-3">ارسال دیدگاه</button>
+          <div id="send-cm-alert" class="w-full hidden justify-center py-2 bg-green-300/30 text-lg text-green-500">
+            <span>دیدگاه شما با موفقیت ارسال شد.</span>
           </div>
+          <form id="cm-form" class="space-y-2">
+            <textarea maxlength="100" name="cm-message" class="w-full resize h-40 py-2 px-4 outline-none bg-gray-300 rounded-md placeholder-gray-500" placeholder="متن دیدگاه را وارد کنید."></textarea>
+            <div class="w-full flex justify-end">
+              <button id="send-cm" type="submit" class="bg-orange-1 text-white rounded-2xl py-1 px-3">ارسال دیدگاه</button>
+            </div>
           </form>
-          <ul class="child:bg-gray-100 child:w-full child:rounded-md child:py-4 child:px-6 flex flex-col items-center">
-            <li>
-              <div class="flex items-center justify-between md:justify-normal md:gap-x-6">
-                <div class="flex gap-x-2 child:flex child:flex-col child:items-center child:px-2 child:py-2 child:bg-gray-200 child:rounded-md">
-                  <div>
-                    <svg class="text-green-600 w-6 h-6"><use href="#like"></use></svg>
-                    <span>0</span>
-                  </div>
-                  <div>
-                    <svg class="text-red-600 w-6 h-6"><use href="#dislike"></use></svg>
-                    <span>0</span>
-                  </div>
-                </div>
-                <a href="#">
-                  <span class="w-12 h-12 flex justify-center items-center rounded-2xl border-2 border-black rotate-45">
-                    <svg class="w-6 h-6 text-orange-1 -rotate-45"><use href="#person"</use></svg>
-                  </span>
-                </a>
-              </div>
-              <div>
-                <div class="flex justify-between">
-                  <span>Name</span>
-                  <span>5 ساعت قبل</span>
-                </div>
-              </div>
-            </li>
-          </ul>
+          <ul id="comments-wrapper" class="child:bg-gray-100 child:w-full child:rounded-md child:py-4 child:px-6 child:flex child:flex-col child:items-center child:gap-6 sm:child:flex-row flex flex-col items-center"></ul>
         </div>
       </div>
     </div>
@@ -538,19 +515,88 @@ const addDataToMoviePage = async (wrapperElem) =>{
   let dotLoader = document.querySelector('.dot-loader');
   dotLoader.classList.remove('flex');
   dotLoader.classList.add('hidden');
+  const cmForm = document.getElementById('cm-form');
+  cmForm.addEventListener('submit',(e)=>{
+    e.preventDefault();
+    manageCommentFunction();
+  });
 };
 const openOptionSubmenu = (menu) => {
   const subMenu = menu.nextElementSibling;
   const subMenuIcon = menu.firstElementChild.nextElementSibling;
   subMenu.classList.toggle('hidden');
-  subMenuIcon.classList.toggle('rotate-90')
-
-}
+  subMenuIcon.classList.toggle('rotate-90');
+};
 const manageCommentFunction = () => {
-  const form = document.getElementById('cm-form');
-  form.addEventListener('submit',() => {
-    console.log('hi');
-  })
+  const commentBtn = document.getElementById('send-cm');
+  commentBtn.innerHTML = 'در حال ارسال...';
+  const sendCommentAlert = document.getElementById('send-cm-alert');
+  const userCmElem = document.querySelector('textarea');
+  const userCmText = userCmElem.value.trim();
+  sendCommentAlert.classList.remove('flex');
+  sendCommentAlert.classList.add('hidden');
+    if(userCmText.length > 0){
+      const userCm = {
+        'movieId' : getFromLocalStorage('movieId'),
+        'userId' : getFromLocalStorage('userId'),
+        'comment' : userCmText,
+        'like': 0,
+        'dislike' : 0
+      };
+      // send cm to database
+      var request = new XMLHttpRequest();
+      request.onreadystatechange = function() {
+        if (request.readyState == XMLHttpRequest.DONE) {
+          commentBtn.innerHTML = 'ارسال دیدگاه';
+          sendCommentAlert.classList.remove('hidden');
+          sendCommentAlert.classList.add('flex');
+          addCommentToCmList(request.response);
+        }
+      }
+      request.open('POST', 'http://localhost:3000/comments');
+      request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+      request.send(JSON.stringify(userCm));
+    }
+}
+const addCommentToCmList = (info) => {
+  const CommentInfo = JSON.parse(info);
+  const commentsWrapperElem = document.getElementById('comments-wrapper');
+  fetch(`http://localhost:3000/users?id=${CommentInfo.userId}`)
+  .then((response) => response.json())
+  .then((res) => {
+    let data = `<li>
+    <div class="w-full sm:w-auto flex justify-between sm:flex-col sm:gap-y-4 items-center xl:flex-row xl:gap-x-4">
+      <div class="flex gap-x-3 child:cursor-pointer child:flex child:flex-col child:items-center child:px-2 child:py-2 child:bg-gray-200 child:rounded-md">
+        <div>
+          <svg class="text-green-600 w-6 h-6"><use href="#like"></use></svg>
+          <span>${CommentInfo.like}</span>
+        </div>
+        <div>
+          <svg class="text-red-600 w-6 h-6"><use href="#dislike"></use></svg>
+          <span>${CommentInfo.dislike}</span>
+        </div>
+      </div>
+      <div class="cursor-pointer">
+        <span class="w-12 h-12 flex justify-center items-center rounded-2xl border-2 border-black rotate-45">
+          <svg class="w-6 h-6 text-orange-1 -rotate-45"><use href="#person"</use></svg>
+        </span>
+      </div>
+    </div>
+    <div class="flex flex-col w-full gap-y-2">
+      <div class="flex justify-between font-roboto-light sm:justify-between">
+        <span class="text-orange-1">${res[0].name}</span>
+        <span class="text-gray-500">(<span>4 ساعت قبل</span>)</span>
+      </div>
+      <p>${CommentInfo.comment}</p>
+    </div>
+    <div class="w-full flex justify-center sm:w-auto">
+      <div class="w-10 h-10 flex items-center justify-center border-2 border-black rounded-xl rotate-45">
+        <svg class="w-5 h-5 -rotate-45"><use href="#replay"></use><svg/>
+      </div>
+    </div>
+    </li>`
+    commentsWrapperElem.insertAdjacentHTML('beforeend',data);
+  });
 }
 const genresMovies = async(index) =>{
   let genreId = getFromLocalStorage('genreId');

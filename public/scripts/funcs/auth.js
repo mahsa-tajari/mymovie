@@ -55,7 +55,6 @@ const getMe = async() => {
     if(userId) {
         const user = await fetch(`http://localhost:3000/users?id=${userId}`);
         const userInfo = await user.json();
-        console.log(userInfo);
         showProfile(userInfo[0]);
     }
 }
