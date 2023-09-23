@@ -1293,6 +1293,11 @@ input:-webkit-autofill,
   border-color: rgb(0 0 0 / var(--tw-border-opacity));
 }
 
+.border-dark-gray {
+  --tw-border-opacity: 1;
+  border-color: rgb(37 37 37 / var(--tw-border-opacity));
+}
+
 .border-r-orange-1 {
   --tw-border-opacity: 1;
   border-right-color: rgb(235 131 7 / var(--tw-border-opacity));

@@ -474,7 +474,7 @@ const addDataToMoviePage = async (wrapperElem) =>{
       <div class="absolute top-0 w-full h-full bg-white/60 dark:bg-black/60 z-20"></div>
     </div>
     <div class="flex flex-col gap-y-4 w-10/12 z-30 rounded-md bg-gray-100">
-      <div class="movie-option relative w-full flex justify-between items-center rounded-md border-r-8 border-r-orange-1 py-2 px-4 text-lg cursor-pointer bg-gray-100 text-dark-gray">
+      <div class="movie-option relative w-full flex justify-between items-center rounded-md border-r-8 border-r-orange-1 py-3 px-4 text-lg cursor-pointer bg-gray-100 text-dark-gray">
         <span>نظرات</span>
         <div class="flex text-lg transition-transform duration-500 rotate-90">
           <svg class="w-4 h-4"><use href="#arrow"></use></svg>
@@ -493,12 +493,12 @@ const addDataToMoviePage = async (wrapperElem) =>{
             <span>دیدگاه شما با موفقیت ارسال شد.</span>
           </div>
           <form id="cm-form" class="space-y-2">
-            <textarea maxlength="100" name="cm-message" class="w-full resize h-40 py-2 px-4 outline-none bg-gray-300 rounded-md placeholder-gray-500" placeholder="متن دیدگاه را وارد کنید."></textarea>
+            <textarea maxlength="500" name="cm-message" class="w-full resize h-40 py-2 px-4 outline-none bg-gray-300 rounded-md placeholder-gray-500" placeholder="متن دیدگاه را وارد کنید."></textarea>
             <div class="w-full flex justify-end">
               <button id="send-cm" type="submit" class="bg-orange-1 text-white rounded-2xl py-1 px-3">ارسال دیدگاه</button>
             </div>
           </form>
-          <ul id="comments-wrapper" class="child:bg-gray-100 child:w-full child:rounded-md child:py-4 child:px-6 child:flex child:flex-col child:items-center child:gap-6 sm:child:flex-row flex flex-col items-center"></ul>
+          <ul id="comments-wrapper" class="child:bg-gray-100 child:w-full child:rounded-md child:py-4 child:px-6 child:flex child:flex-col child:items-center child:gap-6 sm:child:flex-row flex flex-col items-center gap-y-2"></ul>
         </div>
       </div>
     </div>
@@ -508,13 +508,15 @@ const addDataToMoviePage = async (wrapperElem) =>{
   images.forEach(img => {
   observer.observe(img);
   });
+  let dotLoader = document.querySelector('.dot-loader');
+  dotLoader.classList.remove('flex');
+  dotLoader.classList.add('hidden');
+  // load comments
+  comments();
   const options = document.querySelector('.movie-option');
   options.addEventListener('click',(e) => {
     openOptionSubmenu(e.currentTarget);
   });
-  let dotLoader = document.querySelector('.dot-loader');
-  dotLoader.classList.remove('flex');
-  dotLoader.classList.add('hidden');
   const cmForm = document.getElementById('cm-form');
   cmForm.addEventListener('submit',(e)=>{
     e.preventDefault();
@@ -527,6 +529,7 @@ const openOptionSubmenu = (menu) => {
   subMenu.classList.toggle('hidden');
   subMenuIcon.classList.toggle('rotate-90');
 };
+// comments
 const manageCommentFunction = () => {
   const commentBtn = document.getElementById('send-cm');
   commentBtn.innerHTML = 'در حال ارسال...';
@@ -550,34 +553,33 @@ const manageCommentFunction = () => {
           commentBtn.innerHTML = 'ارسال دیدگاه';
           sendCommentAlert.classList.remove('hidden');
           sendCommentAlert.classList.add('flex');
-          addCommentToCmList(request.response);
+          addCommentToCmList(JSON.parse(request.response));
         }
       }
       request.open('POST', 'http://localhost:3000/comments');
       request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
       request.send(JSON.stringify(userCm));
     }
-}
+};
 const addCommentToCmList = (info) => {
-  const CommentInfo = JSON.parse(info);
-  const commentsWrapperElem = document.getElementById('comments-wrapper');
-  fetch(`http://localhost:3000/users?id=${CommentInfo.userId}`)
+  const commentsWrapper = document.getElementById('comments-wrapper');
+  fetch(`http://localhost:3000/users?id=${info.userId}`)
   .then((response) => response.json())
   .then((res) => {
     let data = `<li>
     <div class="w-full sm:w-auto flex justify-between sm:flex-col sm:gap-y-4 items-center xl:flex-row xl:gap-x-4">
       <div class="flex gap-x-3 child:cursor-pointer child:flex child:flex-col child:items-center child:px-2 child:py-2 child:bg-gray-200 child:rounded-md">
         <div>
-          <svg class="text-green-600 w-6 h-6"><use href="#like"></use></svg>
-          <span>${CommentInfo.like}</span>
+          <svg class="cm-like-dislike text-green-600 w-6 h-6"><use href="#like"></use></svg>
+          <span>${info.like}</span>
         </div>
         <div>
-          <svg class="text-red-600 w-6 h-6"><use href="#dislike"></use></svg>
-          <span>${CommentInfo.dislike}</span>
+          <svg class="cm-like-dislike text-red-600 w-6 h-6"><use href="#dislike"></use></svg>
+          <span>${info.dislike}</span>
         </div>
       </div>
       <div class="cursor-pointer">
-        <span class="w-12 h-12 flex justify-center items-center rounded-2xl border-2 border-black rotate-45">
+        <span class="w-12 h-12 flex justify-center items-center rounded-2xl border-2 border-dark-gray rotate-45">
           <svg class="w-6 h-6 text-orange-1 -rotate-45"><use href="#person"</use></svg>
         </span>
       </div>
@@ -587,16 +589,26 @@ const addCommentToCmList = (info) => {
         <span class="text-orange-1">${res[0].name}</span>
         <span class="text-gray-500">(<span>4 ساعت قبل</span>)</span>
       </div>
-      <p>${CommentInfo.comment}</p>
+      <p>${info.comment}</p>
     </div>
     <div class="w-full flex justify-center sm:w-auto">
-      <div class="w-10 h-10 flex items-center justify-center border-2 border-black rounded-xl rotate-45">
+      <div class="w-10 h-10 flex items-center justify-center border-2 border-dark-gray rounded-xl rotate-45">
         <svg class="w-5 h-5 -rotate-45"><use href="#replay"></use><svg/>
       </div>
     </div>
     </li>`
-    commentsWrapperElem.insertAdjacentHTML('beforeend',data);
+    commentsWrapper.insertAdjacentHTML('beforeend',data);
   });
+};
+const comments = async() => {
+  const movieId = getFromLocalStorage('movieId');
+  const request = await fetch(`http://localhost:3000/comments?movieId=${movieId}`);
+  const commentsArray = await request.json();
+  commentsArray.forEach(comment => {
+    addCommentToCmList(comment);
+  });
+};
+const manageLikeCms = (elem) => {
 }
 const genresMovies = async(index) =>{
   let genreId = getFromLocalStorage('genreId');
@@ -1174,4 +1186,4 @@ const showProfile = (userinformation) =>{
   btnsWrapper.classList.remove('flex');
   btnsWrapper.classList.add('hidden');
 }
-export{icons,header,nav,footer,addDataToMoviePage,showSwall,showProfile,saveIntoLocalStorage,manageCommentFunction,getFromLocalStorage,renderSearchResult,slider,paginationCalc,pagination,nextPage,previousPage,aside,genresMovies,path,createPath};
+export{icons,header,nav,footer,addDataToMoviePage,showSwall,showProfile,saveIntoLocalStorage,getFromLocalStorage,renderSearchResult,slider,paginationCalc,pagination,nextPage,previousPage,aside,genresMovies,path,createPath};
