@@ -100,7 +100,7 @@ const icons = () =>{
   <symbol xmlns="http://www.w3.org/2000/svg" id="dislike" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
     <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 15h2.25m8.024-9.75c.011.05.028.1.052.148.591 1.2.924 2.55.924 3.977a8.96 8.96 0 01-.999 4.125m.023-8.25c-.076-.365.183-.75.575-.75h.908c.889 0 1.713.518 1.972 1.368.339 1.11.521 2.287.521 3.507 0 1.553-.295 3.036-.831 4.398C20.613 14.547 19.833 15 19 15h-1.053c-.472 0-.745-.556-.5-.96a8.95 8.95 0 00.303-.54m.023-8.25H16.48a4.5 4.5 0 01-1.423-.23l-3.114-1.04a4.5 4.5 0 00-1.423-.23H6.504c-.618 0-1.217.247-1.605.729A11.95 11.95 0 002.25 12c0 .434.023.863.068 1.285C2.427 14.306 3.346 15 4.372 15h3.126c.618 0 .991.724.725 1.282A7.471 7.471 0 007.5 19.5a2.25 2.25 0 002.25 2.25.75.75 0 00.75-.75v-.633c0-.573.11-1.14.322-1.672.304-.76.93-1.33 1.653-1.715a9.04 9.04 0 002.86-2.4c.498-.634 1.226-1.08 2.032-1.08h.384" />
   </symbol>
-  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 384" id="replay" fill="#EB8307"> <path d="M149.333 117.333V32L0 181.333l149.333 149.333V243.2C256 243.2 330.667 277.333 384 352c-21.333-106.667-85.333-213.333-234.667-234.667z"></path> </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 384" id="reply" fill="#EB8307"> <path d="M149.333 117.333V32L0 181.333l149.333 149.333V243.2C256 243.2 330.667 277.333 384 352c-21.333-106.667-85.333-213.333-234.667-234.667z"></path> </symbol>
   `
   iconsElem.insertAdjacentHTML('beforeend',icons);
 };
@@ -264,11 +264,11 @@ const header = () => {
 const path = (string) =>{
   const mainElm = document.getElementById('main');
   const data = `
-  <div class="w-full pr-4 md:pr-20 flex items-center gap-x-2">
+  <div class="w-full px-2 mb md:pr-20 flex items-center text-sm gap-x-2">
     <svg class="text-orange-1 w-5 h-5"><use href="#location"></use></svg>
-    <a href = "index.html" class="home">مای مویی</a>
+    <a href = "index.html" class="home whitespace-nowrap ">مای مویی</a>
     <span>&gt</span>
-    <span class="flex gap-x-2">${string}<span class="path"></span></span>
+    <span class="flex gap-x-2">${string}<span dir="ltr" class="path"></span></span>
   </div>`
   mainElm.insertAdjacentHTML('afterbegin',data);
 };
@@ -389,11 +389,8 @@ const addDataToMoviePage = async (wrapperElem) =>{
   details.country = await translate(details.country);
   details.genres = await translate(details.genres);
   details.awards = await translate(details.awards);
-  // <img class="lazy w-full hidden md:block" data-src= "${image}" alt="${details.title}">
-  // <img class="lazy w-full h-full md:hidden" data-src="${details.poster}" alt="${details.title}">
   let data = `
-  <div class="relative flex pb-4 flex-col items-center">
-    <div class="w-full bg-[url('${image}')] md:bg-[url('${details.poster}')]">
+  <div class="relative flex pb-4 flex-col gap-y-4 items-center">
     <div class="w-full flex flex-col justify-start items-center gap-y-4 md:flex-row md:justify-evenly md:gap-x-4 md:gap-y-2 md:pt-8">
       <div class="w-52 rounded-lg border-4 border-orange-1 overflow-hidden tablet:w-60 lg">
         <img class="lazy w-full" data-src="${details.poster}" alt="${details.title}">
@@ -471,17 +468,21 @@ const addDataToMoviePage = async (wrapperElem) =>{
         </ul>
       </div>
     </div>
-      <div class="absolute top-0 w-full h-full bg-white/60 dark:bg-black/60 z-20"></div>
-    </div>
-    <div class="flex flex-col gap-y-4 w-10/12 z-30 rounded-md bg-gray-100">
-      <div class="movie-option relative w-full flex justify-between items-center rounded-md border-r-8 border-r-orange-1 py-3 px-4 text-lg cursor-pointer bg-gray-100 text-dark-gray">
+    <div class="flex flex-col gap-y-4 w-10/12 z-30 rounded-md bg-gray-200 overflow-hidden">
+      <div class="movie-option w-full flex justify-between items-center rounded-md border-r-8 border-r-orange-1 py-3 px-4 text-lg cursor-pointer bg-white text-dark-gray">
         <span>نظرات</span>
         <div class="flex text-lg transition-transform duration-500 rotate-90">
           <svg class="w-4 h-4"><use href="#arrow"></use></svg>
         </div>
       </div>
-      <div class="w-full hidden duration-500 pr-4 rounded-md">
-        <div class="bg-white rounded-md py-6 px-6 shadow-md space-y-4">
+      <div class="w-full relative hidden pr-4 pb-4 rounded-md">
+        <div class="bg-white relative overflow-hidden rounded-md rounded-ee-none rounded-se-none py-6 px-6 shadow-md space-y-4">
+        <div class="w-36 h-36 rounded-3xl bg-gray-100 absolute top-0 -left-9 rotate-45">
+          <div class="w-full h-full flex flex-col justify-center -rotate-45">
+            <span id="cm-count" class="flex w-full justify-center text-xl text-orange-1"></span>
+            <span>COMMENTS</span>
+          </div>
+        </div>
           <div class="flex items-center gap-x-4">
             <svg class="w-12 h-12"><use href="#chat"></use></svg>
             <span>نظرات کاربران</span>
@@ -490,7 +491,10 @@ const addDataToMoviePage = async (wrapperElem) =>{
            با اعلام نظر خود، به سایر کاربران برای انتخاب فیلم، کمک کنید.
           </p>
           <div id="send-cm-alert" class="w-full hidden justify-center py-2 bg-green-300/30 text-lg text-green-500">
-            <span>دیدگاه شما با موفقیت ارسال شد.</span>
+            <span>ارسال دیدگاه با موفقیت انجام شد.</span>
+          </div>
+          <div id="unsuccess-send-cm-alert" class="w-full hidden justify-center py-2 bg-red-300/30 text-red-500">
+            <span>محتوای دیدگاه نمی‌تواند خالی باشد!</span>
           </div>
           <form id="cm-form" class="space-y-2">
             <textarea maxlength="500" name="cm-message" class="w-full resize h-40 py-2 px-4 outline-none bg-gray-300 rounded-md placeholder-gray-500" placeholder="متن دیدگاه را وارد کنید."></textarea>
@@ -498,8 +502,25 @@ const addDataToMoviePage = async (wrapperElem) =>{
               <button id="send-cm" type="submit" class="bg-orange-1 text-white rounded-2xl py-1 px-3">ارسال دیدگاه</button>
             </div>
           </form>
-          <ul id="comments-wrapper" class="child:bg-gray-100 child:w-full child:rounded-md child:py-4 child:px-6 child:flex child:flex-col child:items-center child:gap-6 sm:child:flex-row flex flex-col items-center gap-y-2"></ul>
+          <ul id="comments-wrapper" class="child:bg-gray-100 child:w-full child:rounded-md child:py-4 child:px-6 child:flex child:flex-col child:items-center child:gap-6 sm:child:flex-row flex flex-col items-center gap-y-2">
+          </ul>
+          <div class="show-more-cm w-full text-orange-1 p-1 hidden justify-center">
+            <span class="cursor-pointer">نمایش بیشتر</span
+          </div>
         </div>
+      </div>
+    </div>
+    <div class="flex flex-col gap-y-4 w-full z-30 rounded-md bg-gray-200 overflow-hidden">
+      <div id="related-movies" class="movie-option w-full flex justify-between items-center rounded-md border-r-8 border-r-orange-1 py-3 px-4 text-lg cursor-pointer bg-white text-dark-gray">
+        <span>فیلم‌های مرتبط</span>
+        <div class="flex text-lg transition-transform duration-500 rotate-90">
+          <svg class="w-4 h-4"><use href="#arrow"></use></svg>
+        </div>
+      </div>
+      <div class="w-full hidden pr-4 pb-4 rounded-md">
+        <ul class="related-movies-wrapper flex flex-wrap gap-8 child:flex child:flex-col child:items-center child:cursor-pointer">
+        </ul>
+        <span class="text-orange-1 w-full flex justify-center waiting">در حال بارگزاری...</span>
       </div>
     </div>
   </div>`;
@@ -513,9 +534,11 @@ const addDataToMoviePage = async (wrapperElem) =>{
   dotLoader.classList.add('hidden');
   // load comments
   comments();
-  const options = document.querySelector('.movie-option');
-  options.addEventListener('click',(e) => {
-    openOptionSubmenu(e.currentTarget);
+  const options = document.querySelectorAll('.movie-option');
+  options.forEach(option => {
+    option.addEventListener('click',(e) => {
+      openOptionSubmenu(e.currentTarget);
+    });
   });
   const cmForm = document.getElementById('cm-form');
   cmForm.addEventListener('submit',(e)=>{
@@ -528,53 +551,116 @@ const openOptionSubmenu = (menu) => {
   const subMenuIcon = menu.firstElementChild.nextElementSibling;
   subMenu.classList.toggle('hidden');
   subMenuIcon.classList.toggle('rotate-90');
+  if(menu.id === 'comments') comments();
+  if(menu.id === 'related-movies') findRelatedMovies();
 };
+// related movies
+let relatedMoviesWrapper = null;
+const findRelatedMovies = async() => {
+  const movieId = getFromLocalStorage('movieId');
+  const res = await searchMovieByID(movieId);
+  const genresMovie = res.genres;
+  const allGenres = await searchGenres();
+  const result = allGenres.find((element) => element.name === genresMovie[0]);
+  const moviesOfGenre = await searchByGenres(result.id);
+  relatedMoviesWrapper = document.querySelector('.related-movies-wrapper');
+  relatedMoviesWrapper.innerHTML ='';
+  moviesOfGenre.data.forEach(movie => {
+    if(movie.id == JSON.parse(movieId)) return
+    renderRelatedMovies(movie);
+  });
+}
+const renderRelatedMovies = (movie) => {
+  let data = `
+    <li id="${movie.id}" class="relate-movie">
+      <div class="w-40 rounded-md overflow-hidden">
+        <img class="w-full h-full" src="${movie.poster}">
+      </div>
+      <h4 class="w-40 flex justify-center truncate">${movie.title}</h4>
+    </li>
+  `
+  const waitingElem = document.querySelector('.waiting');
+  waitingElem.classList.add('hidden')
+  relatedMoviesWrapper.insertAdjacentHTML('afterbegin',data);
+  const movies = document.querySelectorAll('.relate-movie');
+  movies.forEach(movie => {
+    movie.addEventListener('click',(event)=>{
+      const id = event.currentTarget.id;
+      routing('movieId',id,'movie.html');
+    })
+  });
+}
 // comments
 const manageCommentFunction = () => {
   const commentBtn = document.getElementById('send-cm');
   commentBtn.innerHTML = 'در حال ارسال...';
   const sendCommentAlert = document.getElementById('send-cm-alert');
+  const unsendCommentAlert = document.getElementById('unsuccess-send-cm-alert');
   const userCmElem = document.querySelector('textarea');
   const userCmText = userCmElem.value.trim();
   sendCommentAlert.classList.remove('flex');
   sendCommentAlert.classList.add('hidden');
-    if(userCmText.length > 0){
-      const userCm = {
-        'movieId' : getFromLocalStorage('movieId'),
-        'userId' : getFromLocalStorage('userId'),
-        'comment' : userCmText,
-        'like': 0,
-        'dislike' : 0
-      };
-      // send cm to database
-      var request = new XMLHttpRequest();
-      request.onreadystatechange = function() {
-        if (request.readyState == XMLHttpRequest.DONE) {
-          commentBtn.innerHTML = 'ارسال دیدگاه';
-          sendCommentAlert.classList.remove('hidden');
-          sendCommentAlert.classList.add('flex');
-          addCommentToCmList(JSON.parse(request.response));
-        }
+  unsendCommentAlert.classList.remove('flex');
+  unsendCommentAlert.classList.add('hidden');
+  const currentDate =  getDate();
+  if(userCmText.length > 0){
+    const userCm = {
+      'movieId' : getFromLocalStorage('movieId'),
+      'userId' : getFromLocalStorage('userId'),
+      'comment' : userCmText,
+      'like': 0,
+      'dislike' : 0,
+      'date': currentDate
+    };
+    // send cm to database
+    var request = new XMLHttpRequest();
+    request.onreadystatechange = function() {
+      if (request.readyState == XMLHttpRequest.DONE) {
+        commentBtn.innerHTML = 'ارسال دیدگاه';
+        sendCommentAlert.classList.remove('hidden');
+        sendCommentAlert.classList.add('flex');
+        addCommentToCmList(JSON.parse(request.response));
       }
-      request.open('POST', 'http://localhost:3000/comments');
-      request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-      request.send(JSON.stringify(userCm));
     }
+    request.open('POST','http://localhost:3000/comments');
+    request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+    request.send(JSON.stringify(userCm));
+    userCmElem.value = '';
+  }
+  else {
+    commentBtn.innerHTML = 'ارسال دیدگاه';
+    unsendCommentAlert.classList.remove('hidden');
+    unsendCommentAlert.classList.add('flex');
+  }
 };
-const addCommentToCmList = (info) => {
+let cmProceed = 0;
+const getDate = () => {
+  const date = new Date();
+  const currentDate = {
+    'year': date.getFullYear(),
+    'month': date.getMonth(),
+    'day': date.getDate(),
+    'hours':date.getHours(),
+    'minutes':date.getMinutes(),
+    'seconds':date.getSeconds()
+  }
+  return currentDate;
+}
+const addCommentToCmList = (info,lengthArray) => {
   const commentsWrapper = document.getElementById('comments-wrapper');
   fetch(`http://localhost:3000/users?id=${info.userId}`)
   .then((response) => response.json())
   .then((res) => {
-    let data = `<li>
+    const date = manageCmDate(info.date);
+    let data = `<li id="${info.id}">
     <div class="w-full sm:w-auto flex justify-between sm:flex-col sm:gap-y-4 items-center xl:flex-row xl:gap-x-4">
       <div class="flex gap-x-3 child:cursor-pointer child:flex child:flex-col child:items-center child:px-2 child:py-2 child:bg-gray-200 child:rounded-md">
         <div>
-          <svg class="cm-like-dislike text-green-600 w-6 h-6"><use href="#like"></use></svg>
+          <svg class="cm-like-dislike like text-green-600 w-6 h-6"><use href="#like"></use></svg>
           <span>${info.like}</span>
         </div>
         <div>
-          <svg class="cm-like-dislike text-red-600 w-6 h-6"><use href="#dislike"></use></svg>
+          <svg class="cm-like-dislike dislike text-red-600 w-6 h-6"><use href="#dislike"></use></svg>
           <span>${info.dislike}</span>
         </div>
       </div>
@@ -587,29 +673,122 @@ const addCommentToCmList = (info) => {
     <div class="flex flex-col w-full gap-y-2">
       <div class="flex justify-between font-roboto-light sm:justify-between">
         <span class="text-orange-1">${res[0].name}</span>
-        <span class="text-gray-500">(<span>4 ساعت قبل</span>)</span>
+        <span class="text-gray-500">(<span>${date}</span>)</span>
       </div>
       <p>${info.comment}</p>
     </div>
-    <div class="w-full flex justify-center sm:w-auto">
-      <div class="w-10 h-10 flex items-center justify-center border-2 border-dark-gray rounded-xl rotate-45">
-        <svg class="w-5 h-5 -rotate-45"><use href="#replay"></use><svg/>
-      </div>
-    </div>
     </li>`
     commentsWrapper.insertAdjacentHTML('beforeend',data);
+    cmProceed++;
+    if(cmProceed === lengthArray) {
+      // like or dislike comments
+      const likeCmElms = document.querySelectorAll('.cm-like-dislike');
+      likeCmElms.forEach(likeCm => {
+        likeCm.addEventListener('click', (e) => {
+          manageLikeCms(e.currentTarget);
+        })
+      });
+    }
   });
 };
+let moreCmBtn = null;
 const comments = async() => {
   const movieId = getFromLocalStorage('movieId');
   const request = await fetch(`http://localhost:3000/comments?movieId=${movieId}`);
   const commentsArray = await request.json();
-  commentsArray.forEach(comment => {
-    addCommentToCmList(comment);
+  const cmCount = commentsArray.length;
+  let counter = 0;
+  const countOfCmsElem = document.getElementById('cm-count');
+  countOfCmsElem.innerHTML = cmCount;
+  commentsArray.reverse().forEach(comment => {
+    counter++;
+    if(counter > 10) {
+      showMoreCm(commentsArray,cmCount)
+      return
+    }
+    addCommentToCmList(comment,cmCount);
   });
 };
-const manageLikeCms = (elem) => {
+const showMoreCm = (array,total) => {
+  const pageCount = Math.ceil(total/10);
+  let currentPage = 1;
+  showMoreCmHndler(currentPage,pageCount);
+  moreCmBtn.addEventListener('click',() => {
+    ++currentPage;
+    for(let i = (currentPage * 10) - 9; i<= currentPage * 10; i++){
+      if(array[i-1]){
+        addCommentToCmList(array[i-1],total);
+      }
+    }
+    showMoreCmHndler(currentPage,pageCount);
+  });
 }
+const showMoreCmHndler = (pageNumber,totalPages) => {
+  moreCmBtn = document.querySelector('.show-more-cm');
+  if(pageNumber !== totalPages){
+    moreCmBtn.classList.remove('hidden');
+    moreCmBtn.classList.add('flex');
+  }
+  else {
+    moreCmBtn.classList.remove('flex');
+    moreCmBtn.classList.add('hidden');
+  }
+}
+const manageCmDate = (cmDate) => {
+  const rtf1 = new Intl.RelativeTimeFormat('fa', { style: 'short' });
+  const currentDate = getDate();
+  const yearDifference = cmDate.year - currentDate.year  ;
+  const monthDifference = cmDate.month - currentDate.month ;
+  const dayDifference = cmDate.day - currentDate.day;
+  const hoursDifference = cmDate.hours - currentDate.hours;
+  const minutesDifference = cmDate.minutes - currentDate.minutes;
+  const secondsDifference = cmDate.seconds - currentDate.seconds;
+  if(yearDifference < 0){
+    return rtf1.format(yearDifference, 'second')
+  }
+  else if(monthDifference < 0){
+    return rtf1.format(monthDifference, 'month')
+  }
+  else if(dayDifference < 0){
+    return rtf1.format(dayDifference, 'day')
+  }
+  else if(hoursDifference < 0){
+    return rtf1.format(hoursDifference, 'hour')
+  }
+  else if(minutesDifference < 0){
+    return rtf1.format(minutesDifference, 'minute')
+  }
+  else if(secondsDifference < 0){
+    return rtf1.format(secondsDifference, 'second')
+  }
+  else return 'همین الان'
+}
+const manageLikeCms = (elem) => {
+  const countOfLikesElm = elem.nextElementSibling;
+  let countOfLikes = countOfLikesElm.innerHTML;
+  let likeCmObj = null; 
+    if(elem.classList.contains('like')){
+      likeCmObj = {
+      'like' : ++countOfLikes
+    }}
+    else likeCmObj = {
+      'dislike' : ++countOfLikes
+    };
+  let cmElem = elem.parentElement.parentElement.parentElement.parentElement;
+  const cmId = cmElem.id;
+  fetch(`http://localhost:3000/comments/${cmId}`,{
+    method:'PATCH',
+    headers:{
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(likeCmObj)
+  })
+  .then((res) => res.json())
+  .then((result) => {
+    if(elem.classList.contains('like')) countOfLikesElm.innerHTML = result.like
+    if(elem.classList.contains('dislike')) countOfLikesElm.innerHTML = result.dislike
+  })
+};
 const genresMovies = async(index) =>{
   let genreId = getFromLocalStorage('genreId');
   let movies = await searchByGenres(genreId,index);
@@ -708,7 +887,7 @@ function formatNumber(num, precision = 2) {
 };
 const translate = async (data) =>{
   const myToken = '199909:64dca52456732';
-  const translateReq = await fetch(`https://one-api.ir/translate/?token=${myToken}&action=google&lang=fa&q=${data}`);
+  const translateReq = await fetch(`https://one-api.ir/translate/?token=${myToken}&action=microsoft&lang=fa&q=${data}`);
   const translatedData = await translateReq.json();
   return translatedData.result;
 };
@@ -890,7 +1069,11 @@ const activePage = (activePage) =>{
   else enableBtn(nextBtn);
 };
 function scrollToTop() {
-  window.scrollTo(0,0);
+  window.scrollTo({
+    top: 0,
+    left: 0,
+    behavior: "smooth",
+  });
 };
 const disableBtn = (btn)=> {
   btn.classList.remove('opacity-full');
@@ -1101,7 +1284,7 @@ const genresPageManage = () =>{
   genresItemElem.forEach(elem => {
     elem.addEventListener('click',(e)=>{
       const genreId = e.currentTarget.id;
-      saveIntoLocalStorage('genreName',elem.firstElementChild.nextElementSibling.innerHTML)
+      saveIntoLocalStorage('genreName',elem.firstElementChild.nextElementSibling.innerHTML);
       routing('genreId',genreId,'genrePage.html');
       createPath(genreName);
     })
