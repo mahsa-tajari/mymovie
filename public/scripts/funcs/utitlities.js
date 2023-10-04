@@ -1402,5 +1402,40 @@ const showProfile = (userinformation) =>{
   const btnsWrapper = document.getElementById('buttons');
   btnsWrapper.classList.remove('flex');
   btnsWrapper.classList.add('hidden');
+};
+const sendUserMessage = () => {
+  const userName = document.getElementById('name');
+  const userEmail = document.getElementById('email');
+  const usermessage = document.getElementById('message');
+  const errorElem = document.getElementById('error');
+  if(usermessage.value.length <= 0) {
+    errorElem.classList.remove('hidden');
+    errorElem.classList.add('flex');
+    errorElem.innerHTML = 'لطفا پیام خود را بنویسید!'
+  }
+  else{
+    let data = {
+      'name': userName.value,
+      'email': userEmail.value,
+      'message': usermessage.value
+    }
+    var request = new XMLHttpRequest();
+    request.onreadystatechange = function() {
+      if (request.readyState == XMLHttpRequest.DONE) {
+        if(request.responseText) {
+          errorElem.innerHTML = 'پیام شما با موفقیت ارسال شد. سپاسگزاریم!';
+          errorElem.classList.remove('hidden');
+          errorElem.classList.add('flex');
+          userName.value ="";
+          userEmail.value ="";
+          usermessage.value ="";
+        }
+      }
+    }
+  request.open('POST', 'http://localhost:3000/messages');
+  request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+  request.send(JSON.stringify(data));
+
+  }
 }
-export{icons,header,nav,footer,addDataToMoviePage,showSwall,showProfile,saveIntoLocalStorage,getFromLocalStorage,renderSearchResult,slider,paginationCalc,pagination,nextPage,previousPage,aside,genresMovies,path,createPath};
+export{icons,header,nav,footer,addDataToMoviePage,showSwall,showProfile,saveIntoLocalStorage,sendUserMessage,getFromLocalStorage,renderSearchResult,slider,paginationCalc,pagination,nextPage,previousPage,aside,genresMovies,path,createPath};

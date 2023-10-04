@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <link rel="stylesheet" href="./styles/app.css" />
+    <link rel="shortcut icon" href="./images/logo.PNG" type="image/x-icon">
+    <script type="text/javascript">
+      if (
+        localStorage.theme === "dark" ||
+        (!("theme" in localStorage) &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches)
+      ) {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
+    </script>
+    <title></title>
+</head>
+<body class="flex flex-col gap-y-4 bg-gray-100 h-screen dark:bg-black text-base text-dark-gray dark:text-gray-200">
+    <!-- icons -->
+    <svg class="icons-wrapper hidden"></svg>
+    <header id="header" class="flex flex-col gap-y-5"></header>
+    <nav id="nav" class="fixed sm:hidden w-8/12 top-0 bottom-0 z-50 -right-full bg-gray-300 dark:bg-black transition-all duration-700"></nav>
+    <main id="main" class="flex flex-col items-center gap-y-4">
+        <div class="w-full flex flex-col justify-center items-center gap-y-4 px-4">
+            <h4 class="border-b-2 border-orange-1 pb-2 px-2">تماس با ما</h4>
+            <p>این بخش برای پاسخگویی به سوالات، انتقادات و پیشنهادات شما طراحی شده است. از اینکه برای بهتر شدن ما وقت می‌گذارید متشکریم.</p>
+        </div>
+        <div id="error" class="hidden justify-center w-96 py-2 bg-yellow-200 text-orange-400 border border-orange-500"></div>
+        <form id="connection-form" action="#" class="flex flex-col items-center w-full gap-y-4 p-4 child:w-full child:text-dark-gray child:outline-none child:py-3 child:px-2 child:rounded-3xl child:bg-gray-300 md:child:w-80">
+            <input id="name" type="text" placeholder="نام شما" class="">
+            <input type="email" id="email" placeholder="ایمیل شما">
+            <textarea id="message" id="message" placeholder="پیام"></textarea>
+        </form>
+        <div class="w-full flex justify-center"><button form="connection-form" class="bg-orange-1 w-36 text-white py-2 rounded-3xl" type="submit">ارسال پیام</button></div>
+    </main>
+    <footer id="footer" class="flex flex-col w-full"></footer>
+    <!-- overlay -->
+    <div class="hidden sm:hidden overlay fixed inset-0 w-full h-full bg-black/50 dark:bg-white/20 z-40"></div>
+    <script src="./scripts/vendor/sweet-alert2/sweet-alert.js"></script>
+    <script src="./scripts/connection.js" type="module"></script>
+</body>
+</html>
