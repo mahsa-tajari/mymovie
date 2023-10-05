@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "build": "npx tailwind -i ./src/input.css -o ./public/styles/app.css --watch"
+    "start": "npx tailwind -i ./src/input.css -o ./public/styles/app.css --watch"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.14",
