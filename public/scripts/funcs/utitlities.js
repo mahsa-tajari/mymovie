@@ -485,16 +485,17 @@ const addDataToMoviePage = async (wrapperElem) =>{
         </ul>
       </div>
     </div>
-    <div class="flex flex-col gap-y-4 w-10/12 z-30 rounded-md bg-gray-200 overflow-hidden">
-      <div class="movie-option w-full flex justify-between items-center rounded-md border-r-8 border-r-orange-1 py-3 px-4 text-lg cursor-pointer bg-white text-dark-gray">
-        <span>نظرات</span>
-        <div class="flex text-lg transition-transform duration-500 rotate-90">
-          <svg class="w-4 h-4"><use href="#arrow"></use></svg>
-        </div>
+    <div class="flex relative flex-col gap-y-4 w-10/12 z-30 rounded-md overflow-hidden">
+      <div class="bg-gray-200 dark:bg-white/20 flex flex-col gap-y-4 rounded-md">
+      <div id="comments" class="movie-option w-full flex justify-between items-center rounded-md border-r-8 border-r-orange-1 py-3 px-4 text-lg cursor-pointer bg-white dark:bg-dark-gray">
+      <span>نظرات</span>
+      <div class="flex text-lg transition-transform duration-500 rotate-90">
+        <svg class="w-4 h-4"><use href="#arrow"></use></svg>
       </div>
-      <div class="w-full relative hidden pr-4 pb-4 rounded-md">
-        <div class="bg-white relative overflow-hidden rounded-md rounded-ee-none rounded-se-none py-6 px-6 shadow-md space-y-4">
-        <div class="w-36 h-36 rounded-3xl bg-gray-100 absolute top-0 -left-9 rotate-45">
+    </div>
+    <div class="w-full hidden pr-4 pb-4 rounded-md">
+      <div class="bg-white dark:bg-dark-gray relative overflow-hidden rounded-md rounded-ee-none rounded-se-none py-6 px-6 shadow-md space-y-6">
+        <div class="w-36 h-36 rounded-3xl bg-gray-100 dark:bg-white/20 absolute top-0 -left-9 rotate-45">
           <div class="w-full h-full flex flex-col justify-center -rotate-45">
             <span id="cm-count" class="flex w-full justify-center text-xl text-orange-1"></span>
             <span>COMMENTS</span>
@@ -504,38 +505,55 @@ const addDataToMoviePage = async (wrapperElem) =>{
             <svg class="w-12 h-12"><use href="#chat"></use></svg>
             <span>نظرات کاربران</span>
           </div>
-          <p class="text-sm leading-6 tablet:text-base tablet:leading-8">کامنت خود را بصورت فارسی تایپ نمایید. از به کار بردن کلمات رکیک یا توهین آمیز خودداری نمایید. <br>
-           با اعلام نظر خود، به سایر کاربران برای انتخاب فیلم، کمک کنید.
-          </p>
-          <div id="send-cm-alert" class="w-full hidden justify-center py-2 bg-green-300/30 text-lg text-green-500">
-            <span>ارسال دیدگاه با موفقیت انجام شد.</span>
-          </div>
-          <div id="unsuccess-send-cm-alert" class="w-full hidden justify-center py-2 bg-red-300/30 text-red-500">
-            <span>محتوای دیدگاه نمی‌تواند خالی باشد!</span>
-          </div>
-          <form id="cm-form" class="space-y-2">
-            <textarea maxlength="500" name="cm-message" class="w-full resize h-40 py-2 px-4 outline-none bg-gray-300 rounded-md placeholder-gray-500" placeholder="متن دیدگاه را وارد کنید."></textarea>
-            <div class="w-full flex justify-end">
-              <button id="send-cm" type="submit" class="bg-orange-1 text-white rounded-2xl py-1 px-3">ارسال دیدگاه</button>
+          <div id="form-wrapper" class="hidden flex-col gap-y-4">
+            <p class="text-sm leading-6 tablet:text-base tablet:leading-8">کامنت خود را بصورت فارسی تایپ نمایید. از به کار بردن کلمات رکیک یا توهین آمیز خودداری نمایید. <br>
+              با اعلام نظر خود، به سایر کاربران برای انتخاب فیلم، کمک کنید.
+            </p>
+            <div id="send-cm-alert" class="w-full hidden justify-center py-2 bg-green-300/30 text-lg text-green-500">
+              <span>ارسال دیدگاه با موفقیت انجام شد.</span>
             </div>
-          </form>
-          <ul id="comments-wrapper" class="child:bg-gray-100 child:w-full child:rounded-md child:py-4 child:px-6 child:flex child:flex-col child:items-center child:gap-6 sm:child:flex-row flex flex-col items-center gap-y-2">
-          </ul>
-          <div class="show-more-cm w-full text-orange-1 p-1 hidden justify-center">
-            <span class="cursor-pointer">نمایش بیشتر</span
+            <div id="unsuccess-send-cm-alert" class="w-full hidden justify-center py-2 bg-red-300/30 text-red-500">
+              <span>محتوای دیدگاه نمی‌تواند خالی باشد!</span>
+            </div>
+            <form id="cm-form" class="space-y-2">
+              <textarea maxlength="500" name="cm-message" class="w-full resize h-40 py-2 px-4 outline-none bg-gray-300 dark:bg-black rounded-md placeholder-gray-500" placeholder="متن دیدگاه را وارد کنید."></textarea>
+              <div class="w-full flex justify-end">
+                <button id="send-cm" type="submit" class="bg-orange-1 text-white rounded-2xl py-1 px-3">ارسال دیدگاه</button>
+              </div>
+            </form>
           </div>
+        <div id="cm-conditions" class="flex justify-center">
+          <p class="flex items-center gap-x-2 child:shadow-md dark:child:shadow-gray-950 child:border-t border-gray-200 dark:border-black child:rounded-2xl child:py-2 child:px-4 child:flex child:justify-center child:items-center child:gap-x-1 child:w-48">
+            برای انتشار دیدگاه 
+            <a href="login.html">
+              <svg class="w-5 h-5"><use href="#enter"</use></svg>
+              <span>وارد حساب خود شوید</span>
+            </a>
+            یا 
+            <a href="signup.html">
+              <svg class="w-5 h-5 dark:hidden"><use href="#add-user"></use></svg>
+              <span>در سایت عضو شوید</span>
+            </a>
+          </p>
+        </div>
+        <ul id="comments-wrapper" class="child:bg-gray-100 dark:child:bg-black child:w-full child:rounded-md child:py-4 child:px-6 child:flex child:flex-col child:items-center child:gap-6 sm:child:flex-row flex flex-col items-center gap-y-2">
+        </ul>
+        <div class="show-more-cm w-full text-orange-1 p-1 hidden justify-center">
+          <span class="cursor-pointer">نمایش بیشتر</span
         </div>
       </div>
     </div>
-    <div class="flex flex-col gap-y-4 w-full z-30 rounded-md bg-gray-200 overflow-hidden">
-      <div id="related-movies" class="movie-option w-full flex justify-between items-center rounded-md border-r-8 border-r-orange-1 py-3 px-4 text-lg cursor-pointer bg-white text-dark-gray">
+      </div>
+    </div>
+    <div class="flex flex-col gap-y-4 w-full z-30 rounded-md bg-gray-200 dark:bg-white/20 overflow-hidden">
+      <div id="related-movies" class="movie-option w-full flex justify-between items-center rounded-md border-r-8 border-r-orange-1 py-3 px-4 text-lg cursor-pointer bg-white dark:bg-dark-gray">
         <span>فیلم‌های مرتبط</span>
         <div class="flex text-lg transition-transform duration-500 rotate-90">
           <svg class="w-4 h-4"><use href="#arrow"></use></svg>
         </div>
       </div>
       <div class="w-full hidden pr-4 pb-4 rounded-md">
-        <ul class="related-movies-wrapper flex flex-wrap gap-8 child:flex child:flex-col child:items-center child:cursor-pointer">
+        <ul class="related-movies-wrapper bg-white dark:bg-dark-gray p-4 rounded-md flex flex-wrap gap-8 child:flex child:flex-col child:items-center child:cursor-pointer">
         </ul>
         <span class="text-orange-1 w-full flex justify-center waiting">در حال بارگزاری...</span>
       </div>
@@ -549,18 +567,11 @@ const addDataToMoviePage = async (wrapperElem) =>{
   let dotLoader = document.querySelector('.dot-loader');
   dotLoader.classList.remove('flex');
   dotLoader.classList.add('hidden');
-  // load comments
-  comments();
   const options = document.querySelectorAll('.movie-option');
   options.forEach(option => {
     option.addEventListener('click',(e) => {
       openOptionSubmenu(e.currentTarget);
     });
-  });
-  const cmForm = document.getElementById('cm-form');
-  cmForm.addEventListener('submit',(e)=>{
-    e.preventDefault();
-    manageCommentFunction();
   });
 };
 const openOptionSubmenu = (menu) => {
@@ -671,7 +682,7 @@ const addCommentToCmList = (info,lengthArray) => {
     const date = manageCmDate(info.date);
     let data = `<li id="${info.id}">
     <div class="w-full sm:w-auto flex justify-between sm:flex-col sm:gap-y-4 items-center xl:flex-row xl:gap-x-4">
-      <div class="flex gap-x-3 child:cursor-pointer child:flex child:flex-col child:items-center child:px-2 child:py-2 child:bg-gray-200 child:rounded-md">
+      <div class="flex gap-x-3 child:cursor-pointer child:flex child:flex-col child:items-center child:px-2 child:py-2 child:bg-gray-200 dark:child:bg-dark-gray child:rounded-md">
         <div>
           <svg class="cm-like-dislike like text-green-600 w-6 h-6"><use href="#like"></use></svg>
           <span>${info.like}</span>
@@ -690,7 +701,7 @@ const addCommentToCmList = (info,lengthArray) => {
     <div class="flex flex-col w-full gap-y-2">
       <div class="flex justify-between font-roboto-light sm:justify-between">
         <span class="text-orange-1">${res[0].name}</span>
-        <span class="text-gray-500">(<span>${date}</span>)</span>
+        <span class="text-gray-500 dark:text-white">(<span>${date}</span>)</span>
       </div>
       <p>${info.comment}</p>
     </div>
@@ -710,6 +721,25 @@ const addCommentToCmList = (info,lengthArray) => {
 };
 let moreCmBtn = null;
 const comments = async() => {
+  const isUserIn = isUserRegistered();
+  const cmForm = document.getElementById('cm-form');
+  const formWrapper = document.getElementById('form-wrapper');
+  const formConditionsWrapper = document.getElementById('cm-conditions');
+  console.log(isUserIn);
+  if(isUserIn === true) {
+    formWrapper.classList.remove('hidden');
+    formWrapper.classList.add('flex');
+    formConditionsWrapper.classList.add('hidden');
+    cmForm.addEventListener('submit',(e)=>{
+      e.preventDefault();
+      manageCommentFunction();
+    });
+  }
+  else {
+    formWrapper.classList.add('hidden');
+    formWrapper.classList.remove('flex');
+    formConditionsWrapper.classList.remove('hidden');
+  }
   const movieId = getFromLocalStorage('movieId');
   const request = await fetch(`http://localhost:3000/comments?movieId=${movieId}`);
   const commentsArray = await request.json();
@@ -726,6 +756,12 @@ const comments = async() => {
     addCommentToCmList(comment,cmCount);
   });
 };
+const isUserRegistered = () => {
+  const userId = getFromLocalStorage('userId');
+  if(userId) return true
+  else return false
+
+}
 const showMoreCm = (array,total) => {
   const pageCount = Math.ceil(total/10);
   let currentPage = 1;
@@ -920,7 +956,7 @@ function formatNumber(num, precision = 2) {
   }
 };
 const translate = async (data) =>{
-  const myToken = '199909:64dca52456731';
+  const myToken = '199909:64dca52456732';
   const translateReq = await fetch(`https://one-api.ir/translate/?token=${myToken}&action=microsoft&lang=fa&q=${data}`);
   const translatedData = await translateReq.json();
   return translatedData.result;
@@ -1437,5 +1473,5 @@ const sendUserMessage = () => {
   request.send(JSON.stringify(data));
 
   }
-}
+};
 export{icons,header,nav,footer,addDataToMoviePage,showSwall,showProfile,saveIntoLocalStorage,sendUserMessage,getFromLocalStorage,renderSearchResult,slider,paginationCalc,pagination,nextPage,previousPage,aside,genresMovies,path,createPath};
