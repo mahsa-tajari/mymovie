@@ -756,7 +756,6 @@ const isUserRegistered = () => {
   const userId = getFromLocalStorage('userId');
   if(userId) return true
   else return false
-
 }
 const showMoreCm = (array,total) => {
   const pageCount = Math.ceil(total/10);
@@ -950,8 +949,8 @@ function formatNumber(num, precision = 2) {
   }
 };
 const translate = async (data) =>{
-  const myToken = '199909:64dca52456732';
-  const translateReq = await fetch(`https://one-api.ir/translate/?token=${myToken}&action=microsoft&lang=fa&q=${data}`);
+  const myToken = '199909:64dca52456731';
+  const translateReq = await fetch(`https://one-api.ir/translate/?token=${myToken}&action=google&lang=fa&q=${data}`);
   const translatedData = await translateReq.json();
   return translatedData.result;
 };
