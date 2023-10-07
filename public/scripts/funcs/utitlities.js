@@ -865,40 +865,38 @@ const repairValues = async(data) =>{
   if(!!data.plot === false) data.plot = '-';
 };
 const addDataToSearchResultBox = (moviesArray) =>{
-  let totalNumberOfAddedMovies = 0;
   resultWrapperElem.innerHTML = "";
-  moviesArray.forEach(async(movie) => {
-    movie[1].genres = await translate(movie[1].genres);
-    totalNumberOfAddedMovies++;
-    if(totalNumberOfAddedMovies > 0){
-      if(totalNumberOfAddedMovies > 4) return
-      else{
-        resultWrapperElem.insertAdjacentHTML('afterbegin',
-        `<div id="${movie[1].id}" class="movie py-3 cursor-pointer font-roboto-regular">
-          <div class="flex justify-end gap-x-3">
-            <div class="flex flex-col justify-center items-end overflow-hidden">
-              <span class="whitespace-nowrap">${movie[1].title} ${movie[1].year}</span>
-              <span class="text-xs font-iran-yekan">${movie[1].genres}</span>
-            </div>
-            <div class="w-12 h-14 rounded-md overflow-hidden">
-              <img class="h-full w-full" src="${movie[1].poster}" alt="${movie[1].title}">
-            </div>
-            <div class="flex flex-col">
-              <svg class="w-6 h-6 text-orange-1">
-                <use href="#star"></use>
-              </svg>
-              <span>${movie[1].imdb_rating}</span>
-            </div>
+  let shortArr = [];
+  [shortArr[0],shortArr[1],shortArr[2],shortArr[3]] = moviesArray;
+  shortArr.forEach(async(movie) => {
+    if(movie){
+      movie[1].genres = await translate(movie[1].genres);
+      resultWrapperElem.insertAdjacentHTML('afterbegin',
+      `<div id="${movie[1].id}" class="movie py-3 cursor-pointer font-roboto-regular">
+        <div class="flex justify-end gap-x-3">
+          <div class="flex flex-col justify-center items-end overflow-hidden">
+            <span class="whitespace-nowrap">${movie[1].title} ${movie[1].year}</span>
+            <span class="text-xs font-iran-yekan">${movie[1].genres}</span>
           </div>
-        </div>`);
-        const movies = document.querySelectorAll('.movie');
-        movies.forEach(movie => {
-          movie.addEventListener('click',() => {
-            routing('movieId',movie.id,'movie.html');
-          });
-        });
-      }
+          <div class="w-12 h-14 rounded-md overflow-hidden">
+            <img class="h-full w-full" src="${movie[1].poster}" alt="${movie[1].title}">
+          </div>
+          <div class="flex flex-col">
+            <svg class="w-6 h-6 text-orange-1">
+              <use href="#star"></use>
+            </svg>
+            <span>${movie[1].imdb_rating}</span>
+          </div>
+        </div>
+      </div>`);
     }
+    else return
+  });
+  const movies = document.querySelectorAll('.movie');
+  movies.forEach(movie => {
+    movie.addEventListener('click',() => {
+      routing('movieId',movie.id,'movie.html');
+    });
   });
 };
 const Toast = Swal.mixin({
