@@ -989,7 +989,7 @@ const slider = async() => {
     deskSlider.insertAdjacentHTML('beforeend',
       `<img id="${movie.id}" class="slider-slide deskSlide w-full rounded-md hidden" src="${movie.images[1]}">`);
     sliderWrapper.insertAdjacentHTML('beforeend',
-      `<img id="${movie.id}" class="slider-slide slide w-96 rounded-lg border-2 border-white" src="${movie.poster}">`
+      `<img id="${movie.id}" class="slider-slide slide z-20 w-96 rounded-lg border-2 border-white" src="${movie.poster}">`
     )
   });
   const movieDetailWrapper = document.querySelector('.details');
