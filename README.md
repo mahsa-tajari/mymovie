@@ -1,5 +1,5 @@
 # mymovie
-🤞 https://mymovie.iran.liara.run/index.html
+🤞 https://mymovie.iran.liara.run
 <br>
 🤞 250 IMDB best movies information!
 <br>
