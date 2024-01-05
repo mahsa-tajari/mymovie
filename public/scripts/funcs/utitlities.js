@@ -949,7 +949,7 @@ function formatNumber(num, precision = 2) {
   }
 };
 const translate = async (data) =>{
-  const myToken = '992369:652d1886dfa96';
+  const myToken = '419788:65986b163d3d9';
   const translateReq = await fetch(`https://one-api.ir/translate/?token=${myToken}&action=google&lang=fa&q=${data}`);
   const translatedData = await translateReq.json();
   return translatedData.result;
